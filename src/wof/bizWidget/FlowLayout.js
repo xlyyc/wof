@@ -7,7 +7,7 @@
 wof.bizWidget.FlowLayout = function () {
 
     //记录该widget所有的发送消息和描述信息 供属性条控件使用
-    this._sendMessages = {'wof.bizWidget.FlowLayout_click':'单击','wof.bizWidget.FlowLayout_section_active':'激活分组','wof.bizWidget.FlowLayout_item_active':'激活单元格','wof.bizWidget.FlowLayout_section_blur':'失焦分组'};
+    this._sendMessages = {'wof.bizWidget.FlowLayout_click':'单击','wof.bizWidget.FlowLayout_render':'重绘'};
 
     var _this = this;
     this.getDomInstance().click(function(event){
@@ -97,6 +97,7 @@ wof.bizWidget.FlowLayout.prototype = {
     //选择实现
     afterRender: function () {
         this._layout();
+        this.sendMessage('wof.bizWidget.FlowLayout_render')
     },
 
     /**
@@ -444,13 +445,9 @@ wof.bizWidget.FlowLayout.prototype = {
             var activeItem = activeSection.findItemByRank(this._activeItemRank);
             if(activeItem!=null){
                 activeSection.activeItemStyle(activeItem);
-                this.sendMessage('wof.bizWidget.FlowLayout_item_active');
             }else{
                 activeSection.activeSectionStyle();
-                this.sendMessage('wof.bizWidget.FlowLayout_section_active');
             }
-        }else{
-            this.sendMessage('wof.bizWidget.FlowLayout_section_blur');
         }
 
     }

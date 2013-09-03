@@ -153,7 +153,7 @@ jQuery(function(){
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                propertyBar.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_section_blur',method:'this.setPropertys(message.sender);this.render();'},{id:'wof.bizWidget.FlowLayout_section_active',method:'this.setPropertys(message.sender);this.render();'},{id:'wof.bizWidget.FlowLayout_item_active',method:'this.setPropertys(message.sender);this.render();'}]);
+                propertyBar.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
                 propertyBar.setTop(50);
                 propertyBar.setLeft(5);
                 propertyBar.appendTo(tabItem1);
@@ -193,7 +193,7 @@ jQuery(function(){
                         wof.util.ObjectManager.add(panel.getId(), panel);
 
                         var flowLayoutSpanner = new FlowLayoutSpanner();
-                        flowLayoutSpanner.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_section_blur',method:'this.setPropertys(message.sender);this.render();'},{id:'wof.bizWidget.FlowLayout_section_active',method:'this.setPropertys(message.sender);this.render();'},{id:'wof.bizWidget.FlowLayout_item_active',method:'this.setPropertys(message.sender);this.render();'}]);
+                        flowLayoutSpanner.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
                         flowLayoutSpanner.appendTo(panel);
 
                         var itemHeight = 70;
@@ -204,7 +204,7 @@ jQuery(function(){
                         flowLayout.setTop(0);
                         //flowLayout.setHeight(600);
                         flowLayout.setWidth(width);
-                        flowLayout.setCols(5);
+                        flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
 
                         var method = 'eval(\'this.childNodes()[0].setTitle("被修改的标题")\');eval("this.render()");return false;';

@@ -8,10 +8,35 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
 
     var _this = this;
 
-    //todo flowLayout需要加入句柄
-
-
-
+    this._selectFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/selectFlowLayout.png">');
+    this._deleteFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteFlowLayout.png">');
+    this._selectFlowLayoutIco.click(function(event){
+        event.stopPropagation();
+        console.log('ddddddd');
+    });
+    this._deleteFlowLayoutIco.click(function(event){
+        event.stopPropagation();
+        var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该流式布局吗?</p></div>');
+        dialogDiv.dialog({
+            resizable:false,
+            height:200,
+            modal: true,
+            buttons:{
+                '确定':function(){
+                    var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+                    flowLayout.clear();
+                    flowLayout.remove();
+                    flowLayout.render();
+                    jQuery(this).dialog('close');
+                    jQuery(this).remove();
+                },
+                '关闭':function(){
+                    jQuery(this).dialog('close');
+                    jQuery(this).remove();
+                }
+            }
+        });
+    });
     this._deleteSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteSection.png">');
     this._insertSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/insertSection.png">');
     this._upSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/upSection.png">');
@@ -179,6 +204,10 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     _downSectionIco:null,
 
+    _selectFlowLayoutIco:null,
+
+    _deleteFlowLayoutIco:null,
+
 
     /**
      * get/set 属性方法定义
@@ -201,6 +230,8 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     //选择实现
     beforeRender: function () {
+        this._selectFlowLayoutIco.detach();
+        this._deleteFlowLayoutIco.detach();
         this._deleteSectionIco.detach();
         this._insertSectionIco.detach();
         this._upSectionIco.detach();
@@ -249,6 +280,11 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeSection.getDomInstance().append(this._downSectionIco);
                 }
             }
+            //当前选中的flowLayout加入拖放 删除操作句柄
+            this._selectFlowLayoutIco.css('top',-16).css('left',0);
+            flowLayout.getDomInstance().append(this._selectFlowLayoutIco);
+            this._deleteFlowLayoutIco.css('top',-16).css('left',this._deleteFlowLayoutIco.width()+2);
+            flowLayout.getDomInstance().append(this._deleteFlowLayoutIco);
         }
     },
 
