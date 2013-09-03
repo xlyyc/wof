@@ -1,0 +1,81 @@
+－－－－基本选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+* 所有对象
+
+#oid1 oid＝"oid1"的对象
+
+className1 className="className1"的对象（支持完整类名和短类名两种方式）
+
+－－－－群组选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+selector1,selector2,selectorN 所有匹配群组selector1,selector2,selectorN的对象
+
+－－－－层次选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+parent>child 所有指定父对象下的子对象（只包含一级子对象）
+
+ancestor descendant 指定祖先对象的所有后代对象
+
+prev+next 紧邻同辈对象后的一个对象
+
+prev-siblings紧邻对象后的所有同辈对象
+
+－－－－简单过滤选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+:first 第一个对象
+
+:last 最后一个对象
+
+:even 所有偶数对象
+
+:odd 所有奇数对象
+
+:eq(i) 第i个对象（i从0开始）
+
+:gt(i) 所有索引大于i的对象
+
+:lt(i) 所有索引小于i的对象
+
+:not(selector) 所有不在selector范围内的对象
+
+－－－－内容过滤选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+:empty 无子对象的所有对象
+
+:parent 包含子对象的所有对象
+
+:has(selector) 所有包含selector的对象
+
+－－－－属性过滤选择器－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+[attribute1] 所有带有attribute1属性的对象
+
+[attribute1=value1] 所有属性attribute1的值等于value1的对象
+
+[attribute1!=value1] 所有属性attribute1的值不等于value1的对象
+
+[attribute1^=value1] 所有属性attribute1的值以value1开头的对象
+
+[attribute1$=value1] 所有属性attribute1的值以value1结尾的对象
+
+[attribute1*=value1] 所有属性attribute1的值包含value1的对象
+
+[attribute1~=value1] 所有属性attribute1的值包含value1（以空格分隔的单词）的对象
+
+[selector1][selector2][selectorN] 所有同时满足多个过滤条件的对象（selector必须是有效的属性过滤选择器）
+
+－－－－子对象过滤选择器－－－－－－－－－－－－－-－－－－－－－－－－－－－－－－－－－－－
+
+:child(index/even/odd) 选取每个对象下的第index个子对象或者奇偶对象
+
+:first-child 每个对象的第一个子对象
+
+:last-child 每个对象的最后一个子对象
+
+:only-child 如果某个子对象是它父对象中唯一的子对象，那么将会被匹配。如果父对象中含有其他子对象，则不会被匹配
+
+－－－－可见性过滤选择器－－－－－－－－－－－－－-－－－－－－－－－－－－－－－－－－－－－
+
+:hidden 所有隐藏的对象
+
+:visible 所有可见的对象
