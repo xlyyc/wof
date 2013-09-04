@@ -302,6 +302,29 @@ wof.bizWidget.FlowLayout.prototype = {
     },
 
     /**
+     * 修改指定序号的section
+     * sectionData section数据
+     */
+    updateSection: function(sectionIndex, sectionData){
+        if(!jQuery.isEmptyObject(sectionData)){
+            var section = this.findSectionByIndex(sectionIndex);
+            if(section!=null){
+                if(sectionData.title!=null){
+                    section.setTitle(sectionData.title);
+                }
+                if(sectionData.cols!=null){
+                    section.setCols(sectionData.cols);
+                }
+                if(sectionData.width!=null){
+                    section.setWidth(sectionData.width);
+                }
+                this.setActiveSectionIndex(null);
+                this.setActiveItemRank(null);
+            }
+        }
+    },
+
+    /**
      * 删除指定序号的item
      * itemRank 指定的item行列号
      * sectionIndex 指定的section序号(序号从1开始)
