@@ -307,37 +307,39 @@ wof.bizWidget.FlowLayout.prototype = {
      * flowLayoutData flowLayout数据
      */
     updateFlowLayout: function(flowLayoutData){
-
-        /*
-        activeData.activeType = 'FlowLayout';
-        activeData.cols = flowLayout.getCols();
-        activeData.itemHeight = flowLayout.getItemHeight();
-        activeData.width = flowLayout.getWidth();
-        activeData.height = flowLayout.getHeight();
-        activeData.left = flowLayout.getLeft();
-        activeData.top = flowLayout.getTop();
-        activeData.zIndex = flowLayout.getZIndex();
-        activeData.hiden = flowLayout.getHiden();
-        activeData.position = flowLayout.getPosition();
-        activeData.scale = flowLayout.getScale();
-        activeData.onSendMessage = flowLayout.getOnSendMessage();
-        activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
-        */
         if(!jQuery.isEmptyObject(flowLayoutData)){
-            var section = this.findSectionByIndex(sectionIndex);
-            if(section!=null){
-                if(sectionData.title!=null){
-                    section.setTitle(sectionData.title);
-                }
-                if(sectionData.cols!=null){
-                    section.setCols(sectionData.cols);
-                }
-                if(sectionData.width!=null){
-                    section.setWidth(sectionData.width);
-                }
-                this.setActiveSectionIndex(null);
-                this.setActiveItemRank(null);
+            if(flowLayoutData.cols!=null){
+                this.setCols(flowLayoutData.cols);
             }
+            if(flowLayoutData.itemHeight!=null){
+                this.setItemHeight(flowLayoutData.itemHeight);
+            }
+            if(flowLayoutData.width!=null){
+                this.setWidth(flowLayoutData.width);
+            }
+            if(flowLayoutData.height!=null){
+                this.setHeight(flowLayoutData.height);
+            }
+            if(flowLayoutData.left!=null){
+                this.setLeft(flowLayoutData.left);
+            }
+            if(flowLayoutData.top!=null){
+                this.setTop(flowLayoutData.top);
+            }
+            if(flowLayoutData.zIndex!=null){
+                this.setZIndex(flowLayoutData.zIndex);
+            }
+            if(flowLayoutData.hiden!=null){
+                this.setHiden(flowLayoutData.hiden);
+            }
+            if(flowLayoutData.position!=null){
+                this.setPosition(flowLayoutData.position);
+            }
+            if(flowLayoutData.scale!=null){
+                this.setScale(flowLayoutData.scale);
+            }
+            this.setActiveSectionIndex(null);
+            this.setActiveItemRank(null);
         }
     },
 
@@ -358,7 +360,7 @@ wof.bizWidget.FlowLayout.prototype = {
                 if(sectionData.width!=null){
                     section.setWidth(sectionData.width);
                 }
-                this.setActiveSectionIndex(null);
+                this.setActiveSectionIndex(sectionData.index);
                 this.setActiveItemRank(null);
             }
         }

@@ -320,6 +320,8 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                 activeData.hiden = flowLayout.getHiden();
                 activeData.position = flowLayout.getPosition();
                 activeData.scale = flowLayout.getScale();
+                activeData.activeSectionIndex = flowLayout.getActiveSectionIndex();
+                activeData.activeItemRank = flowLayout.getActiveItemRank();
                 activeData.onSendMessage = flowLayout.getOnSendMessage();
                 activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
             }

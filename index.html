@@ -207,7 +207,7 @@ jQuery(function(){
                         flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
 
-                        var method = 'eval(\'this.childNodes()[0].setTitle("被修改的标题")\');eval("this.render()");return false;';
+                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.render();';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_click',priority:50,method:method}]);
                         flowLayout.appendTo(panel);
 
@@ -242,11 +242,11 @@ jQuery(function(){
                             var flowLayoutItem = new FlowLayoutItem();
                             flowLayoutItem.setColspan(2);
                             var btn = new Button();
-                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),index:section.getIndex(),title:"修改分组标题",cols:2,width:400});layout.render();return false;'}]);
+                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),index:section.getIndex(),title:"修改分组标题",cols:2,width:400});layout.render();'}]);
                             btn.setType('submit');
                             btn.setLeft(0);
                             btn.setTop(0);
-                            btn.setText('修改分组一的标题、列数、宽度'+String(t));
+                            btn.setText('修改分组标题、列数、宽度'+String(t));
                             btn.appendTo(flowLayoutItem);
 
                             flowLayoutItem.appendTo(flowLayoutSection2);
