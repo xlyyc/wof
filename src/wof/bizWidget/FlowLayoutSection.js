@@ -132,6 +132,15 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	 setTitleHeight: function(titleHeight){
         this._titleHeight = titleHeight;
 	 },
+
+    getWidth: function(width){
+        if(this._width==null){
+            if(this.parentNode()!=null){
+                this._width = this.parentNode().getWidth();
+            }
+        }
+        return this._width;
+    },
 	 
     /**
      * Render 方法定义

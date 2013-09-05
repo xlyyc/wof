@@ -23,7 +23,7 @@
 <script src="lib/jquery.ui.multiselect/js/jquery.multiselect.filter.min.js"></script>
 <script src="lib/json2.js"></script>
 <script src="lib/fixConsole.js"></script>
-<script src="src/wof/lib/initNamespace.js"></script>
+<script src="src/wof/kernel/initNamespace.js"></script>
 
 <script src="src/wof/util/Hashtable.js"></script>
 <script src="src/wof/util/ObjectManager.js"></script>
@@ -32,7 +32,7 @@
 <script src="src/wof/util/Selector.js"></script>
 <script src="src/wof/util/SelectorList.js"></script>
 
-<script src="src/wof/kernel/Mediator.js"></script>
+<script src="src/wof/util/Mediator.js"></script>
 
 <script src="src/wof/widget/Panel.js"></script>
 <script src="src/wof/widget/Tab.js"></script>
@@ -54,7 +54,7 @@
 
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
 
-<script src="src/wof/lib/initAOP.js"></script>
+<script src="src/wof/kernel/initAOP.js"></script>
 <script>
 
 jQuery(function(){
@@ -153,7 +153,7 @@ jQuery(function(){
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                propertyBar.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
+                propertyBar.setOnReceiveMessage([{id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:'this.setPropertys(message.sender.activeData);this.render();'}]);
                 propertyBar.setTop(50);
                 propertyBar.setLeft(5);
                 propertyBar.appendTo(tabItem1);

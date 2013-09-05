@@ -70,19 +70,6 @@ wof.bizWidget.PropertyBar.prototype={
             }
             var table = this._createTable(trs);
             this.getDomInstance().append(table);
-
-            var applyBtn = jQuery('<input type="button" value=" 应用 ">');
-            this.getDomInstance().append(applyBtn);
-            applyBtn.click(function(event){
-                _this.sendMessage('system_object_update', propertys);
-            });
-            var removeBtn = jQuery('<input type="button" value=" 删除 ">');
-            this.getDomInstance().append(removeBtn);
-            removeBtn.click(function(event){
-                _this.sendMessage('system_object_delete', {'id':propertys.id});
-                _this.setPropertys(null);
-                _this.render();
-            });
 		}
 	},
 	//必须实现

@@ -12,9 +12,10 @@ wof.bizWidget.FlowLayout = function () {
     var _this = this;
     this.getDomInstance().click(function(event){
         event.stopPropagation();
-        var positionX = event.pageX;
-        var positionY = event.pageY;
-        _this.sendMessage('wof.bizWidget.FlowLayout_click',{x:positionX,y:positionY});
+        var pageX = event.pageX;
+        var pageY = event.pageY;
+        //todo 鼠标位置的传递方式
+        _this.sendMessage('wof.bizWidget.FlowLayout_click');
     });
 
 };

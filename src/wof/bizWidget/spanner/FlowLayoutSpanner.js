@@ -12,7 +12,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     this._deleteFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteFlowLayout.png">');
     this._selectFlowLayoutIco.click(function(event){
         event.stopPropagation();
-        console.log('ddddddd');
+        console.log('selectFlowLayoutIco_click');
     });
     this._deleteFlowLayoutIco.click(function(event){
         event.stopPropagation();
@@ -190,6 +190,8 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
     //属性
     _propertys: null,
 
+    _activeData: null,
+
     _mergeItemArrow:null,
 
     _splitItemArrow:null,
@@ -224,6 +226,18 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
         return this._propertys;
     },
 
+    setActiveData:function(activeData){
+        this._activeData = activeData;
+    },
+
+    getActiveData: function(){
+        if(this._activeData==null){
+            this._activeData = {};
+        }
+        return this._activeData;
+    },
+
+
     /**
      * Render 方法定义
      */
@@ -243,28 +257,42 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     //----------必须实现----------
     render: function () {
+        var activeData = {};
+        activeData.id = this.getPropertys().id;
+        activeData.className = this.getPropertys().className;
         var flowLayout = wof.util.ObjectManager.get(this.getPropertys().id);
         if(flowLayout!=null){
             var activeSectionIndex = this.getPropertys().activeSectionIndex;
-            if(activeSectionIndex!=null){
-                var activeSection = flowLayout.findSectionByIndex(activeSectionIndex);
-                if(activeSection.getIsExpand()==true){ //如果section收缩状态 不需要加入item句柄
-                    var activeItemRank = this.getPropertys().activeItemRank;
-                    if(activeItemRank!=null){
-                        var activeItem = activeSection.findItemByRank(activeItemRank);
-                        //当前激活item加入拆分句柄
-                        if(activeSection.isSplitItem(activeItem)){
-                            this._splitItemArrow.css('top',0).css('left',0);
-                            activeItem.getDomInstance().append(this._splitItemArrow);
-                        }
-                        //当前激活item加入合并句柄
-                        if(activeSection.isMergeItem(activeItem)){
-                            this._mergeItemArrow.css('top',0).css('left',activeItem.getWidth()*activeItem.getScale()-this._mergeItemArrow.width());
-                            activeItem.getDomInstance().append(this._mergeItemArrow);
-                        }
-                        this._deleteItemIco.css('top',0).css('left',activeItem.getWidth()*activeItem.getScale()/2-this._deleteItemIco.width()/2);
-                        activeItem.getDomInstance().append(this._deleteItemIco);
+            var activeSection = flowLayout.findSectionByIndex(activeSectionIndex);
+            if(activeSection!=null){
+                var activeItemRank = this.getPropertys().activeItemRank;
+                var activeItem = activeSection.findItemByRank(activeItemRank);
+                if(activeItem!=null){
+                    //当前激活item加入拆分句柄
+                    if(activeSection.isSplitItem(activeItem)){
+                        this._splitItemArrow.css('top',0).css('left',0);
+                        activeItem.getDomInstance().append(this._splitItemArrow);
                     }
+                    //当前激活item加入合并句柄
+                    if(activeSection.isMergeItem(activeItem)){
+                        this._mergeItemArrow.css('top',0).css('left',activeItem.getWidth()*activeItem.getScale()-this._mergeItemArrow.width());
+                        activeItem.getDomInstance().append(this._mergeItemArrow);
+                    }
+                    this._deleteItemIco.css('top',0).css('left',activeItem.getWidth()*activeItem.getScale()/2-this._deleteItemIco.width()/2);
+                    activeItem.getDomInstance().append(this._deleteItemIco);
+
+                    activeData.activeType = 'FlowLayoutItem';
+                    activeData.row = activeItem.getRow();
+                    activeData.col = activeItem.getCol();
+                    activeData.colspan = activeItem.getColspan();
+                }else{
+                    activeData.activeType = 'FlowLayoutSection';
+                    activeData.title = activeSection.getTitle();
+                    activeData.titleHeight = activeSection.getTitleHeight();
+                    activeData.cols = activeSection.getCols();
+                    activeData.itemHeight = activeSection.getItemHeight();
+                    activeData.isExpand = activeSection.getIsExpand();
+                    activeData.width = activeSection.getWidth();
                 }
                 //当前激活section加入上移 下移 插入 删除操作句柄
                 if(activeSectionIndex>1){
@@ -279,6 +307,20 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     this._downSectionIco.css('top',5).css('left',activeSection.getWidth()*activeSection.getScale()-this._downSectionIco.width()-4);
                     activeSection.getDomInstance().append(this._downSectionIco);
                 }
+            }else{
+                activeData.activeType = 'FlowLayout';
+                activeData.cols = flowLayout.getCols();
+                activeData.itemHeight = flowLayout.getItemHeight();
+                activeData.width = flowLayout.getWidth();
+                activeData.height = flowLayout.getHeight();
+                activeData.left = flowLayout.getLeft();
+                activeData.top = flowLayout.getTop();
+                activeData.zIndex = flowLayout.getZIndex();
+                activeData.hiden = flowLayout.getHiden();
+                activeData.position = flowLayout.getPosition();
+                activeData.scale = flowLayout.getScale();
+                activeData.onSendMessage = flowLayout.getOnSendMessage();
+                activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
             }
             //当前选中的flowLayout加入拖放 删除操作句柄
             this._selectFlowLayoutIco.css('top',-16).css('left',0);
@@ -286,6 +328,8 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
             this._deleteFlowLayoutIco.css('top',-16).css('left',this._deleteFlowLayoutIco.width()+2);
             flowLayout.getDomInstance().append(this._deleteFlowLayoutIco);
         }
+        this.setActiveData(activeData);
+        this.sendMessage('wof.bizWidget.spanner.FlowLayoutSpanner_render');
     },
 
     //选择实现
@@ -300,12 +344,14 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
     //必须实现
     getData:function(){
         return {
-            propertys: this.getPropertys()
+            propertys: this.getPropertys(),
+            activeData: this.getActiveData()
         };
     },
     //必须实现
     setData:function(data){
         this.setPropertys(data.propertys);
+        this.setActiveData(data.activeData);
     }
 
 };
