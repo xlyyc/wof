@@ -403,8 +403,12 @@ wof.bizWidget.FlowLayout.prototype = {
         if(section!=null){
             var item = section.findItemByRank(itemRank);
             if(item!=null){
-                item.clear();
-                item.remove();
+                if(section.findItems().length==1){ //如果item只剩一个
+                    item.setColspan(1);
+                }else{
+                    item.clear();
+                    item.remove();
+                }
                 this.setActiveSectionIndex(null);
                 this.setActiveItemRank(null);
             }
