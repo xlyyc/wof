@@ -5,16 +5,16 @@
  * @Time: 13-8-7 上午10:49
  */
 
-wof.kernel.Mediator = function () {
-    this._sendMessages = {'wof.kernel.Mediator_click':'单击'}
+wof.widget.Mediator = function () {
+    this._sendMessages = {'wof.widget.Mediator_click':'单击'}
 
     var _this = this;
     this.getDomInstance().click(function(event){
         event.stopPropagation();
-        _this.sendMessage('wof.kernel.Mediator_click');
+        _this.sendMessage('wof.widget.Mediator_click');
     });
 };
-wof.kernel.Mediator.prototype = {
+wof.widget.Mediator.prototype = {
     /**
      * 属性声明 （private ，用"_"标识）
      */
