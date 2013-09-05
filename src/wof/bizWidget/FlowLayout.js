@@ -367,6 +367,30 @@ wof.bizWidget.FlowLayout.prototype = {
     },
 
     /**
+     * 修改指定序号的item
+     * itemData item数据
+     */
+    updateItem: function(itemData){
+        if(!jQuery.isEmptyObject(itemData)){
+            var section = this.findSectionByIndex(itemData.sectionIndex);
+            if(section!=null){
+                var item = section.findItemByRank({row:itemData.row,col:itemData.col});
+                if(item!=null){
+                    if(itemData.colspan!=null){
+                        if(section.getCols()>=itemData.colspan){
+                            item.setColspan(itemData.colspan);
+                        }else{
+                            console.log('设置colspan值错误:大于该分组cols值');
+                        }
+                    }
+                }
+                this.setActiveSectionIndex(itemData.sectionIndex);
+                this.setActiveItemRank({row:itemData.row,col:itemData.col});
+            }
+        }
+    },
+
+    /**
      * 删除指定序号的item
      * itemRank 指定的item行列号
      * sectionIndex 指定的section序号(序号从1开始)

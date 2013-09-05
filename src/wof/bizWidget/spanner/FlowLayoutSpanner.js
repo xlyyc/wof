@@ -285,6 +285,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.row = activeItem.getRow();
                     activeData.col = activeItem.getCol();
                     activeData.colspan = activeItem.getColspan();
+                    activeData.sectionIndex = activeSection.getIndex();
                 }else{
                     activeData.activeType = 'FlowLayoutSection';
                     activeData.title = activeSection.getTitle();

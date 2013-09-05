@@ -206,8 +206,7 @@ jQuery(function(){
                         flowLayout.setWidth(width);
                         flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
-
-                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.render();';
+                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({row:1,col:2,colspan:3,sectionIndex:1});this.render();';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_click',priority:50,method:method}]);
                         flowLayout.appendTo(panel);
 
