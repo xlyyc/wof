@@ -346,10 +346,11 @@ wof.bizWidget.FlowLayout.prototype = {
     /**
      * 修改指定序号的section
      * sectionData section数据
+     * sectionIndex 指定的section序号(序号从1开始)
      */
-    updateSection: function(sectionData){
+    updateSection: function(sectionData, sectionIndex){
         if(!jQuery.isEmptyObject(sectionData)){
-            var section = this.findSectionByIndex(sectionData.index);
+            var section = this.findSectionByIndex(sectionIndex);
             if(section!=null){
                 if(sectionData.title!=null){
                     section.setTitle(sectionData.title);
@@ -369,12 +370,14 @@ wof.bizWidget.FlowLayout.prototype = {
     /**
      * 修改指定序号的item
      * itemData item数据
+     * itemRank 指定的item行列号
+     * sectionIndex 指定的section序号(序号从1开始)
      */
-    updateItem: function(itemData){
+    updateItem: function(itemData, itemRank, sectionIndex){
         if(!jQuery.isEmptyObject(itemData)){
-            var section = this.findSectionByIndex(itemData.sectionIndex);
+            var section = this.findSectionByIndex(sectionIndex);
             if(section!=null){
-                var item = section.findItemByRank({row:itemData.row,col:itemData.col});
+                var item = section.findItemByRank(itemRank);
                 if(item!=null){
                     if(itemData.colspan!=null){
                         if(section.getCols()>=itemData.colspan){
