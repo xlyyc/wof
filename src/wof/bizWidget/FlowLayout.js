@@ -127,7 +127,7 @@ wof.bizWidget.FlowLayout.prototype = {
         'wof.bizWidget.FlowLayoutSection_click':function(message){
             console.log(message.id+'   '+this.getClassName());
             var section = wof.util.ObjectManager.get(message.sender.id);
-            var sectionIndex = this.findIndexBySection(section);
+            var sectionIndex = section.getIndex();
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank(null);
             this.render();
@@ -135,7 +135,7 @@ wof.bizWidget.FlowLayout.prototype = {
         'wof.bizWidget.FlowLayoutSection_dblclick':function(message){
             console.log(message.id+'   '+this.getClassName());
             var section = wof.util.ObjectManager.get(message.sender.id);
-            var sectionIndex = this.findIndexBySection(section);
+            var sectionIndex = section.getIndex();
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank(null);
             this.render();
@@ -143,7 +143,7 @@ wof.bizWidget.FlowLayout.prototype = {
         'wof.bizWidget.FlowLayoutItem_click':function(message){
             console.log(message.id+'   '+this.getClassName());
             var item = wof.util.ObjectManager.get(message.sender.id);
-            var sectionIndex = this.findIndexBySection(item.parentNode());
+            var sectionIndex = item.parentNode().getIndex();
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank({row:item.getRow(),col:item.getCol()});
             this.render();
@@ -154,7 +154,7 @@ wof.bizWidget.FlowLayout.prototype = {
             var section = wof.util.ObjectManager.get(message.sender.id);
             insertSection.remove();
             insertSection.beforeTo(section);
-            var insertSectionIndex = this.findIndexBySection(insertSection);
+            var insertSectionIndex = section.getIndex();
             this.setActiveSectionIndex(insertSectionIndex);
             this.setActiveItemRank(null);
             this.render();
@@ -303,12 +303,51 @@ wof.bizWidget.FlowLayout.prototype = {
     },
 
     /**
+     * 修改flowlayout
+     * flowLayoutData flowLayout数据
+     */
+    updateFlowLayout: function(flowLayoutData){
+
+        /*
+        activeData.activeType = 'FlowLayout';
+        activeData.cols = flowLayout.getCols();
+        activeData.itemHeight = flowLayout.getItemHeight();
+        activeData.width = flowLayout.getWidth();
+        activeData.height = flowLayout.getHeight();
+        activeData.left = flowLayout.getLeft();
+        activeData.top = flowLayout.getTop();
+        activeData.zIndex = flowLayout.getZIndex();
+        activeData.hiden = flowLayout.getHiden();
+        activeData.position = flowLayout.getPosition();
+        activeData.scale = flowLayout.getScale();
+        activeData.onSendMessage = flowLayout.getOnSendMessage();
+        activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
+        */
+        if(!jQuery.isEmptyObject(flowLayoutData)){
+            var section = this.findSectionByIndex(sectionIndex);
+            if(section!=null){
+                if(sectionData.title!=null){
+                    section.setTitle(sectionData.title);
+                }
+                if(sectionData.cols!=null){
+                    section.setCols(sectionData.cols);
+                }
+                if(sectionData.width!=null){
+                    section.setWidth(sectionData.width);
+                }
+                this.setActiveSectionIndex(null);
+                this.setActiveItemRank(null);
+            }
+        }
+    },
+
+    /**
      * 修改指定序号的section
      * sectionData section数据
      */
-    updateSection: function(sectionIndex, sectionData){
+    updateSection: function(sectionData){
         if(!jQuery.isEmptyObject(sectionData)){
-            var section = this.findSectionByIndex(sectionIndex);
+            var section = this.findSectionByIndex(sectionData.index);
             if(section!=null){
                 if(sectionData.title!=null){
                     section.setTitle(sectionData.title);
@@ -366,43 +405,14 @@ wof.bizWidget.FlowLayout.prototype = {
     //找到指定序号的sectoin
     findSectionByIndex: function(sectionIndex){
         var section = null;
-        if(jQuery.isNumeric(sectionIndex)){
-            var childNodes = this.childNodes();
-            var idx = 1;
-            for(var i=0;i<childNodes.length;i++){
-                var node = childNodes[i];
-                if(node.getClassName()=='wof.bizWidget.FlowLayoutSection'){
-                    if(idx==sectionIndex){
-                        section = node;
-                        break;
-                    }else{
-                        idx++;
-                    }
-                }
+        var sections = this._findSections();
+        for(var i=0;i<sections.length;i++){
+            if(sections[i].getIndex()==sectionIndex){
+                section = sections[i];
+                break;
             }
         }
         return section;
-    },
-
-    //找到指定section的序号
-    findIndexBySection: function(section){
-        var sectionIndex = null;
-        if(section!=null){
-            var childNodes = this.childNodes();
-            var idx = 1;
-            for(var i=0;i<childNodes.length;i++){
-                var node = childNodes[i];
-                if(node.getClassName()=='wof.bizWidget.FlowLayoutSection'){
-                    if(section===node){
-                        sectionIndex = idx;
-                        break;
-                    }else{
-                        idx++;
-                    }
-                }
-            }
-        }
-        return sectionIndex;
     },
 
     //找到所有section
@@ -457,6 +467,7 @@ wof.bizWidget.FlowLayout.prototype = {
                 section.setTop(prevSection.getTop()+prevSection.getHeight());
                 height += section.getHeight();
             }
+            section.setIndex(i+1);
             section.getDomInstance().css('top', section.getTop()*this.getScale()+'px');
         }
         this.setHeight(height);

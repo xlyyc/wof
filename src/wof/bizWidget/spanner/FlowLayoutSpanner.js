@@ -293,6 +293,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.itemHeight = activeSection.getItemHeight();
                     activeData.isExpand = activeSection.getIsExpand();
                     activeData.width = activeSection.getWidth();
+                    activeData.index = activeSection.getIndex();
                 }
                 //当前激活section加入上移 下移 插入 删除操作句柄
                 if(activeSectionIndex>1){

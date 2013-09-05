@@ -242,7 +242,7 @@ jQuery(function(){
                             var flowLayoutItem = new FlowLayoutItem();
                             flowLayoutItem.setColspan(2);
                             var btn = new Button();
-                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var layout=this.parentNode().parentNode().parentNode();layout.updateSection(1,{title:"修改分组标题",cols:2,width:400});layout.render();return false;'}]);
+                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),index:section.getIndex(),title:"修改分组标题",cols:2,width:400});layout.render();return false;'}]);
                             btn.setType('submit');
                             btn.setLeft(0);
                             btn.setTop(0);

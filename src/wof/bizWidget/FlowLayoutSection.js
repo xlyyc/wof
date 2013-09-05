@@ -66,6 +66,8 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     _initFlag: null,
 
     _isExpand: null,
+
+    _index: null,
 	 
     /**
      * get/set 属性方法定义
@@ -141,6 +143,14 @@ wof.bizWidget.FlowLayoutSection.prototype = {
         }
         return this._width;
     },
+
+    getIndex: function(){
+        return this._index;
+    },
+
+    setIndex: function(index){
+        this._index = index;
+    },
 	 
     /**
      * Render 方法定义
@@ -196,7 +206,8 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 			titleHeight: this.getTitleHeight(),
 			cols: this.getCols(),
 			itemHeight: this.getItemHeight(),
-            isExpand: this.getIsExpand()
+            isExpand: this.getIsExpand(),
+            index: this.getIndex()
         };
     },
     //----------必须实现----------
@@ -206,6 +217,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 		this.setCols(data.cols);
 		this.setItemHeight(data.itemHeight);
         this.setIsExpand(data.isExpand);
+        this.setIndex(data.index);
     },
 
     _insideOnReceiveMessage:{
@@ -216,7 +228,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             insertItem.remove();
             insertItem.beforeTo(item);
             this.render();
-            var sectionIndex = this.parentNode().findIndexBySection(this);
+            var sectionIndex = this.getIndex();
             this.parentNode().setActiveSectionIndex(sectionIndex);
             if(insertItem!=null){
                 this.parentNode().setActiveItemRank({row:insertItem.getRow(),col:insertItem.getCol()});
