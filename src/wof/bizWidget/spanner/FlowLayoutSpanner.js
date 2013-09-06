@@ -5,6 +5,10 @@
  * @Time: 13-8-5 下午1:29
  */
 wof.bizWidget.spanner.FlowLayoutSpanner = function () {
+    var onReceiveMessage = [];
+    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:'var data=message.sender.propertys;if(data.id==this.getPropertys().id){var flowLayout=wof.util.ObjectManager.get(this.getPropertys().id);if(data.activeClass=="FlowLayoutSection"){flowLayout.updateSection(data);flowLayout.render();}}'});
+    this.setOnReceiveMessage(onReceiveMessage);
 
     var _this = this;
 
@@ -281,13 +285,13 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     this._deleteItemIco.css('top',0).css('left',activeItem.getWidth()*activeItem.getScale()/2-this._deleteItemIco.width()/2);
                     activeItem.getDomInstance().append(this._deleteItemIco);
 
-                    activeData.activeType = 'FlowLayoutItem';
+                    activeData.activeClass = 'FlowLayoutItem';
                     activeData.row = activeItem.getRow();
                     activeData.col = activeItem.getCol();
                     activeData.colspan = activeItem.getColspan();
                     activeData.sectionIndex = activeSection.getIndex();
                 }else{
-                    activeData.activeType = 'FlowLayoutSection';
+                    activeData.activeClass = 'FlowLayoutSection';
                     activeData.title = activeSection.getTitle();
                     activeData.titleHeight = activeSection.getTitleHeight();
                     activeData.cols = activeSection.getCols();
@@ -310,7 +314,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeSection.getDomInstance().append(this._downSectionIco);
                 }
             }else{
-                activeData.activeType = 'FlowLayout';
+                activeData.activeClass = 'FlowLayout';
                 activeData.cols = flowLayout.getCols();
                 activeData.itemHeight = flowLayout.getItemHeight();
                 activeData.width = flowLayout.getWidth();

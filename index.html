@@ -193,7 +193,7 @@ jQuery(function(){
                         wof.util.ObjectManager.add(panel.getId(), panel);
 
                         var flowLayoutSpanner = new FlowLayoutSpanner();
-                        flowLayoutSpanner.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
+                        //flowLayoutSpanner.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
                         flowLayoutSpanner.appendTo(panel);
 
                         var itemHeight = 70;
@@ -206,7 +206,7 @@ jQuery(function(){
                         flowLayout.setWidth(width);
                         flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
-                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3},{row:1,col:2},1);this.render();';
+                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_click',priority:50,method:method}]);
                         flowLayout.appendTo(panel);
 
@@ -241,7 +241,7 @@ jQuery(function(){
                             var flowLayoutItem = new FlowLayoutItem();
                             flowLayoutItem.setColspan(2);
                             var btn = new Button();
-                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400},section.getIndex());layout.render();'}]);
+                            btn.setOnSendMessage([{id:'wof.widget.Button_click',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400,index:section.getIndex()});layout.render();'}]);
                             btn.setType('submit');
                             btn.setLeft(0);
                             btn.setTop(0);
@@ -378,17 +378,18 @@ jQuery(function(){
                         flowLayout.setScale(1);
                         panel.render();
 
-                        //测试设置当前sectoin和当前item
+                        //测试设置当前section和当前item
                         flowLayout.setActiveSectionIndex(1);
                         flowLayout.setActiveItemRank({row:1,col:1});
                         flowLayout.render();
 
                         // 测试克隆方法
-                        /*p1 p1 =  panel.clone();
+                        var p1 =  panel.clone();
                         panel.clear();
-                        p1.setTop(50);
+                        p1.setTop(60);
+                        p1.setLeft(30);
                         p1.appendTo();
-                        p1.render();*/
+                        p1.render();
 
                         /* console.log('flowLayout.getActiveSectionIndex()='+flowLayout.getActiveSectionIndex());
                          console.log('flowLayout.getActiveItemRank()='+JSON.stringify(flowLayout.getActiveItemRank()));*/

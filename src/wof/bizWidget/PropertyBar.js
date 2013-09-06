@@ -71,6 +71,24 @@ wof.bizWidget.PropertyBar.prototype={
             var table = this._createTable(trs);
             this.getDomInstance().append(table);
 		}
+        var applyBtn = jQuery('<input type="button" value=" 应用 ">');
+        this.getDomInstance().append(applyBtn);
+        applyBtn.click(function(event){
+            var inputs = jQuery('table[id="propertyTable"] > tbody > tr > td > input');
+            var propertys = _this.getPropertys();
+            inputs.each(function(){
+                var name = jQuery(this).attr('name');
+                var val = jQuery(this).val();
+                propertys[name] = val;
+            });
+            _this.sendMessage('wof.bizWidget.PropertyBar_apply');
+        });
+        var removeBtn = jQuery('<input type="button" value=" 删除 ">');
+        this.getDomInstance().append(removeBtn);
+        removeBtn.click(function(event){
+            //todo 删除
+            console.log('删除');
+        });
 	},
 	//必须实现
 	getData:function(){

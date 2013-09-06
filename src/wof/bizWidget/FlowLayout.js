@@ -346,11 +346,10 @@ wof.bizWidget.FlowLayout.prototype = {
     /**
      * 修改指定序号的section
      * sectionData section数据
-     * sectionIndex 指定的section序号(序号从1开始)
      */
-    updateSection: function(sectionData, sectionIndex){
+    updateSection: function(sectionData){
         if(!jQuery.isEmptyObject(sectionData)){
-            var section = this.findSectionByIndex(sectionIndex);
+            var section = this.findSectionByIndex(sectionData.index);
             if(section!=null){
                 if(sectionData.title!=null){
                     section.setTitle(sectionData.title);
@@ -361,6 +360,10 @@ wof.bizWidget.FlowLayout.prototype = {
                 if(sectionData.width!=null){
                     section.setWidth(sectionData.width);
                 }
+                //todo 检查错误原因
+               /* if(sectionData.itemHeight!=null){
+                    section.setItemHeight(sectionData.itemHeight);
+                }*/
                 this.setActiveSectionIndex(sectionData.index);
                 this.setActiveItemRank(null);
             }
@@ -370,14 +373,12 @@ wof.bizWidget.FlowLayout.prototype = {
     /**
      * 修改指定序号的item
      * itemData item数据
-     * itemRank 指定的item行列号
-     * sectionIndex 指定的section序号(序号从1开始)
      */
-    updateItem: function(itemData, itemRank, sectionIndex){
+    updateItem: function(itemData){
         if(!jQuery.isEmptyObject(itemData)){
-            var section = this.findSectionByIndex(sectionIndex);
+            var section = this.findSectionByIndex(itemData.sectionIndex);
             if(section!=null){
-                var item = section.findItemByRank(itemRank);
+                var item = section.findItemByRank({row:itemData.row,col:itemData.col});
                 if(item!=null){
                     if(itemData.colspan!=null){
                         if(section.getCols()>=itemData.colspan){
