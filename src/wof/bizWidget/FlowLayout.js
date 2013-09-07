@@ -309,22 +309,22 @@ wof.bizWidget.FlowLayout.prototype = {
     updateFlowLayout: function(flowLayoutData){
         if(!jQuery.isEmptyObject(flowLayoutData)){
             if(flowLayoutData.cols!=null){
-                this.setCols(flowLayoutData.cols);
+                this.setCols(Number(flowLayoutData.cols));
             }
             if(flowLayoutData.itemHeight!=null){
-                this.setItemHeight(flowLayoutData.itemHeight);
+                this.setItemHeight(Number(flowLayoutData.itemHeight));
             }
             if(flowLayoutData.width!=null){
-                this.setWidth(flowLayoutData.width);
+                this.setWidth(Number(flowLayoutData.width));
             }
             if(flowLayoutData.height!=null){
-                this.setHeight(flowLayoutData.height);
+                this.setHeight(Number(flowLayoutData.height));
             }
             if(flowLayoutData.left!=null){
-                this.setLeft(flowLayoutData.left);
+                this.setLeft(Number(flowLayoutData.left));
             }
             if(flowLayoutData.top!=null){
-                this.setTop(flowLayoutData.top);
+                this.setTop(Number(flowLayoutData.top));
             }
             if(flowLayoutData.zIndex!=null){
                 this.setZIndex(flowLayoutData.zIndex);
@@ -336,7 +336,7 @@ wof.bizWidget.FlowLayout.prototype = {
                 this.setPosition(flowLayoutData.position);
             }
             if(flowLayoutData.scale!=null){
-                this.setScale(flowLayoutData.scale);
+                this.setScale(Number(flowLayoutData.scale));
             }
             this.setActiveSectionIndex(null);
             this.setActiveItemRank(null);
@@ -355,16 +355,15 @@ wof.bizWidget.FlowLayout.prototype = {
                     section.setTitle(sectionData.title);
                 }
                 if(sectionData.cols!=null){
-                    section.setCols(sectionData.cols);
+                    section.setCols(Number(sectionData.cols));
                 }
                 if(sectionData.width!=null){
-                    section.setWidth(sectionData.width);
+                    section.setWidth(Number(sectionData.width));
                 }
-                //todo 检查错误原因
-               /* if(sectionData.itemHeight!=null){
-                    section.setItemHeight(sectionData.itemHeight);
-                }*/
-                this.setActiveSectionIndex(sectionData.index);
+                if(sectionData.itemHeight!=null){
+                    section.setItemHeight(Number(sectionData.itemHeight));
+                }
+                this.setActiveSectionIndex(Number(sectionData.index));
                 this.setActiveItemRank(null);
             }
         }
@@ -376,20 +375,20 @@ wof.bizWidget.FlowLayout.prototype = {
      */
     updateItem: function(itemData){
         if(!jQuery.isEmptyObject(itemData)){
-            var section = this.findSectionByIndex(itemData.sectionIndex);
+            var section = this.findSectionByIndex(Number(itemData.sectionIndex));
             if(section!=null){
-                var item = section.findItemByRank({row:itemData.row,col:itemData.col});
+                var item = section.findItemByRank({row:Number(itemData.row),col:Number(itemData.col)});
                 if(item!=null){
                     if(itemData.colspan!=null){
-                        if(section.getCols()>=itemData.colspan){
-                            item.setColspan(itemData.colspan);
+                        if(section.getCols()>=Number(itemData.colspan)){
+                            item.setColspan(Number(itemData.colspan));
                         }else{
                             console.log('设置colspan值错误:大于该分组cols值');
                         }
                     }
                 }
-                this.setActiveSectionIndex(itemData.sectionIndex);
-                this.setActiveItemRank({row:itemData.row,col:itemData.col});
+                this.setActiveSectionIndex(Number(itemData.sectionIndex));
+                this.setActiveItemRank({row:Number(itemData.row),col:Number(itemData.col)});
             }
         }
     },
@@ -441,7 +440,7 @@ wof.bizWidget.FlowLayout.prototype = {
         var section = null;
         var sections = this._findSections();
         for(var i=0;i<sections.length;i++){
-            if(sections[i].getIndex()==sectionIndex){
+            if(sections[i].getIndex()==Number(sectionIndex)){
                 section = sections[i];
                 break;
             }

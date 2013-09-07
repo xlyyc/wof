@@ -187,12 +187,11 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     render: function () {
 		this._appendLabel();
 		this._flowLayout();
-		this._resetStyle();
     },
 
     //选择实现
     afterRender: function () {
-		
+        this._resetStyle();
     },
 
     /**
@@ -424,7 +423,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 						if(((prevCell.getColspan()+prevCell.getCol()-1)>=c)&&prevCell.getRow()==r){
 							continue;
 						}else{
-							items[k].setRow(r);
+                            items[k].setRow(r);
 							items[k].setCol((c==1?c:(prevCell.getCol()+prevCell.getColspan())));
 							k++;
 						}
@@ -511,7 +510,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 					item.setLeft(0);
 					item.setTop(prevItem.getTop()+prevItem.getHeight());
 					k++;
-				}else{//根据前个item调整left top
+				}else{ //根据前个item调整left top
 					item.setLeft(prevItem.getLeft()+prevItem.getWidth());
 					item.setTop(prevItem.getTop());
 				}
