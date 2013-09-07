@@ -7,7 +7,21 @@
 wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     var onReceiveMessage = [];
     onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'});
-    onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:'var data=message.sender.propertys;if(data.id==this.getPropertys().id){var flowLayout=wof.util.ObjectManager.get(data.id);if(data.activeClass=="FlowLayoutSection"){flowLayout.updateSection(data);flowLayout.render();}}'});
+    var method = 'var data=message.sender.propertys; '
+        +' if(data.id==this.getPropertys().id){ '
+        +' var flowLayout=wof.util.ObjectManager.get(data.id); '
+        +' if(data.activeClass=="FlowLayoutSection"){ '
+        +'   flowLayout.updateSection(data); '
+        +'    flowLayout.render(); '
+        +' }else if(data.activeClass=="FlowLayoutItem"){ '
+        +'     flowLayout.updateItem(data); '
+        +'      flowLayout.render(); '
+        +'   }else if(data.activeClass=="FlowLayout"){ '
+        +'       flowLayout.updateFlowLayout(data); '
+        +'       flowLayout.render();'
+        +'    } '
+        +'}';
+    onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:method});
     this.setOnReceiveMessage(onReceiveMessage);
 
     var _this = this;
