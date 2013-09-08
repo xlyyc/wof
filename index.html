@@ -51,6 +51,7 @@
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutItem.js"></script>
 <script src="src/wof/bizWidget/PropertyBar.js"></script>
+<script src="src/wof/bizWidget/MessageBar.js"></script>
 
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
 
@@ -161,6 +162,14 @@ jQuery(function(){
                 var tabItem2 = new TabItem();
                 tabItem2.setTitle("消息");
                 tabItem2.appendTo(tab);
+
+                var messageBar = new MessageBar();
+                messageBar.setWidth(sidebar2Width-24);
+                messageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
+                messageBar.setOnReceiveMessage([{id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:'this.setPropertys(message.sender.activeData);this.render();'}]);
+                messageBar.setTop(50);
+                messageBar.setLeft(5);
+                messageBar.appendTo(tabItem2);
 
                 panel.render();
 		}

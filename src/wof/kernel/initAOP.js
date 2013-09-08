@@ -37,6 +37,9 @@ var wof$_aop = (function(){
                         }
                     };
                     obj[o].prototype._onReceiveMessage = null;
+                    obj[o].prototype.getSendMessages = function() {
+                        return this._sendMessages;
+                    };
                     obj[o].prototype.getOnReceiveMessage = function() {
                         if(this._onReceiveMessage==null){
                             this._onReceiveMessage = [];
@@ -384,6 +387,7 @@ var wof$_aop = (function(){
 						obj[o].prototype._getData = obj[o].prototype.getData;
 						obj[o].prototype.getData = function(){
 							var data=this._getData();
+                            data.sendMessages = this.getSendMessages();
                             data.isInside = this.getIsInside();
 							data.id=this.getId();
 							data.className=this.getClassName();

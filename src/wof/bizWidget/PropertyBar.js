@@ -62,9 +62,6 @@ wof.bizWidget.PropertyBar.prototype={
 		if(!jQuery.isEmptyObject(propertys)){
             var trs = [];
             for(var name in propertys){
-                if(name=='childNodes'){
-                    continue;
-                }
                 var value = propertys[name];
                 trs.push(this._createTr(name,{type:'text',name:name,value:value}));
             }

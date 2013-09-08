@@ -346,6 +346,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                 activeData.activeItemRank = flowLayout.getActiveItemRank();
                 activeData.onSendMessage = flowLayout.getOnSendMessage();
                 activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
+                activeData.sendMessages = flowLayout.getSendMessages();
             }
             //当前选中的flowLayout加入拖放 删除操作句柄
             this._selectFlowLayoutIco.css('top',-16).css('left',0);
