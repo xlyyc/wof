@@ -83,12 +83,6 @@ wof.bizWidget.PropertyBar.prototype={
             });
             _this.sendMessage('wof.bizWidget.PropertyBar_apply');
         });
-        var removeBtn = jQuery('<input type="button" value=" 删除 ">');
-        this.getDomInstance().append(removeBtn);
-        removeBtn.click(function(event){
-            //todo 删除
-            console.log('删除');
-        });
 	},
 	//必须实现
 	getData:function(){

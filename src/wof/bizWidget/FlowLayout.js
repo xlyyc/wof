@@ -360,6 +360,9 @@ wof.bizWidget.FlowLayout.prototype = {
                 if(sectionData.width!=null){
                     section.setWidth(Number(sectionData.width));
                 }
+                if(sectionData.titleHeight!=null){
+                    section.setTitleHeight(Number(sectionData.titleHeight));
+                }
                 if(sectionData.itemHeight!=null){
                     section.setItemHeight(Number(sectionData.itemHeight));
                 }

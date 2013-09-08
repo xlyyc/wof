@@ -30,7 +30,10 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     this._deleteFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteFlowLayout.png">');
     this._selectFlowLayoutIco.click(function(event){
         event.stopPropagation();
-        console.log('selectFlowLayoutIco_click');
+        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+        flowLayout.setActiveSectionIndex(null);
+        flowLayout.setActiveItemRank(null);
+        flowLayout.render();
     });
     this._deleteFlowLayoutIco.click(function(event){
         event.stopPropagation();
