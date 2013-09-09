@@ -42,7 +42,34 @@ wof.bizWidget.MessageBar.prototype={
             var input = jQuery('<input type="button" style="width:80px;" name="'+componentData.name+'" value="'+componentData.value+'"/>');
             td.append(input);
             input.click(function(event){
-                alert(11);
+                var name = event.target.name;
+                var method = _this.getMethodByName(name, 'onSendMessage');
+                if(method==null){
+                    method = '';
+                }
+                var dialogDiv = jQuery('<div title="定制业务"><div contenteditable="true" style="width:550px;height:700px;">'+method+'</div></div>');
+                dialogDiv.dialog({
+                    resizable: false,
+                    height: 600,
+                    width: 800,
+                    modal: true,
+                    buttons: {
+                        "保存": function(){
+                            var funcStr = jQuery(this).find('div[contenteditable="true"]').html();
+                            if(funcStr!=null&&funcStr.length>0){
+                                _this.setMethodByName(name, funcStr, 'onSendMessage');
+                                _this.sendMessage('wof.bizWidget.MessageBar_apply');
+                            }
+                            jQuery(this).dialog("close");
+                        },
+                        '关闭': function(){
+                            jQuery(this).dialog("close");
+                        }
+                    },
+                    close: function(event,ui){
+                        jQuery(this).remove();
+                    }
+                });
             });
         }
         return tr;
@@ -57,11 +84,17 @@ wof.bizWidget.MessageBar.prototype={
         var propertys = this.getPropertys();
 		if(!jQuery.isEmptyObject(propertys)){
             var sendMessages = propertys.sendMessages;
+            var onSendMessage = propertys.onSendMessage;
             if(sendMessages!=null){
                 var trs = [];
                 for(var name in sendMessages){
-                    var value = sendMessages[name];
-                    trs.push(this._createTr(value,{type:'button',name:name,value:name}));
+                    var label = sendMessages[name];
+                    var funcFlag = '未定义';
+                    var method = this.getMethodByName(name, 'onSendMessage');
+                    if(method!=null){
+                        funcFlag = '已定义';
+                    }
+                    trs.push(this._createTr(label,{type:'button',name:name,value:funcFlag}));
                 }
                 var table = this._createTable(trs);
                 this.getDomInstance().append(table);
@@ -77,6 +110,30 @@ wof.bizWidget.MessageBar.prototype={
 	//必须实现
 	setData:function(data){
 		this.setPropertys(data.propertys);
-	}
+	},
+
+    getMethodByName:function(name, type){
+        var method = null;
+        var messages = this.getPropertys()[type];
+        for(var i=0;i<messages.length;i++){
+            var msg = messages[i];
+            if(msg.id==name){
+                method = msg.method;
+                break;
+            }
+        }
+        return method;
+    },
+
+    setMethodByName:function(name, method, type){
+        var messages = this.getPropertys()[type];
+        for(var i=0;i<messages.length;i++){
+            if( messages[i].id==name){
+                messages.splice(i,1);
+                break;
+            }
+        }
+        messages.push({id:name,method:method});
+    }
 	
 };

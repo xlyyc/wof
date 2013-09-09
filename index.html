@@ -217,6 +217,7 @@ jQuery(function(){
                         flowLayout.setItemHeight(60);
                         var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_click',priority:50,method:method}]);
+                        flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
                         flowLayout.appendTo(panel);
 
                         var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:4,itemHeight:80};

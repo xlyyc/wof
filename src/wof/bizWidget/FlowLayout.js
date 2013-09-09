@@ -338,6 +338,12 @@ wof.bizWidget.FlowLayout.prototype = {
             if(flowLayoutData.scale!=null){
                 this.setScale(Number(flowLayoutData.scale));
             }
+            if(flowLayoutData.onSendMessage!=null){
+                this.setOnSendMessage(flowLayoutData.onSendMessage);
+            }
+            if(flowLayoutData.onReceiveMessage!=null){
+                this.setOnReceiveMessage(flowLayoutData.onReceiveMessage);
+            }
             this.setActiveSectionIndex(null);
             this.setActiveItemRank(null);
         }
