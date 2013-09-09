@@ -1,4 +1,4 @@
-﻿wof.bizWidget.MessageBar = function(){
+﻿wof.bizWidget.OnReceiveMessageBar = function(){
 	this.getDomInstance().css('position', 'absolute');
 	
 	var _this = this;
@@ -7,7 +7,7 @@
         _this.sendMessage('wof.bizWidget.MessageBar_click');
 	});
 };
-wof.bizWidget.MessageBar.prototype={
+wof.bizWidget.OnReceiveMessageBar.prototype={
 	
 	_propertys: null,
 
@@ -47,19 +47,17 @@ wof.bizWidget.MessageBar.prototype={
                 if(method==null){
                     method = '';
                 }
-                var dialogDiv = jQuery('<div title="定制业务"><div contenteditable="true" style="width:550px;height:700px;">'+method+'</div></div>');
+                var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:50px;line-height:50px;vertical-align:middle;">消息ID:'+name+'</div><textarea rows="30" cols="125">'+method+'</textarea></div>');
                 dialogDiv.dialog({
                     resizable: false,
-                    height: 600,
+                    height: 625,
                     width: 800,
                     modal: true,
                     buttons: {
                         "保存": function(){
-                            var funcStr = jQuery(this).find('div[contenteditable="true"]').html();
-                            if(funcStr!=null&&funcStr.length>0){
-                                _this.setMethodByName(name, funcStr, 'onSendMessage');
-                                _this.sendMessage('wof.bizWidget.MessageBar_apply');
-                            }
+                            var funcStr = jQuery(this).find('textarea').val();
+                            _this.setMethodByName(name, funcStr, 'onSendMessage');
+                            _this.sendMessage('wof.bizWidget.MessageBar_apply');
                             jQuery(this).dialog("close");
                         },
                         '关闭': function(){
@@ -133,7 +131,10 @@ wof.bizWidget.MessageBar.prototype={
                 break;
             }
         }
-        messages.push({id:name,method:method});
+        if(method!=null&&method.length>0){
+            console.log(method);
+            messages.push({id:name,method:method});
+        }
     }
 	
 };
