@@ -4,7 +4,7 @@
 	var _this = this;
 	this.getDomInstance().click(function(event){
 		event.stopPropagation();
-        _this.sendMessage('wof.bizWidget.MessageBar_click');
+        _this.sendMessage('wof.bizWidget.OnSendMessageBar_click');
 	});
 };
 wof.bizWidget.OnSendMessageBar.prototype={
@@ -43,11 +43,11 @@ wof.bizWidget.OnSendMessageBar.prototype={
             td.append(input);
             input.click(function(event){
                 var name = event.target.name;
-                var method = _this.getMethodByName(name, 'onSendMessage');
+                var method = _this.getMethodByName(name);
                 if(method==null){
                     method = '';
                 }
-                var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:50px;line-height:50px;vertical-align:middle;">消息ID:'+name+'</div><textarea rows="30" cols="125">'+method+'</textarea></div>');
+                var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:50px;line-height:50px;vertical-align:middle;">消息ID:'+name+'</div><textarea rows="27" cols="94">'+method+'</textarea></div>');
                 dialogDiv.dialog({
                     resizable: false,
                     height: 625,
@@ -56,8 +56,8 @@ wof.bizWidget.OnSendMessageBar.prototype={
                     buttons: {
                         "保存": function(){
                             var funcStr = jQuery(this).find('textarea').val();
-                            _this.setMethodByName(name, funcStr, 'onSendMessage');
-                            _this.sendMessage('wof.bizWidget.MessageBar_apply');
+                            _this.setMethodByName(name, funcStr);
+                            _this.sendMessage('wof.bizWidget.OnSendMessageBar_apply');
                             jQuery(this).dialog("close");
                         },
                         '关闭': function(){
@@ -80,23 +80,21 @@ wof.bizWidget.OnSendMessageBar.prototype={
 	render: function(){
 		var _this = this;
         var propertys = this.getPropertys();
-		if(!jQuery.isEmptyObject(propertys)){
+		if(!jQuery.isEmptyObject(propertys.sendMessages)){
             var sendMessages = propertys.sendMessages;
             var onSendMessage = propertys.onSendMessage;
-            if(sendMessages!=null){
-                var trs = [];
-                for(var name in sendMessages){
-                    var label = sendMessages[name];
-                    var funcFlag = '未定义';
-                    var method = this.getMethodByName(name, 'onSendMessage');
-                    if(method!=null){
-                        funcFlag = '已定义';
-                    }
-                    trs.push(this._createTr(label,{type:'button',name:name,value:funcFlag}));
+            var trs = [];
+            for(var name in sendMessages){
+                var label = sendMessages[name];
+                var funcFlag = '未定义';
+                var method = this.getMethodByName(name);
+                if(method!=null&&method.length>0){
+                    funcFlag = '已定义';
                 }
-                var table = this._createTable(trs);
-                this.getDomInstance().append(table);
+                trs.push(this._createTr(label,{type:'button',name:name,value:funcFlag}));
             }
+            var table = this._createTable(trs);
+            this.getDomInstance().append(table);
 		}
 	},
 	//必须实现
@@ -110,9 +108,9 @@ wof.bizWidget.OnSendMessageBar.prototype={
 		this.setPropertys(data.propertys);
 	},
 
-    getMethodByName:function(name, type){
+    getMethodByName:function(name){
         var method = null;
-        var messages = this.getPropertys()[type];
+        var messages = this.getPropertys()['onSendMessage'];
         for(var i=0;i<messages.length;i++){
             var msg = messages[i];
             if(msg.id==name){
@@ -123,8 +121,8 @@ wof.bizWidget.OnSendMessageBar.prototype={
         return method;
     },
 
-    setMethodByName:function(name, method, type){
-        var messages = this.getPropertys()[type];
+    setMethodByName:function(name, method){
+        var messages = this.getPropertys()['onSendMessage'];
         for(var i=0;i<messages.length;i++){
             if( messages[i].id==name){
                 messages.splice(i,1);
@@ -132,7 +130,6 @@ wof.bizWidget.OnSendMessageBar.prototype={
             }
         }
         if(method!=null&&method.length>0){
-            console.log(method);
             messages.push({id:name,method:method});
         }
     }

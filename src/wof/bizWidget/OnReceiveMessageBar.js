@@ -4,7 +4,7 @@
 	var _this = this;
 	this.getDomInstance().click(function(event){
 		event.stopPropagation();
-        _this.sendMessage('wof.bizWidget.MessageBar_click');
+        _this.sendMessage('wof.bizWidget.OnReceiveMessageBar_click');
 	});
 };
 wof.bizWidget.OnReceiveMessageBar.prototype={
@@ -43,11 +43,15 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
             td.append(input);
             input.click(function(event){
                 var name = event.target.name;
-                var method = _this.getMethodByName(name, 'onSendMessage');
+                var method = _this.getMethodByName(name);
+                var priority = _this.getPriorityByName(name);
                 if(method==null){
                     method = '';
                 }
-                var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:50px;line-height:50px;vertical-align:middle;">消息ID:'+name+'</div><textarea rows="30" cols="125">'+method+'</textarea></div>');
+                if(priority==null){
+                    priority = 50;
+                }
+                var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:25px;line-height:25px;vertical-align:middle;">消息ID:'+name+'</div><div style="width:770px;height:25px;line-height:25px;vertical-align:middle;">优先级:<input type="text" value="'+priority+'"></div><textarea rows="27" cols="94">'+method+'</textarea></div>');
                 dialogDiv.dialog({
                     resizable: false,
                     height: 625,
@@ -56,8 +60,9 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
                     buttons: {
                         "保存": function(){
                             var funcStr = jQuery(this).find('textarea').val();
-                            _this.setMethodByName(name, funcStr, 'onSendMessage');
-                            _this.sendMessage('wof.bizWidget.MessageBar_apply');
+                            var priority = Number(jQuery(this).find('input[type="text"]').val());
+                            _this.setMethodByName(name, funcStr, priority);
+                            _this.sendMessage('wof.bizWidget.OnReceiveMessageBar_apply');
                             jQuery(this).dialog("close");
                         },
                         '关闭': function(){
@@ -80,23 +85,15 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
 	render: function(){
 		var _this = this;
         var propertys = this.getPropertys();
-		if(!jQuery.isEmptyObject(propertys)){
-            var sendMessages = propertys.sendMessages;
-            var onSendMessage = propertys.onSendMessage;
-            if(sendMessages!=null){
-                var trs = [];
-                for(var name in sendMessages){
-                    var label = sendMessages[name];
-                    var funcFlag = '未定义';
-                    var method = this.getMethodByName(name, 'onSendMessage');
-                    if(method!=null){
-                        funcFlag = '已定义';
-                    }
-                    trs.push(this._createTr(label,{type:'button',name:name,value:funcFlag}));
-                }
-                var table = this._createTable(trs);
-                this.getDomInstance().append(table);
+		if(!jQuery.isEmptyObject(propertys.onReceiveMessage)){
+            var onReceiveMessage = propertys.onReceiveMessage;
+            var trs = [];
+            for(var i=0;i<onReceiveMessage.length;i++){
+                var message = onReceiveMessage[i];
+                trs.push(this._createTr(message.id,{type:'button',name:message.id,value:'定制'}));
             }
+            var table = this._createTable(trs);
+            this.getDomInstance().append(table);
 		}
 	},
 	//必须实现
@@ -110,9 +107,9 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
 		this.setPropertys(data.propertys);
 	},
 
-    getMethodByName:function(name, type){
+    getMethodByName:function(name){
         var method = null;
-        var messages = this.getPropertys()[type];
+        var messages = this.getPropertys()['onReceiveMessage'];
         for(var i=0;i<messages.length;i++){
             var msg = messages[i];
             if(msg.id==name){
@@ -123,8 +120,21 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
         return method;
     },
 
-    setMethodByName:function(name, method, type){
-        var messages = this.getPropertys()[type];
+    getPriorityByName:function(name){
+        var priority = null;
+        var messages = this.getPropertys()['onReceiveMessage'];
+        for(var i=0;i<messages.length;i++){
+            var msg = messages[i];
+            if(msg.id==name){
+                priority = msg.priority;
+                break;
+            }
+        }
+        return priority;
+    },
+
+    setMethodByName:function(name, method, priority){
+        var messages = this.getPropertys()['onReceiveMessage'];
         for(var i=0;i<messages.length;i++){
             if( messages[i].id==name){
                 messages.splice(i,1);
@@ -132,8 +142,7 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
             }
         }
         if(method!=null&&method.length>0){
-            console.log(method);
-            messages.push({id:name,method:method});
+            messages.push({id:name,method:method, priority:priority});
         }
     }
 	
