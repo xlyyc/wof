@@ -209,7 +209,7 @@ jQuery(function(){
                         panel = new Panel();
                         panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
                         panel.setHeight(windowHeight-headerHeight-footerHeight);
-                        panel.setTop(0);
+                        panel.setTop(20);
                         panel.setLeft(0);
                         content.append(panel.getDomInstance());
                         wof.util.ObjectManager.add(panel.getId(), panel);
@@ -404,12 +404,12 @@ jQuery(function(){
                         flowLayout.render();
 
                         // 测试克隆方法
-                        var p1 =  panel.clone();
+                       /* var p1 =  panel.clone();
                         panel.clear();
                         p1.setTop(60);
                         p1.setLeft(30);
                         p1.appendTo();
-                        p1.render();
+                        p1.render();*/
 
                         /* console.log('flowLayout.getActiveSectionIndex()='+flowLayout.getActiveSectionIndex());
                          console.log('flowLayout.getActiveItemRank()='+JSON.stringify(flowLayout.getActiveItemRank()));*/

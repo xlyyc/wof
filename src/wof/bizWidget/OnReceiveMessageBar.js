@@ -95,6 +95,34 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
             var table = this._createTable(trs);
             this.getDomInstance().append(table);
 		}
+        var addBtn = jQuery('<input type="button" value="增加监听">');
+        addBtn.click(function(event){
+            event.stopPropagation();
+            var dialogDiv = jQuery('<div title="定制业务"><div style="width:770px;height:25px;line-height:25px;vertical-align:middle;">消息ID:<input type="text" name="name"></div><div style="width:770px;height:25px;line-height:25px;vertical-align:middle;">优先级:<input type="text" name="priority" value="50"></div><textarea rows="27" cols="94"></textarea></div>');
+            dialogDiv.dialog({
+                resizable: false,
+                height: 625,
+                width: 800,
+                modal: true,
+                buttons: {
+                    "保存": function(){
+                        var name = jQuery(this).find('input[type="text"][name="name"]').val();
+                        var method = jQuery(this).find('textarea').val();
+                        var priority = Number(jQuery(this).find('input[type="text"][name="priority"]').val());
+                        _this.setMethodByName(name, method, priority);
+                        _this.sendMessage('wof.bizWidget.OnReceiveMessageBar_apply');
+                        jQuery(this).dialog("close");
+                    },
+                    '关闭': function(){
+                        jQuery(this).dialog("close");
+                    }
+                },
+                close: function(event,ui){
+                    jQuery(this).remove();
+                }
+            });
+        });
+        this.getDomInstance().append(addBtn);
 	},
 	//必须实现
 	getData:function(){
