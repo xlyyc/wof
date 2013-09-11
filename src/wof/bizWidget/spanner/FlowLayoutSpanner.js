@@ -12,13 +12,16 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         +' var flowLayout=wof.util.ObjectManager.get(data.id); '
         +' if(data.activeClass=="FlowLayoutSection"){ '
         +'   flowLayout.updateSection(data); '
-        +'    flowLayout.render(); '
+        +'   flowLayout.render(); '
+        +'   flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
         +' }else if(data.activeClass=="FlowLayoutItem"){ '
         +'     flowLayout.updateItem(data); '
-        +'      flowLayout.render(); '
+        +'     flowLayout.render(); '
+        +'     flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
         +'   }else if(data.activeClass=="FlowLayout"){ '
         +'       flowLayout.updateFlowLayout(data); '
         +'       flowLayout.render();'
+        +'       flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
         +'    } '
         +'}';
     onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:method});
