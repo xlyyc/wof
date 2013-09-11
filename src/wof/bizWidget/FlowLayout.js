@@ -502,6 +502,7 @@ wof.bizWidget.FlowLayout.prototype = {
         var sections = this._findSections();
         for(var i=0;i<sections.length;i++){
             var section = sections[i];
+            section.resetStyle();
             if(i==0){
                 section.setTop(0);
                 section.setLeft(0);

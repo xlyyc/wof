@@ -191,7 +191,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 
     //选择实现
     afterRender: function () {
-        this._resetStyle();
+        this.resetStyle();
     },
 
     /**
@@ -239,7 +239,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
         'wof.widget.Label_click':function(message){
             console.log(message.id+'   '+this.getClassName());
             this.sendMessage('wof.bizWidget.FlowLayoutSection_click');
-            return false;
         },
         'wof.widget.Label_dblclick':function(message){
             console.log(message.id+'   '+this.getClassName());
@@ -249,7 +248,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
                 this.setIsExpand(true);
             }
             this.sendMessage('wof.bizWidget.FlowLayoutSection_dblclick');
-            return false;
         }
     },
 
@@ -306,9 +304,10 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     },
 
     //重置样式
-    _resetStyle: function(){
+    resetStyle: function(){
         this._label.setIsBold(false);
         this._label.setIsHighlight(false);
+        this._label.render();
         var items = this._getItems();
         for(var i=0;i<items.length;i++){
             this._setBorderStyle(items[i].getDomInstance(),'1px dashed black').css('backgroundColor','#ffffff');
