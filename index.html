@@ -47,6 +47,8 @@
 <script src="src/wof/widget/RadioGroup.js"></script>
 <script src="src/wof/widget/ComboBox.js"></script>
 
+<script src="src/wof/widget/spanner/ButtonSpanner.js"></script>
+
 <script src="src/wof/bizWidget/FlowLayout.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutItem.js"></script>
@@ -155,7 +157,11 @@ jQuery(function(){
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                propertyBar.setOnReceiveMessage([{id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:'this.setPropertys(message.sender.activeData);this.render();'}]);
+                var method = 'this.setPropertys(message.sender.activeData);this.render();';
+                var onReceiveMessage = [];
+                onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
+                onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
+                propertyBar.setOnReceiveMessage(onReceiveMessage);
                 propertyBar.setTop(50);
                 propertyBar.setLeft(5);
                 propertyBar.appendTo(tabItem1);
@@ -167,7 +173,11 @@ jQuery(function(){
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
                 onSendMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                onSendMessageBar.setOnReceiveMessage([{id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:'this.setPropertys(message.sender.activeData);this.render();'}]);
+                var meth = 'this.setPropertys(message.sender.activeData);this.render();';
+                var receives = [];
+                receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
+                receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
+                onSendMessageBar.setOnReceiveMessage(receives);
                 onSendMessageBar.setTop(50);
                 onSendMessageBar.setLeft(5);
                 onSendMessageBar.appendTo(tabItem2);
@@ -179,7 +189,11 @@ jQuery(function(){
                 var onReceiveMessageBar = new OnReceiveMessageBar();
                 onReceiveMessageBar.setWidth(sidebar2Width-24);
                 onReceiveMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                onReceiveMessageBar.setOnReceiveMessage([{id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:'this.setPropertys(message.sender.activeData);this.render();'}]);
+                var met = 'this.setPropertys(message.sender.activeData);this.render();';
+                var receiv = [];
+                receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
+                receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
+                onReceiveMessageBar.setOnReceiveMessage(receiv);
                 onReceiveMessageBar.setTop(50);
                 onReceiveMessageBar.setLeft(5);
                 onReceiveMessageBar.appendTo(tabItem3);
@@ -204,6 +218,7 @@ jQuery(function(){
         with(wof.widget)
             with(wof.bizWidget)
                 with(wof.bizWidget.spanner)
+                    with(wof.widget.spanner)
                     with(wof.kernel){
 
                         panel = new Panel();
@@ -215,8 +230,10 @@ jQuery(function(){
                         wof.util.ObjectManager.add(panel.getId(), panel);
 
                         var flowLayoutSpanner = new FlowLayoutSpanner();
-                        //flowLayoutSpanner.setOnReceiveMessage([{id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'}]);
                         flowLayoutSpanner.appendTo(panel);
+
+                        var buttonSpanner = new ButtonSpanner();
+                        buttonSpanner.appendTo(panel);
 
                         var itemHeight = 70;
                         var width = 810;

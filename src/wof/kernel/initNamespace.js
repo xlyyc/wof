@@ -11,6 +11,7 @@
 }
 wof_register('wof.kernel');
 wof_register('wof.widget');
+wof_register('wof.widget.spanner');
 wof_register('wof.bizWidget');
 wof_register('wof.bizWidget.spanner');
 wof_register('wof.util');

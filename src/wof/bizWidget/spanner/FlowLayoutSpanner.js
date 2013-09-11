@@ -6,7 +6,7 @@
  */
 wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_render',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_click',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
         +' if(data.id==this.getPropertys().id){ '
         +' var flowLayout=wof.util.ObjectManager.get(data.id); '
@@ -36,6 +36,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         flowLayout.setActiveSectionIndex(null);
         flowLayout.setActiveItemRank(null);
         flowLayout.render();
+        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
     });
     this._deleteFlowLayoutIco.click(function(event){
         event.stopPropagation();
