@@ -149,6 +149,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
                         flowLayout.mergeItem(activeItemRank, activeSectionIndex);
                         flowLayout.render();
                         jQuery(this).remove();
+                        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
                     },
                     '取消':function(){
                         jQuery(this).dialog('close');
@@ -164,6 +165,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
             }
             flowLayout.mergeItem(activeItemRank, activeSectionIndex);
             flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
         }
     });
     this._splitItemArrow.click(function(event){
@@ -173,6 +175,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         var activeItemRank = _this.getPropertys().activeItemRank;
         flowLayout.splitItem(activeItemRank, activeSectionIndex);
         flowLayout.render();
+        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
     });
     this._deleteItemIco.click(function(event){
         event.stopPropagation();
