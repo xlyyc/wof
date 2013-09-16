@@ -41,13 +41,11 @@ wof.bizWidget.PropertyBar.prototype={
             tr.append(td);
             var input = jQuery('<input type="input" style="width:100px;" name="'+componentData.name+'" value="'+componentData.value+'"/>');
             td.append(input);
-            input.bind('input propertychange', function() {
-                /*if(_this._propertys!=null){
-                    _this._propertys[componentData.name] = jQuery(this).val();
-                }*/
-            });
-        }else{
-            //todo 支持其他类型的控件
+        }else if(componentData.type=='label'){
+            var td = jQuery('<td style="width:60%;"></td>');
+            tr.append(td);
+            var label = jQuery('<label style="width:100px;">'+componentData.value+'</label>');
+            td.append(label);
         }
 		return tr;
 	},
@@ -66,7 +64,12 @@ wof.bizWidget.PropertyBar.prototype={
                     continue;
                 }
                 var value = propertys[name];
-                trs.push(this._createTr(name,{type:'text',name:name,value:value}));
+                var readonly = jQuery.inArray(name, propertys['readOnly'])>-1?true:false;
+                if(readonly==true){
+                    trs.push(this._createTr(name,{type:'label',name:name,value:value}));
+                }else{
+                    trs.push(this._createTr(name,{type:'text',name:name,value:value}));
+                }
             }
             var table = this._createTable(trs);
             this.getDomInstance().append(table);

@@ -316,6 +316,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.col = activeItem.getCol();
                     activeData.colspan = activeItem.getColspan();
                     activeData.sectionIndex = activeSection.getIndex();
+                    activeData.readOnly = ['id','className','activeClass','row','col','sectionIndex'];
                 }else{
                     activeData.activeClass = 'FlowLayoutSection';
                     activeData.title = activeSection.getTitle();
@@ -325,6 +326,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.isExpand = activeSection.getIsExpand();
                     activeData.width = activeSection.getWidth();
                     activeData.index = activeSection.getIndex();
+                    activeData.readOnly = ['id','className','activeClass'];
                 }
                 //当前激活section加入上移 下移 插入 删除操作句柄
                 if(activeSectionIndex>1){
@@ -356,6 +358,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                 activeData.onSendMessage = flowLayout.getOnSendMessage();
                 activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
                 activeData.sendMessages = flowLayout.getSendMessages();
+                activeData.readOnly = ['id','className','activeClass'];
             }
             //当前选中的flowLayout加入拖放 删除操作句柄
             this._selectFlowLayoutIco.css('top',-16).css('left',0);
