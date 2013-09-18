@@ -40,7 +40,7 @@ if (!wof.util.Observer) {
 					var listeners = wof.util.Observer._messageTable.items(message.id);
                     if(wof.util.Observer._sorted[message.id]==false){
                         listeners.sort(function(a, b) {
-                            return a.priority - b.priority;
+                            return b.priority - a.priority;
                         });
                         wof.util.Observer._sorted[message.id]=true;
                     }
