@@ -440,8 +440,16 @@ var wof$_aop = (function(){
                             this.setZIndex(data.zIndex);
                             this.setScale(data.scale);
                             if(this.getIsInside()!=true){
-                                this.setOnSendMessage(data.onSendMessage);
-                                this.setOnReceiveMessage(data.onReceiveMessage);
+                                var onSendMessage = [];
+                                for(var i=0;i<data.onSendMessage.length;i++){
+                                    onSendMessage.push({id:data.onSendMessage[i]['id'],method:data.onSendMessage[i]['method']});
+                                }
+                                this.setOnSendMessage(onSendMessage);
+                                var onReceiveMessage = [];
+                                for(var i=0;i<data.onReceiveMessage.length;i++){
+                                    onReceiveMessage.push({id:data.onReceiveMessage[i]['id'],method:data.onReceiveMessage[i]['method'],priority:data.onReceiveMessage[i]['priority']});
+                                }
+                                this.setOnReceiveMessage(onReceiveMessage);
                             }
                             this._setData(data);
                             var dataChildLen=data.childNodes.length;
