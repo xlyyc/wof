@@ -6,6 +6,7 @@
 <link href="lib/jquery.ui/themes/cupertino/jquery-ui.min.css" rel="stylesheet">
 <link href="lib/jquery.ui.multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <link href="lib/jquery.ui.multiselect/css/jquery.multiselect.filter.css" rel="stylesheet">
+<link href="lib/jquery.ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 <style type="text/css">
 <!--
 	* {
@@ -21,6 +22,7 @@
 <script src="lib/jquery.ui/jquery-ui-1.10.1.custom.min.js"></script>
 <script src="lib/jquery.ui.multiselect/js/jquery.multiselect.min.js"></script>
 <script src="lib/jquery.ui.multiselect/js/jquery.multiselect.filter.min.js"></script>
+<script src="lib/jquery.ztree/js/jquery.ztree.all-3.5.min.js"></script>
 <script src="lib/json2.js"></script>
 <script src="lib/fixConsole.js"></script>
 <script src="src/wof/kernel/initNamespace.js"></script>
@@ -46,7 +48,7 @@
 <script src="src/wof/widget/RadioGroupItem.js"></script>
 <script src="src/wof/widget/RadioGroup.js"></script>
 <script src="src/wof/widget/ComboBox.js"></script>
-
+<script src="src/wof/widget/Tree.js"></script>
 <script src="src/wof/widget/spanner/ButtonSpanner.js"></script>
 
 <script src="src/wof/bizWidget/FlowLayout.js"></script>
@@ -413,6 +415,24 @@ jQuery(function(){
                         mediator.appendTo(panel);
 
                         flowLayout.setScale(1);*/
+
+
+                        var nodes = [
+                            {name: "父节点1", children: [
+                                {name: "子节点1"},
+                                {name: "子节点2"}
+                            ]},
+                            {name: "父节点2",leaf : true},
+                            {name: "父节点3",open : true}
+                        ];
+
+
+                        var tree = new Tree();
+                        tree.setNodes(nodes);
+
+                        tree.appendTo(flowLayoutItem);
+
+
                         panel.render();
 
                         //测试设置当前section和当前item

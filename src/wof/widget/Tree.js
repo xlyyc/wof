@@ -10,27 +10,60 @@ wof.widget.Tree = function () {
 };
 
 wof.widget.Tree.prototype = {
-    /**
-     * 属性声明 （private ，用"_"标识）
-     */
 
+    url: null,
     /**
-     * get/set 属性方法定义
+     * type string or object
      */
+    param: null,
+    /**
+     *   数据格式
+     *   var nodes = [
+             {name: "父节点1", children: [
+                 {name: "子节点1"},
+                 {name: "子节点2"}
+             ]},
+             {name: "父节点2",leaf : true,icon : 'home'},
+             {name: "父节点3",open : true}
+         ];
+     */
+    nodes: null,
+
+    setNodes: function (nodes) {
+        this.nodes = nodes;
+    },
+    getNodes: function () {
+        return this.nodes;
+    },
 
 
-    /**
-     * Render 方法定义
-     */
+    onClick: function () {
+
+    },
+
+    onExpand: function () {
+
+    },
+    beforeClick: function () {
+
+    },
+
+    beforeExpand: function () {
+
+    },
 
     //选择实现
     beforeRender: function () {
-
+        var ztreeInstance = this.getDomInstance().data('ztree');
+        if(ztreeInstance){
+            ztreeInstance.destroy();
+        }
     },
 
     //----------必须实现----------
     render: function () {
-
+        var ztreeInstance = jQuery.fn.zTree.init(this.getDomInstance().addClass('ztree'), {}, this.nodes);
+        this.getDomInstance().data('ztree',ztreeInstance);
     },
 
     //选择实现
