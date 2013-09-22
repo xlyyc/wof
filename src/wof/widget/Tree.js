@@ -7,6 +7,11 @@
 
 wof.widget.Tree = function () {
 
+    var _this = this;
+    this.getDomInstance().click(function(event){
+        event.stopPropagation();
+
+    });
 };
 
 wof.widget.Tree.prototype = {
