@@ -59,6 +59,7 @@
 <script src="src/wof/bizWidget/OnReceiveMessageBar.js"></script>
 
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
+<script src="src/wof/bizWidget/Structure.js"></script>
 
 <script src="src/wof/kernel/initAOP.js"></script>
 <script>
@@ -466,8 +467,7 @@ jQuery(function(){
                         ];
 
 
-                        var tree = new Tree();
-                        tree.setNodes(nodes);
+                        var tree = new Structure();
 
                         tree.appendTo(flowLayoutItem);
 

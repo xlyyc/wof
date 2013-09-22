@@ -1,10 +1,3 @@
-/**
- * @widgetClass Tree class
- * @package wof.widget
- * @copyright author
- * @Time: 13-8-7 上午10:46
- */
-
 wof.widget.Tree = function () {
 
     var _this = this;
