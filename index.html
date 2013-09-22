@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>misGen 业务构建平台</title>
-<link href="lib/jquery.ui/themes/cupertino/jquery-ui.min.css" rel="stylesheet">
+<link href="lib/jquery.ui/themes/sunny/jquery-ui.min.css" rel="stylesheet">
 <link href="lib/jquery.ui.multiselect/css/jquery.multiselect.css" rel="stylesheet">
 <link href="lib/jquery.ui.multiselect/css/jquery.multiselect.filter.css" rel="stylesheet">
 <link href="lib/jquery.ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
@@ -119,14 +119,36 @@ jQuery(function(){
 		var windowHeight = jQuery(window).height();
         with(wof.widget)
             with(wof.bizWidget){
-
                 var panel = new Panel();
                 panel.setWidth(sidebar1Width);
                 panel.setHeight(windowHeight-headerHeight-footerHeight);
                 panel.setTop(0);
                 panel.setLeft(0);
+                panel.setCss('ui-widget-content');
+                panel.setOverflow('y');
                 sidebar1.append(panel.getDomInstance());
                 wof.util.ObjectManager.add(panel.getId(), panel);
+
+                var toolbar = new Toolbar();
+                toolbar.setWidth(sidebar1Width-18);
+                toolbar.setTop(0);
+                toolbar.setLeft(0);
+                toolbar.appendTo(panel);
+
+                var toolbarItem1 = new ToolbarItem();
+                toolbarItem1.setTitle('基本组件');
+                toolbarItem1.setName('nodes');
+                toolbarItem1.appendTo(toolbar);
+                for(var i=0;i<5;i++){
+                    var btn = new Button();
+                    btn.setType('submit');
+                    btn.setLeft(0);
+                    btn.setWidth(100);
+                    btn.setHeight(30);
+                    btn.setText('组件'+String(i));
+                    btn.appendTo(toolbarItem1);
+                }
+
 
                 panel.render();
 		}

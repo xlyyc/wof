@@ -13,6 +13,8 @@ var wof$_aop = (function(){
 		for(var o in obj){
 			if(typeof(obj[o])=='function'){
 				if(obj[o]['getClassName']==null){
+                    //todo disable
+
                     obj[o].prototype._sendMessages = null;
                     obj[o].prototype._onSendMessage = null;
                     obj[o].prototype.getOnSendMessage = function() {
