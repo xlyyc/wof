@@ -6,6 +6,7 @@
  */
 
 wof.widget.ToolbarItem = function () {
+    this.setPosition('relative');
 
 };
 
@@ -75,26 +76,15 @@ wof.widget.ToolbarItem.prototype = {
                     _this.setIsHide(true);
                 }
             });
-            this._divChildNodes = jQuery('<div style="position:absolute;width:'+(this.parentNode().getWidth()-1)+'px;">');
+            this.getDomInstance().append(jQuery('<div style="height:8px;">'));
+            this._divChildNodes = jQuery('<div style="width:'+(this.parentNode().getWidth()-1)+'px;">');
             this.getDomInstance().append(this._divChildNodes);
-            var divHeight = 0;
             for(var i=0;i<this.childNodes().length;i++){
                 var node = this.childNodes()[i];
+                node.setPosition('relative');
                 this._divChildNodes.append(node.getDomInstance());
-                node.setLeft(0);
-                if(i==0){
-                    node.setTop(0);
-                }else{
-                    var prevNode = this.childNodes()[i-1];
-                    node.setTop(prevNode.getTop()+prevNode.getHeight()+8);
-                }
-                divHeight = node.getTop()+node.getHeight();
             }
-            divHeight = divHeight+8;
-            this._divChildNodes.css('height',divHeight+'px');
         }
-
-
     },
 
     //----------必须实现----------
@@ -106,6 +96,8 @@ wof.widget.ToolbarItem.prototype = {
     afterRender: function () {
         if(this.getIsHide()==true){
             this._divChildNodes.hide();
+        }else{
+            this._divChildNodes.show();
         }
     },
 
