@@ -139,25 +139,32 @@ jQuery(function(){
                 toolbarItem1.setTitle('基本组件');
                 toolbarItem1.setName('nodes');
                 toolbarItem1.appendTo(toolbar);
-                for(var i=0;i<5;i++){
-                    var btn = new Button();
-                    btn.setType('submit');
-                    btn.setWidth(100);
-                    btn.setHeight(35);
-                    btn.setText('组件'+String(i));
-                    btn.appendTo(toolbarItem1);
+
+                for(var o in wof.widget){
+                    if(typeof(wof.widget[o])=='function'){
+                        var btn = new Button();
+                        btn.setType('submit');
+                        btn.setWidth(100);
+                        btn.setHeight(35);
+                        btn.setText(o);
+                        btn.appendTo(toolbarItem1);
+                    }
                 }
                 var toolbarItem2 = new ToolbarItem();
                 toolbarItem2.setTitle('业务组件');
                 toolbarItem2.setName('nodes2');
                 toolbarItem2.appendTo(toolbar);
-                for(var i=0;i<5;i++){
-                    var btn = new Button();
-                    btn.setType('submit');
-                    btn.setWidth(100);
-                    btn.setHeight(35);
-                    btn.setText('组件'+String(i));
-                    btn.appendTo(toolbarItem2);
+                for(var o in wof.bizWidget){
+                    if(typeof(wof.bizWidget[o])=='function'){
+                        if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'){
+                            var btn = new Button();
+                            btn.setType('submit');
+                            btn.setWidth(100);
+                            btn.setHeight(35);
+                            btn.setText(o);
+                            btn.appendTo(toolbarItem2);
+                        }
+                    }
                 }
 
                 panel.render();
