@@ -36,11 +36,22 @@ wof.widget.Button.prototype = {
     //按钮类型：button 普通，submit 提交
     _type: null ,
 
+    _value: null,
+
     _btn: null,
 
     /**
      * get/set 属性方法定义
      */
+
+    getValue : function (){
+        return this._value || '';
+    },
+
+    setValue : function (value){
+        this._value = value;
+    },
+
     getDisabled: function(){
         if(this._disabled == null)
             this._disabled = '';
@@ -104,6 +115,7 @@ wof.widget.Button.prototype = {
 
     //----------必须实现----------
     render: function () {
+        this._btn.attr('value',this.getValue());
         this._btn.button(
             {
                 label: this.getText() ,
@@ -134,6 +146,7 @@ wof.widget.Button.prototype = {
     //----------必须实现----------
     getData: function () {
         return {
+            value : this.getValue(),
             disabled: this.getDisabled() ,
             icons: this.getIcons(),
             text: this.getText(),
@@ -143,6 +156,7 @@ wof.widget.Button.prototype = {
     },
     //----------必须实现----------
     setData: function (data) {
+        this.setValue(data.value);
         this.setDisabled(data.disabled);
         this.setIcons(data.icons);
         this.setText(data.text);

@@ -125,6 +125,31 @@ wof.bizWidget.FlowLayout.prototype = {
     },
 
     _insideOnReceiveMessage:{
+        'wof.bizWidget.FlowLayoutItem_widgetDrop':function(message){
+            console.log(message.id+'   '+this.getClassName());
+            var obj = wof.util.ObjectManager.get(message.data.widgetId);
+            this.insertNode(obj);
+            this.render();
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
+        },
+        'wof.bizWidget.FlowLayoutItem_newWidgetDrop':function(message){
+            console.log(message.id+'   '+this.getClassName());
+            var obj = wof.util.ObjectManager.get(message.data.widgetId);
+
+
+            var node = eval('new '+obj.getValue()+'()');
+
+            //todo 需要根据不同类型去创建对应对象
+            node.setType('submit');
+            node.setLeft(0);
+            node.setTop(0);
+            node.setText('未命名控件');
+
+            this.insertNode(node);
+            this.render();
+
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
+        },
         'wof.bizWidget.FlowLayoutSection_click':function(message){
             console.log(message.id+'   '+this.getClassName());
             var section = wof.util.ObjectManager.get(message.sender.id);
@@ -201,40 +226,38 @@ wof.bizWidget.FlowLayout.prototype = {
 
     /**
      * 在指定item插入节点
+     * 如果itemRank和sectionIndex为null 则在当前焦点的item中插入
      * node 节点对象
-     * itemIndex 在指定item序号内插入(序号从0开始)
-     * 如果itemIndex为null 缺省在最后的item内插入
-     * 如果指定item 不存在 则在最后的item内插入
+     * itemIndex 在指定item序号内插入(序号从1开始)
      * sectionIndex section 序号
-     * sectionIndex为null 缺省在最后section
      */
     insertNode: function(node, itemRank, sectionIndex){
         if(node!=null){
-            var section = this.findSectionByIndex(sectionIndex);
-            if(section==null){
-                section = this._findLastSection();
+            if(itemRank==null && sectionIndex==null){
+                sectionIndex = this.getActiveSectionIndex();
+                itemRank = this.getActiveItemRank();
             }
-            if(section==null){
-                console.log('不存在section 请先插入新的section');
-            }else{
-                var item = section.findItemByRank(itemRank);
-                if(item==null){
-                    item = section.findLastItem();
-                }
-                if(item!=null){
-                    if(item.childNodes().length==0){
-                        node.appendTo(item);
+            if(itemRank!=null && sectionIndex!=null){
+                var section = this.findSectionByIndex(sectionIndex);
+                if(section!=null){
+                    var item = section.findItemByRank(itemRank);
+                    if(item!=null){
+                        if(item.childNodes().length==0){
+                            node.appendTo(item);
+                        }else{
+                            var newItem = new wof.bizWidget.FlowLayoutItem();
+                            newItem.afterTo(item);
+                            node.appendTo(newItem);
+                        }
                     }else{
-                        var newItem = new wof.bizWidget.FlowLayoutItem();
-                        newItem.afterTo(item);
-                        node.appendTo(newItem);
+                        console.log('不存在item 请先插入新的item');
                     }
                 }else{
-                    console.log('不存在item 请先插入新的item');
+                    console.log('不存在section 请先插入新的section');
                 }
             }
         }else{
-            console.log('不能插入null node对象');
+            console.log('node对象为null 不能插入');
         }
     },
 

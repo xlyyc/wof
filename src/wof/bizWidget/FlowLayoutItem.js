@@ -19,7 +19,24 @@ wof.bizWidget.FlowLayoutItem = function () {
         hoverClass: 'ui-state-hover',
         drop:function(event,ui){
             event.stopPropagation();
-            _this.sendMessage('wof.bizWidget.FlowLayoutItem_drop', {'itemId':ui.draggable.attr('oid')});
+            var obj = wof.util.ObjectManager.get(ui.draggable.attr('oid'));
+            if(obj!=null){
+                if(obj.getClassName()=='wof.bizWidget.FlowLayoutItem'){
+                    _this.sendMessage('wof.bizWidget.FlowLayoutItem_itemDrop', {'itemId':ui.draggable.attr('oid')});
+                }else{
+                    if(obj.getIsInside()==true){
+                        var sectionIndex = _this.parentNode().getIndex();
+                        _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
+                        _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
+                        _this.sendMessage('wof.bizWidget.FlowLayoutItem_newWidgetDrop', {'widgetId':ui.draggable.attr('oid')});
+                    }else{
+                        var sectionIndex = _this.parentNode().getIndex();
+                        _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
+                        _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
+                        _this.sendMessage('wof.bizWidget.FlowLayoutItem_widgetDrop', {'widgetId':ui.draggable.attr('oid')});
+                    }
+                }
+            }
         }
     });
     this.getDomInstance().draggable({

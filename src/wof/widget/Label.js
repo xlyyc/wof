@@ -39,12 +39,20 @@ wof.widget.Label.prototype = {
 
     _isHighlight:null, //是否需要高亮
 
+    _value: null,
+
     _initFlag: null,
 
     /**
      * get/set 属性方法定义
      */
-	 
+    getValue : function (){
+        return this._value || '';
+    },
+
+    setValue : function (value){
+        this._value = value;
+    },
 	 getText: function(){
 		if(this._text==null)
 			this._text = '';
@@ -113,6 +121,7 @@ wof.widget.Label.prototype = {
         }else{
             this._label.removeClass('ui-state-hover');
         }
+        this._label.attr('value',this.getValue());
 		if(this.getIsUnderline()==true){
             var hr = jQuery('<hr style="position:absolute;top:24px;width:100%;border-top:1px solid black;">');
             this.getDomInstance().append(hr);
@@ -131,6 +140,7 @@ wof.widget.Label.prototype = {
     //----------必须实现----------
     getData: function () {
         return {
+            value : this.getValue(),
 			text: this.getText(),
             isUnderline: this.getIsUnderline(),
             isBold: this.getIsBold(),
@@ -139,22 +149,11 @@ wof.widget.Label.prototype = {
     },
     //----------必须实现----------
     setData: function (data) {
+        this.setValue(data.value);
 		this.setText(data.text);
         this.setIsUnderline(data.isUnderline);
         this.setIsBold(data.isBold);
         this.setIsHighlight(data.isHighlight);
-    },
-
-    //选择实现
-    _update:function(data){
-        if(data.text!=null){
-            this.setText(data.text);
-        }
-        this.render();
-    },
-
-    _delete: function(){
-        this.remove();
     }
 
 };

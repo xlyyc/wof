@@ -220,7 +220,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     },
 
     _insideOnReceiveMessage:{
-        'wof.bizWidget.FlowLayoutItem_drop':function(message){
+        'wof.bizWidget.FlowLayoutItem_itemDrop':function(message){
             console.log(message.id+'   '+this.getClassName());
             var insertItem = wof.util.ObjectManager.get(message.data.itemId);
             var item = wof.util.ObjectManager.get(message.sender.id);

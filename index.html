@@ -55,6 +55,7 @@
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutItem.js"></script>
 <script src="src/wof/bizWidget/PropertyBar.js"></script>
+<script src="src/wof/bizWidget/ObjectBar.js"></script>
 <script src="src/wof/bizWidget/OnSendMessageBar.js"></script>
 <script src="src/wof/bizWidget/OnReceiveMessageBar.js"></script>
 
@@ -130,43 +131,11 @@ jQuery(function(){
                 sidebar1.append(panel.getDomInstance());
                 wof.util.ObjectManager.add(panel.getId(), panel);
 
-                var toolbar = new Toolbar();
-                toolbar.setWidth(sidebar1Width-18);
-                toolbar.setTop(0);
-                toolbar.setLeft(0);
-                toolbar.appendTo(panel);
-
-                var toolbarItem1 = new ToolbarItem();
-                toolbarItem1.setTitle('基本组件');
-                toolbarItem1.setName('nodes');
-                toolbarItem1.appendTo(toolbar);
-
-                for(var o in wof.widget){
-                    if(typeof(wof.widget[o])=='function'){
-                        var btn = new Button();
-                        btn.setType('submit');
-                        btn.setWidth(130);
-                        btn.setHeight(25);
-                        btn.setText(o);
-                        btn.appendTo(toolbarItem1);
-                    }
-                }
-                var toolbarItem2 = new ToolbarItem();
-                toolbarItem2.setTitle('业务组件');
-                toolbarItem2.setName('nodes2');
-                toolbarItem2.appendTo(toolbar);
-                for(var o in wof.bizWidget){
-                    if(typeof(wof.bizWidget[o])=='function'){
-                        if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'){
-                            var btn = new Button();
-                            btn.setType('submit');
-                            btn.setWidth(130);
-                            btn.setHeight(25);
-                            btn.setText(o);
-                            btn.appendTo(toolbarItem2);
-                        }
-                    }
-                }
+                var objectBar = new ObjectBar();
+                objectBar.setWidth(sidebar1Width-18);
+                objectBar.setTop(0);
+                objectBar.setLeft(0);
+                objectBar.appendTo(panel);
 
                 panel.render();
 		}
@@ -295,20 +264,20 @@ jQuery(function(){
                         var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:4,itemHeight:80};
                         flowLayout.insertSection(sectionData1);
 
-                        for(var t=1;t<4;t++){
+                       /* for(var t=1;t<4;t++){
                             var btn = new Button();
                             btn.setType('submit');
                             btn.setLeft(0);
                             btn.setTop(0);
                             btn.setText('按钮'+String(t));
                             flowLayout.insertNode(btn);
-                        }
-                        var btn = new Button();
+                        }*/
+                       /* var btn = new Button();
                         btn.setType('submit');
                         btn.setLeft(0);
                         btn.setTop(0);
                         btn.setText('测试按钮');
-                        flowLayout.insertNode(btn,0,0);
+                        flowLayout.insertNode(btn,0,0);*/
 
                         var flowLayoutSection2 = new FlowLayoutSection();
                         /*flowLayoutSection2.setLeft(0);
