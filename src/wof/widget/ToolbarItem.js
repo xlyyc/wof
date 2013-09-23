@@ -83,6 +83,7 @@ wof.widget.ToolbarItem.prototype = {
                 var node = this.childNodes()[i];
                 node.setPosition('relative');
                 this._divChildNodes.append(node.getDomInstance());
+                this._divChildNodes.append(jQuery('<div style="height:4px;">'));
             }
         }
     },

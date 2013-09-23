@@ -34,6 +34,8 @@ wof.widget.Button.prototype = {
     //按钮类型：button 普通，submit 提交
     _type: null ,
 
+    _btn: null,
+
     /**
      * get/set 属性方法定义
      */
@@ -92,14 +94,15 @@ wof.widget.Button.prototype = {
 
     //选择实现
     beforeRender: function () {
-        this.getDomInstance().children('input[type=button],input[type=submit], button').remove();
+        if(this._btn==null){
+            this._btn = jQuery('<button type="'+this.getType()+'" '+this.getDisabled()+' />');
+            this.getDomInstance().append(this._btn);
+        }
     },
 
     //----------必须实现----------
     render: function () {
-        this.getDomInstance().attr('id', this.getId());
-        var btn = jQuery('<button type="'+this.getType()+'" '+this.getDisabled()+' />');
-        btn.button(
+        this._btn.button(
             {
                 label: this.getText() ,
                 icons : {
@@ -109,13 +112,17 @@ wof.widget.Button.prototype = {
                 text : this.getTextShowed()
             }
         );
-
-        this.getDomInstance().append(btn);
+        if(this.getHeight()!=null){
+            this._btn.css('height',this.getHeight())
+        }
+        if(this.getWidth()!=null){
+            this._btn.css('width',this.getWidth())
+        }
     },
 
     //选择实现
     afterRender: function () {
-
+        this._btn.button('refresh');
     },
 
     /**
@@ -139,18 +146,6 @@ wof.widget.Button.prototype = {
         this.setText(data.text);
         this.setTextShowed(data.textShowed);
         this.setType(data.type);
-    },
-
-    //选择实现
-    _update:function(data){
-        if(data.text!=null){
-            this.setText(data.text);
-        }
-        this.render();
-    },
-
-    _delete: function(){
-        this.remove();
     }
 
 };
