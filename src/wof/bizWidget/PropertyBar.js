@@ -32,14 +32,14 @@ wof.bizWidget.PropertyBar.prototype={
 		return table;
 	},
 	//创建行
-	_createTr: function(label,componentData){
+	_createTr: function(label,componentData,readonly){
         var _this = this;
 		var tr = jQuery('<tr style="height:30px;border:1px inset #a1a1a1;">');
 		tr.append(jQuery('<td style="width:40%;"><span style="width:100px;">'+label+'</span></td>'));
 		if(componentData.type=='text'){
             var td = jQuery('<td style="width:60%;"></td>');
             tr.append(td);
-            var input = jQuery('<input type="input" style="width:100px;" name="'+componentData.name+'" value="'+componentData.value+'"/>');
+            var input = jQuery('<input type="input" style="width:100px;"  name="'+componentData.name+'" value="'+componentData.value+'"/>');
             td.append(input);
         }else if(componentData.type=='label'){
             var td = jQuery('<td style="width:60%;"></td>');
@@ -66,7 +66,7 @@ wof.bizWidget.PropertyBar.prototype={
                 var value = propertys[name];
                 var readonly = jQuery.inArray(name, propertys['readOnly'])>-1?true:false;
                 if(readonly==true){
-                    trs.push(this._createTr(name,{type:'label',name:name,value:value}));
+                    trs.push(this._createTr(name,{type:'text',name:name,value:value}));
                 }else{
                     trs.push(this._createTr(name,{type:'text',name:name,value:value}));
                 }
