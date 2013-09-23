@@ -16,6 +16,7 @@ wof.bizWidget.FlowLayout = function () {
         var pageY = event.pageY;
         //todo 鼠标位置的传递方式
         _this.sendMessage('wof.bizWidget.FlowLayout_click');
+        _this.sendMessage('wof.bizWidget.FlowLayout_active');
     });
 
 };
@@ -131,7 +132,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank(null);
             this.render();
-            this.sendMessage('wof.bizWidget.FlowLayout_click');
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
         },
         'wof.bizWidget.FlowLayoutSection_dblclick':function(message){
             console.log(message.id+'   '+this.getClassName());
@@ -148,7 +149,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank({row:item.getRow(),col:item.getCol()});
             this.render();
-            this.sendMessage('wof.bizWidget.FlowLayout_click');
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
         },
         'wof.bizWidget.FlowLayoutSection_drop':function(message){
             console.log(message.id+'   '+this.getClassName());

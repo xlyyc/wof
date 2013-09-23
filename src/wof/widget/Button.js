@@ -15,7 +15,9 @@ wof.widget.Button = function () {
         event.stopPropagation();
         var positionX = event.pageX;
         var positionY = event.pageY;
-        _this.sendMessage('wof.widget.Button_click',{x:positionX,y:positionY});
+        //todo 坐标传递方式
+        _this.sendMessage('wof.widget.Button_click');
+        _this.sendMessage('wof.widget.Button_active');
     });
 };
 

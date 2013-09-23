@@ -6,22 +6,22 @@
  */
 wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_click',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
         +' if(data.id==this.getPropertys().id){ '
         +' var flowLayout=wof.util.ObjectManager.get(data.id); '
         +' if(data.activeClass=="FlowLayoutSection"){ '
         +'   flowLayout.updateSection(data); '
         +'   flowLayout.render(); '
-        +'   flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
+        +'   flowLayout.sendMessage("wof.bizWidget.FlowLayout_active");'
         +' }else if(data.activeClass=="FlowLayoutItem"){ '
         +'     flowLayout.updateItem(data); '
         +'     flowLayout.render(); '
-        +'     flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
+        +'     flowLayout.sendMessage("wof.bizWidget.FlowLayout_active");'
         +'   }else if(data.activeClass=="FlowLayout"){ '
         +'       flowLayout.updateFlowLayout(data); '
         +'       flowLayout.render();'
-        +'       flowLayout.sendMessage("wof.bizWidget.FlowLayout_click");'
+        +'       flowLayout.sendMessage("wof.bizWidget.FlowLayout_active");'
         +'    } '
         +'}';
     onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:method});
@@ -39,7 +39,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         flowLayout.setActiveSectionIndex(null);
         flowLayout.setActiveItemRank(null);
         flowLayout.render();
-        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
+        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
     });
     this._deleteFlowLayoutIco.click(function(event){
         event.stopPropagation();
@@ -152,7 +152,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
                         flowLayout.mergeItem(activeItemRank, activeSectionIndex);
                         flowLayout.render();
                         jQuery(this).remove();
-                        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
+                        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
                     },
                     '取消':function(){
                         jQuery(this).dialog('close');
@@ -168,7 +168,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
             }
             flowLayout.mergeItem(activeItemRank, activeSectionIndex);
             flowLayout.render();
-            flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
         }
     });
     this._splitItemArrow.click(function(event){
@@ -178,7 +178,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         var activeItemRank = _this.getPropertys().activeItemRank;
         flowLayout.splitItem(activeItemRank, activeSectionIndex);
         flowLayout.render();
-        flowLayout.sendMessage('wof.bizWidget.FlowLayout_click');
+        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
     });
     this._deleteItemIco.click(function(event){
         event.stopPropagation();

@@ -163,13 +163,13 @@ var wof$_aop = (function(){
                             }
                             var onReceiveMessageFunc = this._onReceiveMessageMethods[message.id];
                             if(onReceiveMessageFunc!=null){ //有相应的用户定制业务脚本处理 则直接调用
-                                //try{
+                                try{
                                     var func = null;
                                     eval('func=(function wof$_onReceiveMessageFunc(message){ '+onReceiveMessageFunc+' })');
                                     return func.apply(this,arguments);
-                                /*}catch(e){
+                                }catch(e){
                                     console.log('执行用户定制业务脚本处理过程发生异常 原因:'+e);
-                                }*/
+                                }
                             }
                         }else{ //如果是内部对象 则不能响应外部发布的消息
                             console.log('内部对象不能响应处理消息:'+message.id);

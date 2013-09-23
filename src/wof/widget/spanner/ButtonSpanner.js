@@ -6,7 +6,7 @@
  */
 wof.widget.spanner.ButtonSpanner = function () {
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.widget.Button_click',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.widget.Button_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
         +'if(data.id==this.getPropertys().id){ '
         +' var button=wof.util.ObjectManager.get(data.id); '
