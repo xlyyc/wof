@@ -179,7 +179,7 @@ jQuery(function(){
 		with(wof.widget)
             with(wof.bizWidget){
                 var panel = new Panel();
-                panel.setWidth(sidebar2Width);
+                panel.setWidth(sidebar2Width-18);
                 panel.setHeight(windowHeight-headerHeight-footerHeight);
                 panel.setTop(0);
                 panel.setLeft(0);
@@ -187,7 +187,7 @@ jQuery(function(){
                 wof.util.ObjectManager.add(panel.getId(), panel);
 
                 var tab = new Tab();
-                tab.setWidth(sidebar2Width-24);
+                tab.setWidth(sidebar2Width-18);
                 tab.setTop(0);
                 tab.setLeft(0);
                 tab.appendTo(panel);
@@ -197,7 +197,7 @@ jQuery(function(){
                 tabItem1.appendTo(tab);
 
                 var propertyBar = new PropertyBar();
-                propertyBar.setWidth(sidebar2Width-24);
+                propertyBar.setWidth(sidebar2Width-18);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var method = 'this.setPropertys(message.sender.activeData);this.render();';
                 var onReceiveMessage = [];
@@ -213,7 +213,7 @@ jQuery(function(){
                 tabItem2.appendTo(tab);
 
                 var onSendMessageBar = new OnSendMessageBar();
-                onSendMessageBar.setWidth(sidebar2Width-24);
+                onSendMessageBar.setWidth(sidebar2Width-18);
                 onSendMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var meth = 'this.setPropertys(message.sender.activeData);this.render();';
                 var receives = [];
@@ -229,7 +229,7 @@ jQuery(function(){
                 tabItem3.appendTo(tab);
 
                 var onReceiveMessageBar = new OnReceiveMessageBar();
-                onReceiveMessageBar.setWidth(sidebar2Width-24);
+                onReceiveMessageBar.setWidth(sidebar2Width-18);
                 onReceiveMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var met = 'this.setPropertys(message.sender.activeData);this.render();';
                 var receiv = [];
@@ -532,13 +532,13 @@ jQuery(function(){
 	<div id="header" style="position:absolute;background-color:#fff;border-bottom:1px solid black;z-index:90000">
     	<input type="button" id="saveBtn" value="保存" /><input type="button" id="cancelBtn" value="取消" />
     </div>
-	<div id="sidebar1" style="position:absolute;">
+	<div id="sidebar1" style="position:absolute;z-index:90000;">
     	
     </div>
     <div id="content" style="position:absolute;">
     	
     </div>
-    <div id="sidebar2" style="position:absolute;">
+    <div id="sidebar2" style="position:absolute;z-index:90000;">
     	
     </div>
     <div id="footer" style="position:absolute;z-index:90000;background:#FFC;"></div>

@@ -76,7 +76,7 @@ wof.widget.ToolbarItem.prototype = {
                     _this.setIsHide(true);
                 }
             });
-            this.getDomInstance().append(jQuery('<div style="height:8px;">'));
+            this.getDomInstance().append(jQuery('<div style="height:4px;">'));
             this._divChildNodes = jQuery('<div style="width:'+(this.parentNode().getWidth()-1)+'px;">');
             this.getDomInstance().append(this._divChildNodes);
             for(var i=0;i<this.childNodes().length;i++){
