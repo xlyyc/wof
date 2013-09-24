@@ -7,62 +7,62 @@
 
 
 wof.bizWidget.ObjectInspector = function (root) {
+
     this.getDomInstance().click(function (event) {
         event.stopPropagation();
 
     });
 };
+wof.bizWidget.ObjectInspector.prototype = {
 
-wof.bizWidget.ObjectInspector.getCurrentStructureJson = function (root) {
-    var convertInstanceToJson = function (instances) {
-            var jsonArray = '[',
-                index = 0;
-            if (instances) {
-                for (var i = 0; i < instances.length; i++) {
-                    var instance = instances[i],
-                        className = instance._className;
-                    if (className.indexOf('Spanner') >= 0) {
-                        continue;
-                    }
-                    if (index > 0) {
-                        jsonArray += ',';
-                    }
-                    index++;
-                    var children = instance.childNodes();
-                    if (children.length) {
-                        jsonArray += '{"name" : "' + className + '"';
-                        var childrenJson = convertInstanceToJson(children);
-                        if (childrenJson) {
-                            jsonArray += ',"children" : ' + childrenJson;
+    _getCurrentStructureJson: function(root){
+        var convertInstanceToJson = function (instances) {
+                var jsonArray = '[',
+                    index = 0;
+                if (instances) {
+                    for (var i = 0; i < instances.length; i++) {
+                        var instance = instances[i],
+                            className = instance._className;
+                        if (className.indexOf('Spanner') >= 0) {
+                            continue;
                         }
-                        jsonArray += '}';
-                    } else {
-                        jsonArray += '{"name" : "' + className + '"}';
+                        if (index > 0) {
+                            jsonArray += ',';
+                        }
+                        index++;
+                        var children = instance.childNodes();
+                        if (children.length) {
+                            jsonArray += '{"name" : "' + className + '"';
+                            var childrenJson = convertInstanceToJson(children);
+                            if (childrenJson) {
+                                jsonArray += ',"children" : ' + childrenJson;
+                            }
+                            jsonArray += '}';
+                        } else {
+                            jsonArray += '{"name" : "' + className + '"}';
+                        }
                     }
                 }
-            }
-            if (index == 0) {
-                return null;
-            }
-            return jsonArray += ']';
-        },
-        jsonStr = '';
-    if (root) {
-        var instances = [];
-        root.children().each(function () {
-            var oid = jQuery(this).attr('oid'),
-                instance = wof.util.ObjectManager.get(oid);
-            if (instance) {
-                instances.push(instance);
-            }
-        });
-        jsonStr = convertInstanceToJson(instances);
-        return jQuery.parseJSON(jsonStr);
-    }
-    return [];
-}
-
-wof.bizWidget.ObjectInspector.prototype = {
+                if (index == 0) {
+                    return null;
+                }
+                return jsonArray += ']';
+            },
+            jsonStr = '';
+        if (root) {
+            var instances = [];
+            root.children().each(function () {
+                var oid = jQuery(this).attr('oid'),
+                    instance = wof.util.ObjectManager.get(oid);
+                if (instance) {
+                    instances.push(instance);
+                }
+            });
+            jsonStr = convertInstanceToJson(instances);
+            return JSON.parse(jsonStr);
+        }
+        return [];
+    },
 
     //选择实现
     beforeRender: function () {
@@ -75,7 +75,7 @@ wof.bizWidget.ObjectInspector.prototype = {
     //----------必须实现----------
     render: function () {
         var ztreeInstance = jQuery.fn.zTree.init(this.getDomInstance().addClass('ztree'), {},
-            wof.bizWidget.ObjectInspector.getCurrentStructureJson(jQuery('#content')));
+            this._getCurrentStructureJson(jQuery('#content')));
         this.getDomInstance().data('ztree', ztreeInstance);
     },
 
