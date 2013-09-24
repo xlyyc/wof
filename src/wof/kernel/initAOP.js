@@ -270,7 +270,7 @@ var wof$_aop = (function(){
 						this.childNodes().push(childNode);
 					};
 					obj[o].prototype.before = function(node){
-						wof.util.ObjectManager.add(node._id, node);
+						wof.util.ObjectManager.add(node.getId(), node);
 						this.getDomInstance().before(node.getDomInstance());
 						if(this.parentNode()!=null){
 							var idx=jQuery.inArray(this, this.parentNode().childNodes());
@@ -281,7 +281,7 @@ var wof$_aop = (function(){
                         }
 					};
 					obj[o].prototype.after = function(node){
-						wof.util.ObjectManager.add(node._id, node);
+						wof.util.ObjectManager.add(node.getId(), node);
 						this.getDomInstance().after(node.getDomInstance());
 						if(this.parentNode()!=null){
 							var idx=jQuery.inArray(this, this.parentNode().childNodes());
