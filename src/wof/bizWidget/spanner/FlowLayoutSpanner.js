@@ -33,7 +33,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
 
     this._selectFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/selectFlowLayout.png">');
     this._deleteFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteFlowLayout.png">');
-    this._selectFlowLayoutIco.click(function(event){
+    this._selectFlowLayoutIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         flowLayout.setActiveSectionIndex(null);
@@ -41,7 +41,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         flowLayout.render();
         flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
     });
-    this._deleteFlowLayoutIco.click(function(event){
+    this._deleteFlowLayoutIco.mousedown(function(event){
         event.stopPropagation();
         var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该流式布局吗?</p></div>');
         dialogDiv.dialog({
@@ -68,7 +68,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     this._insertSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/insertSection.png">');
     this._upSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/upSection.png">');
     this._downSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/downSection.png">');
-    this._deleteSectionIco.click(function(event){
+    this._deleteSectionIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         if(flowLayout.getSections()==1){
@@ -106,7 +106,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
             });
         }
     });
-    this._insertSectionIco.click(function(event){
+    this._insertSectionIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;
@@ -114,14 +114,14 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         flowLayout.insertSection(sectionData,activeSectionIndex);
         flowLayout.render();
     });
-    this._upSectionIco.click(function(event){
+    this._upSectionIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;
         flowLayout.upSection(activeSectionIndex);
         flowLayout.render();
     });
-    this._downSectionIco.click(function(event){
+    this._downSectionIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;
@@ -133,7 +133,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     this._splitItemArrow = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/splitItemArrow.png">');
     this._deleteItemIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteItem.png">');
 
-    this._mergeItemArrow.click(function(event){
+    this._mergeItemArrow.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;
@@ -171,7 +171,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
             flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
         }
     });
-    this._splitItemArrow.click(function(event){
+    this._splitItemArrow.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;
@@ -180,7 +180,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
         flowLayout.render();
         flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
     });
-    this._deleteItemIco.click(function(event){
+    this._deleteItemIco.mousedown(function(event){
         event.stopPropagation();
         var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
         var activeSectionIndex = _this.getPropertys().activeSectionIndex;

@@ -46,9 +46,11 @@ wof.bizWidget.ObjectBar.prototype={
                         scroll: false,
                         helper: 'clone',
                         start:function(event,ui){
+                            event.stopPropagation();
                             label.getDomInstance().css('zIndex',60000);
                         },
                         stop:function(event,ui){
+                            event.stopPropagation();
                             label.getDomInstance().css('zIndex','auto');
                         }
                     });
@@ -66,7 +68,7 @@ wof.bizWidget.ObjectBar.prototype={
                         label.setIsInside(true);
                         label.setWidth(130);
                         label.setHeight(25);
-                        label.setValue('wof.widget.'+o);
+                        label.setValue('wof.bizWidget.'+o);
                         label.setText(o);
                         label.appendTo(toolbarItem2);
                         label.getDomInstance().draggable({
@@ -77,10 +79,13 @@ wof.bizWidget.ObjectBar.prototype={
                                 left:0
                             },
                             scroll: false,
+                            helper: 'clone',
                             start:function(event,ui){
+                                event.stopPropagation();
                                 label.getDomInstance().css('zIndex',60000);
                             },
                             stop:function(event,ui){
+                                event.stopPropagation();
                                 label.getDomInstance().css('zIndex','auto');
                             }
                         });

@@ -134,21 +134,16 @@ wof.bizWidget.FlowLayout.prototype = {
         },
         'wof.bizWidget.FlowLayoutItem_newWidgetDrop':function(message){
             console.log(message.id+'   '+this.getClassName());
-            var obj = wof.util.ObjectManager.get(message.data.widgetId);
-
-
-            var node = eval('new '+obj.getValue()+'()');
-
-            //todo 需要根据不同类型去创建对应对象
-            node.setType('submit');
-            node.setLeft(0);
-            node.setTop(0);
-            node.setText('未命名控件');
-
-            this.insertNode(node);
-            this.render();
-
-            this.sendMessage('wof.bizWidget.FlowLayout_active');
+            try{
+                var obj = wof.util.ObjectManager.get(message.data.widgetId);
+                var item = wof.util.ObjectManager.get(message.sender.id);
+                var node = eval('(new '+obj.getValue()+'()).createSelf('+item.getWidth()/item.getColspan()+','+item.getHeight()+');');
+                this.insertNode(node);
+                this.render();
+                this.sendMessage('wof.bizWidget.FlowLayout_active');
+            }catch(e){
+                alert(e);
+            }
         },
         'wof.bizWidget.FlowLayoutSection_click':function(message){
             console.log(message.id+'   '+this.getClassName());
@@ -167,7 +162,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.setActiveItemRank(null);
             this.render();
         },
-        'wof.bizWidget.FlowLayoutItem_click':function(message){
+        'wof.bizWidget.FlowLayoutItem_mousedown':function(message){
             console.log(message.id+'   '+this.getClassName());
             var item = wof.util.ObjectManager.get(message.sender.id);
             var sectionIndex = item.parentNode().getIndex();
@@ -554,6 +549,19 @@ wof.bizWidget.FlowLayout.prototype = {
             }
         }
 
+    },
+
+    //创建新的FlowLayout
+    createSelf: function(width, height){
+        var node = new wof.bizWidget.FlowLayout();
+        node.setLeft(0);
+        node.setTop(0);
+        node.setWidth(width);
+        node.setCols(2);
+        node.setItemHeight(60);
+        var sectionData = {title:'未命名',width:width,titleHeight:30,cols:2,itemHeight:80};
+        node.insertSection(sectionData);
+        return node;
     }
 
 };

@@ -338,6 +338,10 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             //todo 需要消息通知移除子对象
             nextItem.clear();
 		}
+        //在remove前需要将绑定的拖放事件移除(jqueryUI拖放事件的特性 需要在此特殊处理)
+        nextItem.getDomInstance().draggable('destroy');
+        nextItem.getDomInstance().droppable('destroy');
+
 		nextItem.remove();
 	},
 	

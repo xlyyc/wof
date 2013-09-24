@@ -8,52 +8,6 @@ wof.bizWidget.FlowLayoutItem = function () {
 
     this.setIsInside(true);
 
-    var _this = this;
-    this.getDomInstance().click(function(event){
-        event.stopPropagation();
-        _this.sendMessage('wof.bizWidget.FlowLayoutItem_click');
-    });
-    this.getDomInstance().droppable({
-        snap:true,
-        accept:'div[className!="wof.bizWidget.FlowLayoutSection"]', //不能接受分组
-        hoverClass: 'ui-state-hover',
-        drop:function(event,ui){
-            event.stopPropagation();
-            var obj = wof.util.ObjectManager.get(ui.draggable.attr('oid'));
-            if(obj!=null){
-                if(obj.getClassName()=='wof.bizWidget.FlowLayoutItem'){
-                    _this.sendMessage('wof.bizWidget.FlowLayoutItem_itemDrop', {'itemId':ui.draggable.attr('oid')});
-                }else{
-                    if(obj.getIsInside()==true){
-                        var sectionIndex = _this.parentNode().getIndex();
-                        _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
-                        _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
-                        _this.sendMessage('wof.bizWidget.FlowLayoutItem_newWidgetDrop', {'widgetId':ui.draggable.attr('oid')});
-                    }else{
-                        var sectionIndex = _this.parentNode().getIndex();
-                        _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
-                        _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
-                        _this.sendMessage('wof.bizWidget.FlowLayoutItem_widgetDrop', {'widgetId':ui.draggable.attr('oid')});
-                    }
-                }
-            }
-        }
-    });
-    this.getDomInstance().draggable({
-        cursor:"move",
-        opacity: 0.7,
-        cursorAt:{
-            top:0,
-            left:0
-        },
-        scroll: false,
-        start:function(event,ui){
-            _this.getDomInstance().css('zIndex',60000);
-        },
-        stop:function(event,ui){
-            _this.getDomInstance().css('zIndex','auto');
-        }
-    });
 };
 wof.bizWidget.FlowLayoutItem.prototype = {
     /**
@@ -102,8 +56,74 @@ wof.bizWidget.FlowLayoutItem.prototype = {
     //选择实现
     beforeRender: function () {
         if(this._initFlag==null){
-            //限定拖放只能在当前分组内
-            this.getDomInstance().draggable( 'option', 'containment', 'div[oid="'+this.parentNode().getId()+'"]' );
+            var _this = this;
+            this.getDomInstance().mousedown(function(event){
+                event.stopPropagation();
+                _this.sendMessage('wof.bizWidget.FlowLayoutItem_mousedown');
+            });
+            this.getDomInstance().droppable({
+                snap:true,
+                accept:function(draggable){
+                    var b=false;
+                    var draggableObj = wof.util.ObjectManager.get(draggable.attr('oid'));
+                    if(draggableObj!=null){
+                        if(draggableObj.getClassName()=='wof.bizWidget.FlowLayoutItem'){
+                            try{
+                                var layout = draggableObj.parentNode().parentNode();
+                                var thisLayout = _this.parentNode().parentNode();
+                                if(thisLayout.getId()==layout.getId()){
+                                    b=true;
+                                }
+                            }catch(e){
+                                console.log(e);
+                            }
+                        }else if(draggableObj.getClassName()!='wof.bizWidget.FlowLayoutSection'){ //不能接受分组
+                            b=true;
+                        }
+                    }
+                    return b;
+                },
+                hoverClass: 'ui-state-hover',
+                drop:function(event,ui){
+                    event.stopPropagation();
+                    var obj = wof.util.ObjectManager.get(ui.draggable.attr('oid'));
+                    if(obj!=null){
+                        if(obj.getClassName()=='wof.bizWidget.FlowLayoutItem'){
+                            _this.sendMessage('wof.bizWidget.FlowLayoutItem_itemDrop', {'itemId':ui.draggable.attr('oid')});
+                        }else{
+                            if(obj.getIsInside()==true){
+                                var sectionIndex = _this.parentNode().getIndex();
+                                _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
+                                _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
+                                _this.sendMessage('wof.bizWidget.FlowLayoutItem_newWidgetDrop', {'widgetId':ui.draggable.attr('oid')});
+                            }else{
+                                var sectionIndex = _this.parentNode().getIndex();
+                                _this.parentNode().parentNode().setActiveSectionIndex(sectionIndex);
+                                _this.parentNode().parentNode().setActiveItemRank({row:_this.getRow(),col:_this.getCol()});
+                                _this.sendMessage('wof.bizWidget.FlowLayoutItem_widgetDrop', {'widgetId':ui.draggable.attr('oid')});
+                            }
+                        }
+                    }
+                }
+            });
+            this.getDomInstance().draggable({
+                cursor:"move",
+                opacity: 0.7,
+                cursorAt:{
+                    top:0,
+                    left:0
+                },
+                containment: 'div[oid="'+this.parentNode().getId()+'"]',  //限定拖放只能在当前分组内
+                scroll: false,
+                start:function(event,ui){
+                    event.stopPropagation();
+                    _this.getDomInstance().css('zIndex',60000);
+                },
+                stop:function(event,ui){
+                    event.stopPropagation();
+                    _this.getDomInstance().css('zIndex','auto');
+                }
+            });
             this._initFlag = true;
         }
     },

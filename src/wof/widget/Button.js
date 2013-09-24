@@ -162,6 +162,18 @@ wof.widget.Button.prototype = {
         this.setText(data.text);
         this.setTextShowed(data.textShowed);
         this.setType(data.type);
+    },
+
+    //创建初始化的button
+    createSelf: function(width, height){
+        var node = new wof.widget.Button();
+        node.setType('submit');
+        node.setLeft(0);
+        node.setTop(0);
+        node.setWidth(width);
+        node.setHeight(height);
+        node.setText('未命名');
+        return node;
     }
 
 };
