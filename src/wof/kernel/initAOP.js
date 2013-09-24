@@ -217,16 +217,20 @@ var wof$_aop = (function(){
 							wof.util.ObjectManager.add(this.getId(), this);
 						}
 					};
-					obj[o].prototype.remove = function(){
+					obj[o].prototype.remove = function(flag){
 						if(this.beforeRemove!=null){
                             this.beforeRemove();
                         }
 						var parentNode = this.parentNode();
 						if(parentNode!=null){
-							parentNode.removeChild(this);
+							parentNode.removeChild(this,flag);
 						}else{
 							wof.util.ObjectManager.remove(this.getId());
-							this.getDomInstance().detach();
+                            if(flag==true){
+                                this.getDomInstance().remove();
+                            }else{
+							    this.getDomInstance().detach();
+                            }
 						}
 						if(this.afterRemove!=null){
                             this.afterRemove();
@@ -243,7 +247,7 @@ var wof$_aop = (function(){
                                 childNodes[i].setOnReceiveMessage([]);
                                 childNodes[i].setOnSendMessage([]);
                             }
-							childNodes[i].remove();
+							childNodes[i].remove(true);
 						}
 						if(this.afterClear!=null){
                             this.afterClear();
@@ -287,13 +291,17 @@ var wof$_aop = (function(){
                             console.log('警告:执行afterTo方法出现问题[目标节点的父节点不存在]');
                         }
 					};
-					obj[o].prototype.removeChild = function(childNode){
+					obj[o].prototype.removeChild = function(childNode,flag){
 						var idx=jQuery.inArray(childNode, this.childNodes());
 						if(idx != -1){
 							wof.util.ObjectManager.remove(childNode.getId());
 							childNode._parentNode = null;
 							this.childNodes().splice(idx,1);
-							childNode.getDomInstance().detach();
+                            if(flag==true){
+                                childNode.getDomInstance().remove();
+                            }else{
+                                childNode.getDomInstance().detach();
+                            }
 						}
 					};
 					obj[o].prototype.nextNode = function(){

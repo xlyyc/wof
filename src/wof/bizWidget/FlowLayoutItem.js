@@ -68,17 +68,21 @@ wof.bizWidget.FlowLayoutItem.prototype = {
                     var draggableObj = wof.util.ObjectManager.get(draggable.attr('oid'));
                     if(draggableObj!=null){
                         if(draggableObj.getClassName()=='wof.bizWidget.FlowLayoutItem'){
-                            try{
-                                var layout = draggableObj.parentNode().parentNode();
-                                var thisLayout = _this.parentNode().parentNode();
-                                if(thisLayout.getId()==layout.getId()){
-                                    b=true;
-                                }
-                            }catch(e){
-                                console.log(e);
+                            var layout = draggableObj.parentNode().parentNode();
+                            var thisLayout = _this.parentNode().parentNode();
+                            if(thisLayout.getId()==layout.getId()){
+                                b=true;
                             }
                         }else if(draggableObj.getClassName()!='wof.bizWidget.FlowLayoutSection'){ //不能接受分组
-                            b=true;
+                            var childNode = _this.childNodes().length>0?_this.childNodes()[0]:null;
+                            //item必须属于最内层 即只有叶子节点 不包括容器节点(容器节点包括 FlowLayout\GridLayout)
+                            if(childNode==null){
+                                b=true;
+                            }else if(childNode.getClassName()!='wof.bizWidget.FlowLayout' && childNode.getClassName()!='wof.bizWidget.GridLayout'){
+                                b=true;
+                            }else{
+                                console.log('childNode.getClassName()='+childNode.getClassName());
+                            }
                         }
                     }
                     return b;

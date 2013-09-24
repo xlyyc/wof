@@ -166,7 +166,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             var nodes = this.childNodes();
             for(var i=0;i<nodes.length;i++){
                 if(nodes[i].getClassName()=='wof.widget.Label'){
-                    nodes[i].remove();
+                    nodes[i].remove(true);
                     break;
                 }
             }
@@ -192,6 +192,13 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     //选择实现
     afterRender: function () {
         this.resetStyle();
+
+      /*  while(this._removeItems.length>0){
+            var item = this._removeItems.pop();
+            //将清除的Item拖放事件移除(jqueryUI拖放事件的特性 需要在此特殊处理)
+            item.getDomInstance().draggable('destroy');
+            item.getDomInstance().droppable('destroy');
+        }*/
     },
 
     /**
@@ -339,10 +346,11 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             nextItem.clear();
 		}
         //在remove前需要将绑定的拖放事件移除(jqueryUI拖放事件的特性 需要在此特殊处理)
-        nextItem.getDomInstance().draggable('destroy');
-        nextItem.getDomInstance().droppable('destroy');
+  /*      nextItem.getDomInstance().draggable('destroy');
+        nextItem.getDomInstance().droppable('destroy');*/
 
-		nextItem.remove();
+        nextItem.clear();
+		nextItem.remove(true); //true表示将绑定事件一并移除
 	},
 	
 	//设置边框样式
@@ -557,7 +565,8 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 			if(b==true){
 				var items = this._getItemsBySameTop(beginItems[i]);
 				for(var t=items.length-1;t>=0;t--){
-                	items[t].remove();
+                    console.log('1111111111111111');
+                	items[t].remove(true);
 				}
 				k--;
 			}else{

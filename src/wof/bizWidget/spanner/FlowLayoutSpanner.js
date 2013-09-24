@@ -29,188 +29,17 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     onReceiveMessage.push({id:'wof.bizWidget.OnReceiveMessageBar_apply',method:method});
     this.setOnReceiveMessage(onReceiveMessage);
 
-    var _this = this;
-
     this._selectFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/selectFlowLayout.png">');
     this._deleteFlowLayoutIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteFlowLayout.png">');
-    this._selectFlowLayoutIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        flowLayout.setActiveSectionIndex(null);
-        flowLayout.setActiveItemRank(null);
-        flowLayout.render();
-        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
-    });
-    this._deleteFlowLayoutIco.mousedown(function(event){
-        event.stopPropagation();
-        var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该流式布局吗?</p></div>');
-        dialogDiv.dialog({
-            resizable:false,
-            height:200,
-            modal: true,
-            buttons:{
-                '确定':function(){
-                    var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-                    flowLayout.clear();
-                    flowLayout.remove();
-                    flowLayout.render();
-                    jQuery(this).dialog('close');
-                    jQuery(this).remove();
-                },
-                '关闭':function(){
-                    jQuery(this).dialog('close');
-                    jQuery(this).remove();
-                }
-            }
-        });
-    });
+
     this._deleteSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteSection.png">');
     this._insertSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/insertSection.png">');
     this._upSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/upSection.png">');
     this._downSectionIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/downSection.png">');
-    this._deleteSectionIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        if(flowLayout.getSections()==1){
-            var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>至少需要保留一个分组</p></div>');
-            dialogDiv.dialog({
-                resizable:false,
-                height:200,
-                modal: true,
-                buttons:{
-                    '关闭':function(){
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    }
-                }
-            });
-        }else{
-            var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该分组吗?</p></div>');
-            dialogDiv.dialog({
-                resizable:false,
-                height:200,
-                modal: true,
-                buttons:{
-                    '确定':function(){
-                        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-                        flowLayout.deleteSection(activeSectionIndex);
-                        flowLayout.render();
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    },
-                    '关闭':function(){
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    }
-                }
-            });
-        }
-    });
-    this._insertSectionIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        var sectionData = {title:'未命名分组'};
-        flowLayout.insertSection(sectionData,activeSectionIndex);
-        flowLayout.render();
-    });
-    this._upSectionIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        flowLayout.upSection(activeSectionIndex);
-        flowLayout.render();
-    });
-    this._downSectionIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        flowLayout.downSection(activeSectionIndex);
-        flowLayout.render();
-    });
 
     this._mergeItemArrow = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/mergeItemArrow.png">');
     this._splitItemArrow = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/splitItemArrow.png">');
     this._deleteItemIco = jQuery('<img style="position:absolute;width:16px;height:16px;z-index:90;" src="src/img/deleteItem.png">');
-
-    this._mergeItemArrow.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        var activeItemRank = _this.getPropertys().activeItemRank;
-        var activeSection = flowLayout.findSectionByIndex(activeSectionIndex);
-        var activeItem = activeSection.findItemByRank(activeItemRank);
-        if(activeItem.childNodes().length>0&&activeItem.nextNode().childNodes().length>0){
-            var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>合并该单元格将会移除多出的字段，你确定要合并吗?</p></div>');
-            dialogDiv.dialog({
-                resizable:false,
-                height:200,
-                modal: true,
-                buttons:{
-                    '确定':function(){
-                        jQuery(this).dialog('close');
-                        flowLayout.mergeItem(activeItemRank, activeSectionIndex);
-                        flowLayout.render();
-                        jQuery(this).remove();
-                        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
-                    },
-                    '取消':function(){
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    }
-                }
-            });
-        }else{
-            if(activeItem.nextNode().childNodes().length>0){
-                var childNode = activeItem.nextNode().childNodes()[0];
-                childNode.remove();
-                childNode.appendTo(activeItem);
-            }
-            flowLayout.mergeItem(activeItemRank, activeSectionIndex);
-            flowLayout.render();
-            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
-        }
-    });
-    this._splitItemArrow.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        var activeItemRank = _this.getPropertys().activeItemRank;
-        flowLayout.splitItem(activeItemRank, activeSectionIndex);
-        flowLayout.render();
-        flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
-    });
-    this._deleteItemIco.mousedown(function(event){
-        event.stopPropagation();
-        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
-        var activeSectionIndex = _this.getPropertys().activeSectionIndex;
-        var section = flowLayout.findSectionByIndex(activeSectionIndex);
-        var activeItemRank = _this.getPropertys().activeItemRank;
-        var activeItem = section.findItemByRank(activeItemRank);
-        if(activeItem!=null&&activeItem.childNodes().length>0){
-            var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>该单元格包含对象,确定要删除该单元格吗?</p></div>');
-            dialogDiv.dialog({
-                resizable:false,
-                height:200,
-                modal: true,
-                buttons:{
-                    '确定':function(){
-                        flowLayout.deleteItem(activeItemRank, activeSectionIndex);
-                        flowLayout.render();
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    },
-                    '关闭':function(){
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
-                    }
-                }
-            });
-        }else{
-            flowLayout.deleteItem(activeItemRank, activeSectionIndex);
-            flowLayout.render();
-        }
-    });
 };
 wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
     /**
@@ -274,15 +103,15 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     //选择实现
     beforeRender: function () {
-        this._selectFlowLayoutIco.detach();
-        this._deleteFlowLayoutIco.detach();
-        this._deleteSectionIco.detach();
-        this._insertSectionIco.detach();
-        this._upSectionIco.detach();
-        this._downSectionIco.detach();
-        this._splitItemArrow.detach();
-        this._mergeItemArrow.detach();
-        this._deleteItemIco.detach();
+        this._selectFlowLayoutIco.remove();
+        this._deleteFlowLayoutIco.remove();
+        this._deleteSectionIco.remove();
+        this._insertSectionIco.remove();
+        this._upSectionIco.remove();
+        this._downSectionIco.remove();
+        this._splitItemArrow.remove();
+        this._mergeItemArrow.remove();
+        this._deleteItemIco.remove();
     },
 
     //----------必须实现----------
@@ -372,7 +201,179 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     //选择实现
     afterRender: function () {
+        var _this = this;
+        this._selectFlowLayoutIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            flowLayout.setActiveSectionIndex(null);
+            flowLayout.setActiveItemRank(null);
+            flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+        });
+        this._deleteFlowLayoutIco.mousedown(function(event){
+            event.stopPropagation();
+            var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该流式布局吗?</p></div>');
+            dialogDiv.dialog({
+                resizable:false,
+                height:200,
+                modal: true,
+                buttons:{
+                    '确定':function(){
+                        var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+                        flowLayout.clear();
+                        flowLayout.remove(true);
+                        jQuery(this).dialog('close');
+                        jQuery(this).remove();
+                    },
+                    '关闭':function(){
+                        jQuery(this).dialog('close');
+                        jQuery(this).remove();
+                    }
+                }
+            });
+        });
 
+        this._deleteSectionIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            if(flowLayout.getSections()==1){
+                var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>至少需要保留一个分组</p></div>');
+                dialogDiv.dialog({
+                    resizable:false,
+                    height:200,
+                    modal: true,
+                    buttons:{
+                        '关闭':function(){
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        }
+                    }
+                });
+            }else{
+                var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>确定要删除该分组吗?</p></div>');
+                dialogDiv.dialog({
+                    resizable:false,
+                    height:200,
+                    modal: true,
+                    buttons:{
+                        '确定':function(){
+                            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+                            flowLayout.deleteSection(activeSectionIndex);
+                            flowLayout.render();
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        },
+                        '关闭':function(){
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        }
+                    }
+                });
+            }
+        });
+        this._insertSectionIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            var sectionData = {title:'未命名分组'};
+            flowLayout.insertSection(sectionData,activeSectionIndex);
+            flowLayout.render();
+        });
+        this._upSectionIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            flowLayout.upSection(activeSectionIndex);
+            flowLayout.render();
+        });
+        this._downSectionIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            flowLayout.downSection(activeSectionIndex);
+            flowLayout.render();
+        });
+
+        this._mergeItemArrow.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            var activeItemRank = _this.getPropertys().activeItemRank;
+            var activeSection = flowLayout.findSectionByIndex(activeSectionIndex);
+            var activeItem = activeSection.findItemByRank(activeItemRank);
+            if(activeItem.childNodes().length>0&&activeItem.nextNode().childNodes().length>0){
+                var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>合并该单元格将会移除多出的字段，你确定要合并吗?</p></div>');
+                dialogDiv.dialog({
+                    resizable:false,
+                    height:200,
+                    modal: true,
+                    buttons:{
+                        '确定':function(){
+                            jQuery(this).dialog('close');
+                            flowLayout.mergeItem(activeItemRank, activeSectionIndex);
+                            flowLayout.render();
+                            jQuery(this).remove();
+                            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+                        },
+                        '取消':function(){
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        }
+                    }
+                });
+            }else{
+                if(activeItem.nextNode().childNodes().length>0){
+                    var childNode = activeItem.nextNode().childNodes()[0];
+                    childNode.remove();
+                    childNode.appendTo(activeItem);
+                }
+                flowLayout.mergeItem(activeItemRank, activeSectionIndex);
+                flowLayout.render();
+                flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+            }
+        });
+        this._splitItemArrow.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            var activeItemRank = _this.getPropertys().activeItemRank;
+            flowLayout.splitItem(activeItemRank, activeSectionIndex);
+            flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+        });
+        this._deleteItemIco.mousedown(function(event){
+            event.stopPropagation();
+            var flowLayout = wof.util.ObjectManager.get(_this.getPropertys().id);
+            var activeSectionIndex = _this.getPropertys().activeSectionIndex;
+            var section = flowLayout.findSectionByIndex(activeSectionIndex);
+            var activeItemRank = _this.getPropertys().activeItemRank;
+            var activeItem = section.findItemByRank(activeItemRank);
+            if(activeItem!=null&&activeItem.childNodes().length>0){
+                var dialogDiv = jQuery('<div title="提示"><p><span class="ui-icon ui-icon-alert" style="float:left;margin:0 7px 20px 0;"></span>该单元格包含对象,确定要删除该单元格吗?</p></div>');
+                dialogDiv.dialog({
+                    resizable:false,
+                    height:200,
+                    modal: true,
+                    buttons:{
+                        '确定':function(){
+                            flowLayout.deleteItem(activeItemRank, activeSectionIndex);
+                            flowLayout.render();
+                            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        },
+                        '关闭':function(){
+                            jQuery(this).dialog('close');
+                            jQuery(this).remove();
+                        }
+                    }
+                });
+            }else{
+                flowLayout.deleteItem(activeItemRank, activeSectionIndex);
+                flowLayout.render();
+                flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
+            }
+        });
     },
 
     /**
