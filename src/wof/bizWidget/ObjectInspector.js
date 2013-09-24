@@ -15,6 +15,8 @@ wof.bizWidget.ObjectInspector = function (root) {
 };
 wof.bizWidget.ObjectInspector.prototype = {
 
+    _initFlag: null,
+
     _getCurrentStructureJson: function(root){
         var convertInstanceToJson = function (instances) {
                 var jsonArray = '[',
@@ -66,17 +68,20 @@ wof.bizWidget.ObjectInspector.prototype = {
 
     //选择实现
     beforeRender: function () {
-        var ztreeInstance = this.getDomInstance().data('ztree');
-        if (ztreeInstance) {
-            ztreeInstance.destroy();
+        if(!this._initFlag){
+           var tree = new wof.widget.Tree();
+           tree.setNodes(this._getCurrentStructureJson(jQuery('#content')));
+           tree.beforeRender();
+           tree.render();
+           tree.afterRender();
+           tree.getDomInstance().appendTo(this.getDomInstance());
+           this._initFlag = true;
         }
     },
 
     //----------必须实现----------
     render: function () {
-        var ztreeInstance = jQuery.fn.zTree.init(this.getDomInstance().addClass('ztree'), {},
-            this._getCurrentStructureJson(jQuery('#content')));
-        this.getDomInstance().data('ztree', ztreeInstance);
+
     },
 
     //选择实现

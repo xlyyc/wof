@@ -9,6 +9,8 @@ wof.widget.Tree = function () {
 
 wof.widget.Tree.prototype = {
 
+    _initFlag: null,
+
     url: null,
     /**
      * type string or object
@@ -52,16 +54,15 @@ wof.widget.Tree.prototype = {
 
     //选择实现
     beforeRender: function () {
-        var ztreeInstance = this.getDomInstance().data('ztree');
-        if(ztreeInstance){
-            ztreeInstance.destroy();
+        if(!this._initFlag){
+           jQuery.fn.zTree.init(this.getDomInstance().addClass('ztree'), {}, this.nodes);
+           this._initFlag = true;
         }
     },
 
     //----------必须实现----------
     render: function () {
-        var ztreeInstance = jQuery.fn.zTree.init(this.getDomInstance().addClass('ztree'), {}, this.nodes);
-        this.getDomInstance().data('ztree',ztreeInstance);
+
     },
 
     //选择实现
