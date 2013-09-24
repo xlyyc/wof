@@ -6,19 +6,16 @@
  */
 
 wof.widget.Mediator = function () {
+
     this._sendMessages = {'wof.widget.Mediator_click':'单击'}
 
-    var _this = this;
-    this.getDomInstance().click(function(event){
-        event.stopPropagation();
-        _this.sendMessage('wof.widget.Mediator_click');
-    });
 };
 wof.widget.Mediator.prototype = {
     /**
      * 属性声明 （private ，用"_"标识）
      */
 
+    _initFlag: null,
     /**
      * get/set 属性方法定义
      */
@@ -29,6 +26,14 @@ wof.widget.Mediator.prototype = {
 
     //选择实现
     beforeRender: function () {
+        if(this._initFlag==null){
+            var _this = this;
+            this.getDomInstance().click(function(event){
+                event.stopPropagation();
+                _this.sendMessage('wof.widget.Mediator_click');
+            });
+            this._initFlag = true;
+        }
 
     },
 

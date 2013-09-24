@@ -107,13 +107,6 @@ wof.bizWidget.ObjectBar.prototype={
 	//必须实现
 	setData:function(data){
 
-	},
-
-    _insideOnReceiveMessage:{
-        'wof.widget.Button_click':function(message){
-            console.log(message.id+'   '+this.getClassName());
-            console.log('message.sender.isInside='+message.sender.isInside);
-        }
-    }
+	}
 	
 };

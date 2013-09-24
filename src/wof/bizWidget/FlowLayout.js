@@ -246,7 +246,7 @@ wof.bizWidget.FlowLayout.prototype = {
                             node.appendTo(item);
                         }else{
                             var newItem = new wof.bizWidget.FlowLayoutItem();
-                            newItem.afterTo(item);
+                            newItem.beforeTo(item);
                             node.appendTo(newItem);
                         }
                     }else{
