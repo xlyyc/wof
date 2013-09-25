@@ -63,7 +63,7 @@ wof.bizWidget.ObjectBar.prototype={
             toolbarItem2.appendTo(toolbar);
             for(var o in wof.bizWidget){
                 if(typeof(wof.bizWidget[o])=='function'){
-                    if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'){
+                    if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
                         var label = new wof.widget.Label();
                         label.setIsInside(true);
                         label.setWidth(130);

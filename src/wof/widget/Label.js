@@ -89,15 +89,20 @@ wof.widget.Label.prototype = {
     beforeRender: function () {
 		if(this._initFlag==null){
             var _this = this;
+            var timeFn = null;
             this.getDomInstance().mousedown(function(event){
                 event.stopPropagation();
-                var positionX = event.pageX;
-                var positionY = event.pageY;
-                _this.sendMessage('wof.widget.Label_mousedown',{x:positionX,y:positionY});
-                _this.sendMessage('wof.widget.Label_active');
+                clearTimeout(timeFn);
+                timeFn = setTimeout(function(){
+                    var positionX = event.pageX;
+                    var positionY = event.pageY;
+                    _this.sendMessage('wof.widget.Label_mousedown',{x:positionX,y:positionY});
+                    _this.sendMessage('wof.widget.Label_active');
+                },300);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
+                clearTimeout(timeFn);
                 var positionX = event.pageX;
                 var positionY = event.pageY;
                 _this.sendMessage('wof.widget.Label_dblclick',{x:positionX,y:positionY});

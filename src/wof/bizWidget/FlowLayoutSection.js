@@ -133,11 +133,24 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     //选择实现
     beforeRender: function () {
         if(this._initFlag==null){
-
             var _this = this;
+            var timeFn = null;
             this.getDomInstance().mousedown(function(event){
                 event.stopPropagation();
-                _this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
+                clearTimeout(timeFn);
+                timeFn = setTimeout(function(){
+                    _this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
+                },300);
+            });
+            this.getDomInstance().dblclick(function(event){
+                event.stopPropagation();
+                clearTimeout(timeFn);
+                if(_this.getIsExpand()==true){
+                    _this.setIsExpand(false);
+                }else{
+                    _this.setIsExpand(true);
+                }
+                _this.sendMessage('wof.bizWidget.FlowLayoutSection_dblclick');
             });
             this.getDomInstance().droppable({
                 snap:true,
@@ -208,12 +221,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     afterRender: function () {
         this.resetStyle();
 
-      /*  while(this._removeItems.length>0){
-            var item = this._removeItems.pop();
-            //将清除的Item拖放事件移除(jqueryUI拖放事件的特性 需要在此特殊处理)
-            item.getDomInstance().draggable('destroy');
-            item.getDomInstance().droppable('destroy');
-        }*/
     },
 
     /**
@@ -257,19 +264,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
                 this.parentNode().setActiveItemRank(null);
             }
             this.parentNode().render();
-        },
-        /*'wof.widget.Label_mousedown':function(message){
-            console.log(message.id+'   '+this.getClassName());
-            this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
-        },*/
-        'wof.widget.Label_dblclick':function(message){
-            console.log(message.id+'   '+this.getClassName());
-            if(this.getIsExpand()==true){
-                this.setIsExpand(false);
-            }else{
-                this.setIsExpand(true);
-            }
-            this.sendMessage('wof.bizWidget.FlowLayoutSection_dblclick');
         }
     },
 
@@ -360,9 +354,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             //todo 需要消息通知移除子对象
             nextItem.clear();
 		}
-        //在remove前需要将绑定的拖放事件移除(jqueryUI拖放事件的特性 需要在此特殊处理)
-  /*      nextItem.getDomInstance().draggable('destroy');
-        nextItem.getDomInstance().droppable('destroy');*/
 
         nextItem.clear();
 		nextItem.remove(true); //true表示将绑定事件一并移除

@@ -167,6 +167,15 @@ wof.bizWidget.FlowLayout.prototype = {
             this.render();
             this.sendMessage('wof.bizWidget.FlowLayout_active');
         },
+        'wof.bizWidget.FlowLayoutItem_dblclick':function(message){
+            console.log(message.id+'   '+this.getClassName());
+            var item = wof.util.ObjectManager.get(message.sender.id);
+            var sectionIndex = item.parentNode().getIndex();
+            this.setActiveSectionIndex(sectionIndex);
+            this.setActiveItemRank({row:item.getRow(),col:item.getCol()});
+            this.render();
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
+        },
         'wof.bizWidget.FlowLayoutSection_drop':function(message){
             console.log(message.id+'   '+this.getClassName());
             var insertSection = wof.util.ObjectManager.get(message.data.sectionId);
