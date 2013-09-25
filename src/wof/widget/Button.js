@@ -100,14 +100,28 @@ wof.widget.Button.prototype = {
     beforeRender: function () {
         if(this._btn==null){
             var _this = this;
+            var timeFn = null;
             this.getDomInstance().mousedown(function(event){
                 event.stopPropagation();
+                clearTimeout(timeFn);
+                timeFn = setTimeout(function(){
+                    var positionX = event.pageX;
+                    var positionY = event.pageY;
+                    //todo 坐标传递方式
+                    _this.sendMessage('wof.widget.Button_mousedown');
+                    _this.sendMessage('wof.widget.Button_active');
+                },250);
+            });
+
+            this.getDomInstance().dblclick(function(event){
+                event.stopPropagation();
+                clearTimeout(timeFn);
                 var positionX = event.pageX;
                 var positionY = event.pageY;
-                //todo 坐标传递方式
-                _this.sendMessage('wof.widget.Button_mousedown');
+                _this.sendMessage('wof.widget.Button_dblclick',{x:positionX,y:positionY});
                 _this.sendMessage('wof.widget.Button_active');
             });
+
             this._btn = jQuery('<button type="'+this.getType()+'" '+this.getDisabled()+' />');
             this.getDomInstance().append(this._btn);
         }

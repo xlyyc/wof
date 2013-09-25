@@ -170,6 +170,7 @@ jQuery(function(){
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var method = 'this.setPropertys(message.sender.activeData);this.render();';
                 var onReceiveMessage = [];
+                //todo 理顺spanner对象之间的关系
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
@@ -292,7 +293,7 @@ jQuery(function(){
                             var flowLayoutItem = new FlowLayoutItem();
                             flowLayoutItem.setColspan(2);
                             var btn = new Button();
-                            btn.setOnSendMessage([{id:'wof.widget.Button_mousedown',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400,index:section.getIndex()});layout.render();'}]);
+                            //btn.setOnSendMessage([{id:'wof.widget.Button_mousedown',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400,index:section.getIndex()});layout.render();'}]);
                             btn.setType('submit');
                             btn.setLeft(0);
                             btn.setTop(0);
