@@ -31,6 +31,7 @@ wof.bizWidget.ObjectBar.prototype={
                 if(typeof(wof.widget[o])=='function'){
                     var label = new wof.widget.Label();
                     label.setIsInside(true);
+                    label.setIco('src/img/verify.gif');
                     label.setWidth(130);
                     label.setHeight(25);
                     label.setValue('wof.widget.'+o);
@@ -66,6 +67,7 @@ wof.bizWidget.ObjectBar.prototype={
                     if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
                         var label = new wof.widget.Label();
                         label.setIsInside(true);
+                        label.setIco('src/img/verify.gif');
                         label.setWidth(130);
                         label.setHeight(25);
                         label.setValue('wof.bizWidget.'+o);

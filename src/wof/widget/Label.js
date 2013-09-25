@@ -28,11 +28,20 @@ wof.widget.Label.prototype = {
 
     _value: null,
 
+    _ico: null,
+
     _initFlag: null,
 
     /**
      * get/set 属性方法定义
      */
+    getIco : function (){
+        return this._ico || '';
+    },
+
+    setIco : function (ico){
+        this._ico = ico;
+    },
     getValue : function (){
         return this._value || '';
     },
@@ -40,6 +49,7 @@ wof.widget.Label.prototype = {
     setValue : function (value){
         this._value = value;
     },
+
 	 getText: function(){
 		if(this._text==null)
 			this._text = '';
@@ -113,10 +123,15 @@ wof.widget.Label.prototype = {
             this._initFlag = true;
 		}
         this.getDomInstance().children('hr').remove();
+        this.getDomInstance().children('img').remove();
     },
 
     //----------必须实现----------
     render: function () {
+        if(this.getIco().length>0){
+            var img = jQuery('<img src="'+this.getIco()+'">');
+            this._label.before(img);
+        }
 		this._label.html(this.getText());
         if(this.getIsBold()==true){
             this._label.css('fontWeight','900');
@@ -147,6 +162,7 @@ wof.widget.Label.prototype = {
     //----------必须实现----------
     getData: function () {
         return {
+            ico: this.getIco(),
             value : this.getValue(),
 			text: this.getText(),
             isUnderline: this.getIsUnderline(),
@@ -156,6 +172,7 @@ wof.widget.Label.prototype = {
     },
     //----------必须实现----------
     setData: function (data) {
+        this.setIco(data.ico);
         this.setValue(data.value);
 		this.setText(data.text);
         this.setIsUnderline(data.isUnderline);
