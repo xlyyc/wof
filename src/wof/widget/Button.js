@@ -8,7 +8,7 @@
 wof.widget.Button = function () {
 
     //记录该widget所有的发送消息和描述信息 供属性条控件使用
-    this._sendMessages = {'wof.widget.Button_click':'单击'};
+    this._sendMessages = {'wof.widget.Button_mousedown':'单击'};
 
 };
 
@@ -100,12 +100,12 @@ wof.widget.Button.prototype = {
     beforeRender: function () {
         if(this._btn==null){
             var _this = this;
-            this.getDomInstance().click(function(event){
+            this.getDomInstance().mousedown(function(event){
                 event.stopPropagation();
                 var positionX = event.pageX;
                 var positionY = event.pageY;
                 //todo 坐标传递方式
-                _this.sendMessage('wof.widget.Button_click');
+                _this.sendMessage('wof.widget.Button_mousedown');
                 _this.sendMessage('wof.widget.Button_active');
             });
             this._btn = jQuery('<button type="'+this.getType()+'" '+this.getDisabled()+' />');

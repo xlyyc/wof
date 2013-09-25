@@ -10,6 +10,8 @@ wof.bizWidget.FlowLayoutSection = function () {
 
     this.getDomInstance().css('overflow','hidden');
 
+    this._backgroundImg = jQuery('<img src="src/img/backgroud.gif" style="position:absolute;cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;">');
+
     this._itemTable = new wof.util.Hashtable();
 
 };
@@ -38,6 +40,8 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     _isExpand: null,
 
     _index: null,
+
+    _backgroundImg: null,
 	 
     /**
      * get/set 属性方法定义
@@ -254,10 +258,10 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             }
             this.parentNode().render();
         },
-        'wof.widget.Label_mousedown':function(message){
+        /*'wof.widget.Label_mousedown':function(message){
             console.log(message.id+'   '+this.getClassName());
             this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
-        },
+        },*/
         'wof.widget.Label_dblclick':function(message){
             console.log(message.id+'   '+this.getClassName());
             if(this.getIsExpand()==true){
@@ -594,6 +598,9 @@ wof.bizWidget.FlowLayoutSection.prototype = {
         this.getDomInstance().css('width', (this.getWidth()*this.getScale()+2)+'px');//加2修正css的边框误差
         this._label.getDomInstance().css('width',(this.getWidth()*this.getScale())+'px');
         this._label.getDomInstance().css('height',(this.getTitleHeight()*this.getScale())+'px');
+
+        //屏蔽label对象的事件
+        label.getDomInstance().after(this._backgroundImg);
 
 	}
 
