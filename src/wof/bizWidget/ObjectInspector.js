@@ -70,11 +70,9 @@ wof.bizWidget.ObjectInspector.prototype = {
     beforeRender: function () {
         if(!this._initFlag){
            var tree = new wof.widget.Tree();
+		   tree.setIsInside(true);
            tree.setNodes(this._getCurrentStructureJson(jQuery('#content')));
-           tree.beforeRender();
-           tree.render();
-           tree.afterRender();
-           tree.getDomInstance().appendTo(this.getDomInstance());
+		   tree.appendTo(this);
            this._initFlag = true;
         }
     },
