@@ -8,7 +8,7 @@
 wof.widget.Label = function () {
 
     //记录该widget所有的发送消息和描述信息 供属性条控件使用
-    this._sendMessages = {'wof.widget.Label_click':'单击','wof.widget.Label_dblclick':'双击'};
+    this._sendMessages = {'wof.widget.Label_mousedown':'单击','wof.widget.Label_dblclick':'双击'};
 
 };
 
@@ -89,11 +89,11 @@ wof.widget.Label.prototype = {
     beforeRender: function () {
 		if(this._initFlag==null){
             var _this = this;
-            this.getDomInstance().click(function(event){
+            this.getDomInstance().mousedown(function(event){
                 event.stopPropagation();
                 var positionX = event.pageX;
                 var positionY = event.pageY;
-                _this.sendMessage('wof.widget.Label_click',{x:positionX,y:positionY});
+                _this.sendMessage('wof.widget.Label_mousedown',{x:positionX,y:positionY});
                 _this.sendMessage('wof.widget.Label_active');
             });
             this.getDomInstance().dblclick(function(event){

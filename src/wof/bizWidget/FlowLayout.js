@@ -141,7 +141,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.render();
             this.sendMessage('wof.bizWidget.FlowLayout_active');
         },
-        'wof.bizWidget.FlowLayoutSection_click':function(message){
+        'wof.bizWidget.FlowLayoutSection_mousedown':function(message){
             console.log(message.id+'   '+this.getClassName());
             var section = wof.util.ObjectManager.get(message.sender.id);
             var sectionIndex = section.getIndex();

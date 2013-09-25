@@ -12,36 +12,6 @@ wof.bizWidget.FlowLayoutSection = function () {
 
     this._itemTable = new wof.util.Hashtable();
 
-    var _this = this;
-
-    this.getDomInstance().click(function(event){
-        event.stopPropagation();
-        _this.sendMessage('wof.bizWidget.FlowLayoutSection_click');
-    });
-    this.getDomInstance().droppable({
-        snap:true,
-        accept:'div[className="wof.bizWidget.FlowLayoutSection"]',   //只能接受分组
-        hoverClass: 'ui-state-hover',
-        drop:function(event,ui){
-            event.stopPropagation();
-            _this.sendMessage('wof.bizWidget.FlowLayoutSection_drop', {'sectionId':ui.draggable.attr('oid')});
-        }
-    });
-    this.getDomInstance().draggable({
-        cursor:"move",
-        opacity: 0.7,
-        cursorAt:{
-            top:0,
-            left:0
-        },
-        scroll: false,
-        start:function(event,ui){
-            _this.getDomInstance().css('zIndex',60000);
-        },
-        stop:function(event,ui){
-            _this.getDomInstance().css('zIndex','auto');
-        }
-    });
 };
 wof.bizWidget.FlowLayoutSection.prototype = {
     /**
@@ -159,9 +129,50 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     //选择实现
     beforeRender: function () {
         if(this._initFlag==null){
-            //限定拖放只能在当前FlowLayout内
-            this.getDomInstance().draggable( 'option', 'containment', 'div[oid="'+this.parentNode().getId()+'"]' );
 
+            var _this = this;
+            this.getDomInstance().mousedown(function(event){
+                event.stopPropagation();
+                _this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
+            });
+            this.getDomInstance().droppable({
+                snap:true,
+                accept:function(draggable){
+                    var b=false;
+                    var draggableObj = wof.util.ObjectManager.get(draggable.attr('oid'));
+                    if(draggableObj!=null){
+                        if(draggableObj.getClassName()=='wof.bizWidget.FlowLayoutSection'){
+                            var layout = draggableObj.parentNode();
+                            var thisLayout = _this.parentNode();
+                            if(thisLayout.getId()==layout.getId()){
+                                b=true;
+                            }
+                        }
+                    }
+                    return b;
+                },
+                hoverClass: 'ui-state-hover',
+                drop:function(event,ui){
+                    event.stopPropagation();
+                    _this.sendMessage('wof.bizWidget.FlowLayoutSection_drop', {'sectionId':ui.draggable.attr('oid')});
+                }
+            });
+            this.getDomInstance().draggable({
+                cursor:"move",
+                opacity: 0.7,
+                cursorAt:{
+                    top:0,
+                    left:0
+                },
+                scroll: false,
+                containment: 'div[oid="'+this.parentNode().getId()+'"]',  //限定拖放只能在当前FlowLayout内
+                start:function(event,ui){
+                    _this.getDomInstance().css('zIndex',60000);
+                },
+                stop:function(event,ui){
+                    _this.getDomInstance().css('zIndex','auto');
+                }
+            });
             //如果是clone过来的 会直接创建一个label对象 需要先移除
             var nodes = this.childNodes();
             for(var i=0;i<nodes.length;i++){
@@ -243,9 +254,9 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             }
             this.parentNode().render();
         },
-        'wof.widget.Label_click':function(message){
+        'wof.widget.Label_mousedown':function(message){
             console.log(message.id+'   '+this.getClassName());
-            this.sendMessage('wof.bizWidget.FlowLayoutSection_click');
+            this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
         },
         'wof.widget.Label_dblclick':function(message){
             console.log(message.id+'   '+this.getClassName());
@@ -565,7 +576,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 			if(b==true){
 				var items = this._getItemsBySameTop(beginItems[i]);
 				for(var t=items.length-1;t>=0;t--){
-                    console.log('1111111111111111');
                 	items[t].remove(true);
 				}
 				k--;
