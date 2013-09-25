@@ -98,7 +98,7 @@ wof.widget.Label.prototype = {
                     var positionY = event.pageY;
                     _this.sendMessage('wof.widget.Label_mousedown',{x:positionX,y:positionY});
                     _this.sendMessage('wof.widget.Label_active');
-                },300);
+                },250);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();

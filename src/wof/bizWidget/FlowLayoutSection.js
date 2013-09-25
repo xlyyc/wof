@@ -140,7 +140,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
                 clearTimeout(timeFn);
                 timeFn = setTimeout(function(){
                     _this.sendMessage('wof.bizWidget.FlowLayoutSection_mousedown');
-                },300);
+                },250);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
