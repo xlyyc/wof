@@ -8,7 +8,7 @@
 
 wof.bizWidget.ObjectInspector = function (root) {
 
-    this.getDomInstance().click(function (event) {
+    this.getDomInstance().mousedown(function (event) {
         event.stopPropagation();
 
     });
