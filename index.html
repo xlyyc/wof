@@ -158,7 +158,7 @@ jQuery(function(){
                 wof.util.ObjectManager.add(panel.getId(), panel);
 
                 var tab = new Tab();
-                tab.setWidth(sidebar2Width-18);
+                tab.setWidth(sidebar2Width-24);
                 tab.setTop(0);
                 tab.setLeft(0);
                 tab.appendTo(panel);
@@ -168,7 +168,7 @@ jQuery(function(){
                 tabItem1.appendTo(tab);
 
                 var propertyBar = new PropertyBar();
-                propertyBar.setWidth(sidebar2Width-18);
+                propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var method = 'this.setPropertys(message.sender.activeData);this.render();';
                 var onReceiveMessage = [];
@@ -185,7 +185,7 @@ jQuery(function(){
                 tabItem2.appendTo(tab);
 
                 var onSendMessageBar = new OnSendMessageBar();
-                onSendMessageBar.setWidth(sidebar2Width-18);
+                onSendMessageBar.setWidth(sidebar2Width-24);
                 onSendMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var meth = 'this.setPropertys(message.sender.activeData);this.render();';
                 var receives = [];
@@ -201,7 +201,7 @@ jQuery(function(){
                 tabItem3.appendTo(tab);
 
                 var onReceiveMessageBar = new OnReceiveMessageBar();
-                onReceiveMessageBar.setWidth(sidebar2Width-18);
+                onReceiveMessageBar.setWidth(sidebar2Width-24);
                 onReceiveMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
                 var met = 'this.setPropertys(message.sender.activeData);this.render();';
                 var receiv = [];
