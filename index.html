@@ -122,6 +122,7 @@ jQuery(function(){
         with(wof.widget)
             with(wof.bizWidget){
                 var panel = new Panel();
+                panel.setOverflow('y');
                 panel.setWidth(sidebar1Width);
                 panel.setHeight(windowHeight-headerHeight-footerHeight);
                 panel.setTop(0);
@@ -148,6 +149,7 @@ jQuery(function(){
 		with(wof.widget)
             with(wof.bizWidget){
                 var panel = new Panel();
+                panel.setOverflow('y');
                 panel.setWidth(sidebar2Width);
                 panel.setHeight(windowHeight-headerHeight-footerHeight);
                 panel.setTop(0);
@@ -232,11 +234,11 @@ jQuery(function(){
                 with(wof.bizWidget.spanner)
                     with(wof.widget.spanner)
                     with(wof.kernel){
-
                         panel = new Panel();
+                        panel.setOverflow('auto');
                         panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
                         panel.setHeight(windowHeight-headerHeight-footerHeight);
-                        panel.setTop(20);
+                        panel.setTop(0);
                         panel.setLeft(0);
                         content.append(panel.getDomInstance());
                         wof.util.ObjectManager.add(panel.getId(), panel);
