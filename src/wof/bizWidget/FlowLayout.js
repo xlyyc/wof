@@ -157,6 +157,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.setActiveSectionIndex(sectionIndex);
             this.setActiveItemRank(null);
             this.render();
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
         },
         'wof.bizWidget.FlowLayoutItem_mousedown':function(message){
             console.log(message.id+'   '+this.getClassName());
@@ -186,6 +187,7 @@ wof.bizWidget.FlowLayout.prototype = {
             this.setActiveSectionIndex(insertSectionIndex);
             this.setActiveItemRank(null);
             this.render();
+            this.sendMessage('wof.bizWidget.FlowLayout_active');
         }
 
     },
