@@ -89,8 +89,6 @@ wof.bizWidget.FlowLayoutItem.prototype = {
                                 b=true;
                             }else if(childNode.getClassName()!='wof.bizWidget.FlowLayout' && childNode.getClassName()!='wof.bizWidget.GridLayout'){
                                 b=true;
-                            }else{
-                                console.log('childNode.getClassName()='+childNode.getClassName());
                             }
                         }
                     }

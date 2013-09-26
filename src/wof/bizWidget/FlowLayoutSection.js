@@ -264,6 +264,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
                 this.parentNode().setActiveItemRank(null);
             }
             this.parentNode().render();
+            this.parentNode().sendMessage('wof.bizWidget.FlowLayout_active');
         }
     },
 
