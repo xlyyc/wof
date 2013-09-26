@@ -145,17 +145,16 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.col = activeItem.getCol();
                     activeData.colspan = activeItem.getColspan();
                     activeData.sectionIndex = activeSection.getIndex();
-                    activeData.readOnly = ['id','className','activeClass','row','col','sectionIndex'];
+                    activeData.readOnly = ['id','className','activeClass','row','col','sectionIndex','readOnly'];
                 }else{
                     activeData.activeClass = 'FlowLayoutSection';
                     activeData.title = activeSection.getTitle();
-                    activeData.titleHeight = activeSection.getTitleHeight();
                     activeData.cols = activeSection.getCols();
                     activeData.itemHeight = activeSection.getItemHeight();
                     activeData.isExpand = activeSection.getIsExpand();
                     activeData.width = activeSection.getWidth();
                     activeData.index = activeSection.getIndex();
-                    activeData.readOnly = ['id','className','activeClass'];
+                    activeData.readOnly = ['id','className','activeClass','isExpand','index','readOnly'];
                 }
                 //当前激活section加入上移 下移 插入 删除操作句柄
                 if(activeSectionIndex>1){
@@ -184,10 +183,8 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                 activeData.scale = flowLayout.getScale();
                 activeData.activeSectionIndex = flowLayout.getActiveSectionIndex();
                 activeData.activeItemRank = flowLayout.getActiveItemRank();
-                activeData.onSendMessage = flowLayout.getOnSendMessage();
-                activeData.onReceiveMessage = flowLayout.getOnReceiveMessage();
                 activeData.sendMessages = flowLayout.getSendMessages();
-                activeData.readOnly = ['id','className','activeClass'];
+                activeData.readOnly = ['id','height','left','top','cols','zIndex','hiden','position','scale','activeSectionIndex','activeItemRank',,'className','activeClass','readOnly'];
             }
             //当前选中的flowLayout加入拖放 删除操作句柄
             this._selectFlowLayoutIco.css('top',-16).css('left',0);
@@ -260,6 +257,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                             var activeSectionIndex = _this.getPropertys().activeSectionIndex;
                             flowLayout.deleteSection(activeSectionIndex);
                             flowLayout.render();
+                            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
                             jQuery(this).dialog('close');
                             jQuery(this).remove();
                         },
@@ -278,6 +276,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
             var sectionData = {title:'未命名分组'};
             flowLayout.insertSection(sectionData,activeSectionIndex);
             flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
         });
         this._upSectionIco.mousedown(function(event){
             event.stopPropagation();
@@ -285,6 +284,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
             var activeSectionIndex = _this.getPropertys().activeSectionIndex;
             flowLayout.upSection(activeSectionIndex);
             flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
         });
         this._downSectionIco.mousedown(function(event){
             event.stopPropagation();
@@ -292,6 +292,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
             var activeSectionIndex = _this.getPropertys().activeSectionIndex;
             flowLayout.downSection(activeSectionIndex);
             flowLayout.render();
+            flowLayout.sendMessage('wof.bizWidget.FlowLayout_active');
         });
 
         this._mergeItemArrow.mousedown(function(event){
