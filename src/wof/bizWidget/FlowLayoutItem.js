@@ -144,11 +144,13 @@ wof.bizWidget.FlowLayoutItem.prototype = {
         var childNodes = this.childNodes();
         if(childNodes.length>0){
             var child = childNodes[0];
-            if(child.getClassName()=='wof.bizWidget.FlowLayout'||child.getClassName()=='wof.bizWidget.GridLayout'){
+            if(child.getClassName()=='wof.bizWidget.FlowLayout'){
                 child.setWidth(this.getWidth());
                 for(var i=1;i<=child.getSections();i++){
                     child.updateSection({width:this.getWidth(),index:i});
                 }
+            }else if(child.getClassName()=='wof.bizWidget.GridLayout'){
+                //todo 网格布局待实现
             }
         }
     },
