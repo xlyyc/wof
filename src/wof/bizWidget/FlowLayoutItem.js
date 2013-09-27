@@ -141,7 +141,16 @@ wof.bizWidget.FlowLayoutItem.prototype = {
 
     //----------必须实现----------
     render: function () {
-
+        var childNodes = this.childNodes();
+        if(childNodes.length>0){
+            var child = childNodes[0];
+            if(child.getClassName()=='wof.bizWidget.FlowLayout'||child.getClassName()=='wof.bizWidget.GridLayout'){
+                child.setWidth(this.getWidth());
+                for(var i=1;i<=child.getSections();i++){
+                    child.updateSection({width:this.getWidth(),index:i});
+                }
+            }
+        }
     },
 
     //选择实现

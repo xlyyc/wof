@@ -136,7 +136,7 @@ wof.bizWidget.FlowLayout.prototype = {
             console.log(message.id+'   '+this.getClassName());
             var obj = wof.util.ObjectManager.get(message.data.widgetId);
             var item = wof.util.ObjectManager.get(message.sender.id);
-            var node = eval('(new '+obj.getValue()+'()).createSelf('+item.getWidth()/item.getColspan()+','+item.getHeight()+');');
+            var node = eval('(new '+obj.getValue()+'()).createSelf('+item.getWidth()+','+item.getHeight()+');');
             this.insertNode(node);
             this.render();
             this.sendMessage('wof.bizWidget.FlowLayout_active');
