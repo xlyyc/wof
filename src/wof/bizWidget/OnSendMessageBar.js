@@ -1,5 +1,4 @@
 ﻿wof.bizWidget.OnSendMessageBar = function(){
-	this.getDomInstance().css('position', 'absolute');
 	
 	var _this = this;
 	this.getDomInstance().click(function(event){
