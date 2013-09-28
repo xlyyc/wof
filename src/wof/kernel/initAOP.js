@@ -340,31 +340,27 @@ var wof$_aop = (function(){
                         return node;
                     };
                     obj[o].prototype._height = null;
-                    obj[o].prototype.getHeight = function(){
-                        return this._height;
-                    };
-                    obj[o].prototype.setHeight = function(height){
-                        if(this.beforeSetHeight!=null){
-                            this.beforeSetHeight();
-                        }
-                        this._height = height;
-                        if(this.afterSetHeight!=null){
-                            this.afterSetHeight();
-                        }
-                    };
+                    if(obj[o].prototype.getHeight==null){
+                        obj[o].prototype.getHeight = function(){
+                            return this._height;
+                        };
+                    }
+                    if(obj[o].prototype.setHeight==null){
+                        obj[o].prototype.setHeight = function(height){
+                            this._height = height;
+                        };
+                    }
                     obj[o].prototype._width = null;
-                    obj[o].prototype.getWidth = function(){
-                        return this._width;
-                    };
-                    obj[o].prototype.setWidth = function(width){
-                        if(this.beforeSetWidth!=null){
-                            this.beforeSetWidth();
-                        }
-                        this._width = width;
-                        if(this.afterSetWidth!=null){
-                            this.afterSetWidth();
-                        }
-                    };
+                    if(obj[o].prototype.getWidth==null){
+                        obj[o].prototype.getWidth = function(){
+                            return this._width;
+                        };
+                    }
+                    if(obj[o].prototype.setWidth==null){
+                        obj[o].prototype.setWidth = function(width){
+                            this._width = width;
+                        };
+                    }
                     obj[o].prototype._left = null;
                     obj[o].prototype.getLeft = function(){
                         return this._left;

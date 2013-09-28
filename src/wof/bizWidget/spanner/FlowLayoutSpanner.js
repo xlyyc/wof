@@ -152,7 +152,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                     activeData.cols = activeSection.getCols();
                     activeData.itemHeight = activeSection.getItemHeight();
                     activeData.isExpand = activeSection.getIsExpand();
-                    activeData.width = activeSection.getWidth();
+                    //activeData.width = activeSection.getWidth();
                     activeData.index = activeSection.getIndex();
                     activeData.readOnly = ['id','className','activeClass','isExpand','index','readOnly'];
                 }
