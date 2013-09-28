@@ -110,7 +110,7 @@ wof.bizWidget.OnSendMessageBar.prototype={
     getMethodByName:function(name){
         var method = null;
         var messages = this.getPropertys()['onSendMessage'];
-        for(var i=0;i<messages.length;i++){
+        for(var i=0;messages!=null&&i<messages.length;i++){
             var msg = messages[i];
             if(msg.id==name){
                 method = msg.method;

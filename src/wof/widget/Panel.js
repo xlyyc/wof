@@ -6,6 +6,7 @@
  */
 
 wof.widget.Panel = function () {
+    this.setIsContainer(true);
 
 };
 
