@@ -277,12 +277,18 @@ jQuery(function(){
                         flowLayout.setWidth(width);
                         flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
-                        var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
+                        //var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
+
+                        var method = 'var layout = this.clone();'
+                                + '\n layout.setTop(300);'
+                                + '\n layout.appendTo(this.parentNode());'
+                                + '\n layout.render();'
+                                +'\n return false;';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_mousedown',priority:50,method:method}]);
                         flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
                         flowLayout.appendTo(panel);
 
-                        var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:4,itemHeight:80};
+                        var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:3,itemHeight:80};
                         flowLayout.insertSection(sectionData1);
 
                        /* for(var t=1;t<4;t++){
@@ -300,9 +306,9 @@ jQuery(function(){
                         btn.setText('测试按钮');
                         flowLayout.insertNode(btn,0,0);*/
 
-                        var flowLayoutSection2 = new FlowLayoutSection();
-                        /*flowLayoutSection2.setLeft(0);
-                         flowLayoutSection2.setTop(0);*/
+                     /*   var flowLayoutSection2 = new FlowLayoutSection();
+                        *//*flowLayoutSection2.setLeft(0);
+                         flowLayoutSection2.setTop(0);*//*
                         flowLayoutSection2.setWidth(width);
                         flowLayoutSection2.setTitleHeight(30);
                         flowLayoutSection2.setTitle('分组2');
@@ -321,7 +327,7 @@ jQuery(function(){
                             btn.appendTo(flowLayoutItem);
 
                             flowLayoutItem.appendTo(flowLayoutSection2);
-                        }
+                        }*/
 
                         var flowLayoutSection3 = new FlowLayoutSection();
                         /*flowLayoutSection3.setLeft(0);

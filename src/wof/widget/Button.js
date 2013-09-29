@@ -184,8 +184,8 @@ wof.widget.Button.prototype = {
         node.setType('submit');
         node.setLeft(0);
         node.setTop(0);
-        node.setWidth(width);
-        node.setHeight(height);
+        node.setWidth(width/2);
+        node.setHeight(height/2);
         node.setText('未命名');
         return node;
     }
