@@ -81,8 +81,9 @@ wof.widget.Label.prototype = {
     },
 
     getIsHighlight: function(){
-        if(this._isHighlight==null)
+        if(this._isHighlight==null){
             this._isHighlight = false;
+        }
         return this._isHighlight;
     },
 

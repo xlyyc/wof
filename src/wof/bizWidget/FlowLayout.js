@@ -372,8 +372,8 @@ wof.bizWidget.FlowLayout.prototype = {
             if(flowLayoutData.onReceiveMessage!=null){
                 this.setOnReceiveMessage(flowLayoutData.onReceiveMessage);
             }
-            this.setActiveSectionIndex(null);
-            this.setActiveItemRank(null);
+            /*this.setActiveSectionIndex(null);
+            this.setActiveItemRank(null);*/
         }
     },
 
@@ -400,8 +400,8 @@ wof.bizWidget.FlowLayout.prototype = {
                 if(sectionData.itemHeight!=null){
                     section.setItemHeight(Number(sectionData.itemHeight));
                 }
-                this.setActiveSectionIndex(Number(sectionData.index));
-                this.setActiveItemRank(null);
+                /*this.setActiveSectionIndex(Number(sectionData.index));
+                this.setActiveItemRank(null);*/
             }
         }
     },
@@ -424,8 +424,8 @@ wof.bizWidget.FlowLayout.prototype = {
                         }
                     }
                 }
-                this.setActiveSectionIndex(Number(itemData.sectionIndex));
-                this.setActiveItemRank({row:Number(itemData.row),col:Number(itemData.col)});
+                /*this.setActiveSectionIndex(Number(itemData.sectionIndex));
+                this.setActiveItemRank({row:Number(itemData.row),col:Number(itemData.col)});*/
             }
         }
     },
@@ -546,9 +546,9 @@ wof.bizWidget.FlowLayout.prototype = {
         this.getDomInstance().css('width', (this.getWidth()*this.getScale()+2)+'px');//加2修正css的边框误差
 
         //根据activeSectionIndex设置当前激活的section
-        var activeSection = this.findSectionByIndex(this._activeSectionIndex);
+        var activeSection = this.findSectionByIndex(this.getActiveSectionIndex());
         if(activeSection!=null){
-            var activeItem = activeSection.findItemByRank(this._activeItemRank);
+            var activeItem = activeSection.findItemByRank(this.getActiveItemRank());
             if(activeItem!=null){
                 activeSection.activeItemStyle(activeItem);
             }else{

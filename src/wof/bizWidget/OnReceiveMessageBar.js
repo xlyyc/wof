@@ -11,7 +11,6 @@ wof.bizWidget.OnReceiveMessageBar.prototype={
 	_propertys: null,
 
     setPropertys:function(propertys){
-        console.log(JSON.stringify(propertys));
         this._propertys = propertys;
     },
 	

@@ -226,6 +226,10 @@ var wof$_aop = (function(){
                         }else{
                             wof.util.ObjectManager.remove(this.getId());
                             if(flag==true){
+                                if(this.getIsInside()!=true){
+                                    this.setOnReceiveMessage([]);
+                                    this.setOnSendMessage([]);
+                                }
                                 this.getDomInstance().remove();
                             }else{
                                 this.getDomInstance().detach();
@@ -256,7 +260,7 @@ var wof$_aop = (function(){
                         return JSON.stringify(this.getData());
                     };
                     obj[o].prototype.toHTML = function(){
-                        return this._domInstance.html();
+                        return this.getDomInstance().html();
                     };
                     obj[o].prototype._childNodes = null;
                     obj[o].prototype.childNodes = function(){
@@ -362,19 +366,27 @@ var wof$_aop = (function(){
                         };
                     }
                     obj[o].prototype._left = null;
-                    obj[o].prototype.getLeft = function(){
-                        return this._left;
-                    };
-                    obj[o].prototype.setLeft = function(left){
-                        this._left = left;
-                    };
+                    if(obj[o].prototype.getLeft==null){
+                        obj[o].prototype.getLeft = function(){
+                            return this._left;
+                        };
+                    }
+                    if(obj[o].prototype.setLeft==null){
+                        obj[o].prototype.setLeft = function(left){
+                            this._left = left;
+                        };
+                    }
                     obj[o].prototype._top = null;
-                    obj[o].prototype.getTop = function(){
-                        return this._top;
-                    };
-                    obj[o].prototype.setTop = function(top){
-                        this._top = top;
-                    };
+                    if(obj[o].prototype.getTop==null){
+                        obj[o].prototype.getTop = function(){
+                            return this._top;
+                        };
+                    }
+                    if(obj[o].prototype.setTop==null){
+                        obj[o].prototype.setTop = function(top){
+                            this._top = top;
+                        };
+                    }
                     obj[o].prototype._scale = null;
                     obj[o].prototype.getScale = function(){
                         if(this._scale==null)

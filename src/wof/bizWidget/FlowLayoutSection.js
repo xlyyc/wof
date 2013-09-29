@@ -8,6 +8,7 @@ wof.bizWidget.FlowLayoutSection = function () {
 
     this.setIsInside(true);
 
+    //todo overflow定义
     this.getDomInstance().css('overflow','hidden');
 
     this._backgroundImg = jQuery('<img src="src/img/backgroud.gif" style="position:absolute;cursor:pointer;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;">');
@@ -57,6 +58,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
     setIsExpand: function(isExpand){
         this._isExpand = isExpand;
     },
+
     getItemHeight: function(){
         if(this._itemHeight==null){
             if(this.parentNode()!=null){
@@ -110,11 +112,9 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	 },
 
     getWidth: function(){
-        //if(this._width==null){
-            if(this.parentNode()!=null){
-                this._width = this.parentNode().getWidth();
-            }
-        //}
+        if(this.parentNode()!=null){
+            this._width = this.parentNode().getWidth();
+        }
         return this._width;
     },
 
@@ -266,23 +266,6 @@ wof.bizWidget.FlowLayoutSection.prototype = {
             this.parentNode().render();
             this.parentNode().sendMessage('wof.bizWidget.FlowLayout_active');
         }
-    },
-
-    //选择实现
-    _update:function(data){
-        function caption(s){
-            var a = s.split('');
-            a[0] = a[0].toUpperCase();
-            return a.join('');
-        }
-        for(var k in data){
-            var cp = caption(k);
-            if(this['set'+cp]!=null){
-                this['set'+cp](data[k]);
-            }
-        }
-        console.log('源消息对象JSON数据:'+wof$('#'+data.id).get(0).toJSON());
-        this.parentNode().render();
     },
 
     //找到第一个item
