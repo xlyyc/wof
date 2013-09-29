@@ -99,7 +99,7 @@ jQuery(function(){
 		sidebar2.css('width', sidebar2Width+'px');
 		sidebar2.css('height', (windowHeight-headerHeight-footerHeight)+'px');
 		sidebar2.css('left', (windowWidth-sidebar2Width)+'px');
-		sidebar2.css('top', headerHeight+'px');	
+		sidebar2.css('top', headerHeight+'px');
 		footer.css('width', windowWidth+'px');
 		footer.css('height', footerHeight+'px');
 		footer.css('left', '0px');
@@ -148,24 +148,25 @@ jQuery(function(){
 		var windowHeight = jQuery(window).height();
 		with(wof.widget)
             with(wof.bizWidget){
-                var panel = new Panel();
-                panel.setOverflow('y');
-                panel.setWidth(sidebar2Width);
-                panel.setHeight(windowHeight-headerHeight-footerHeight);
-                panel.setTop(0);
-                panel.setLeft(0);
-                sidebar2.append(panel.getDomInstance());
-                wof.util.ObjectManager.add(panel.getId(), panel);
-
                 var tab = new Tab();
-                tab.setWidth(sidebar2Width-24);
+                tab.setWidth(sidebar2Width-7);
+                tab.setHeight(windowHeight-headerHeight-footerHeight-7);
                 tab.setTop(0);
                 tab.setLeft(0);
-                tab.appendTo(panel);
+                sidebar2.append(tab.getDomInstance());
+                wof.util.ObjectManager.add(tab.getId(), tab);
 
                 var tabItem1 = new TabItem();
                 tabItem1.setTitle("属性");
                 tabItem1.appendTo(tab);
+
+                var panel1 = new Panel();
+                panel1.setOverflow('y');
+                panel1.setWidth(sidebar2Width-3);
+                panel1.setHeight(windowHeight-headerHeight-footerHeight-60);
+                panel1.setTop(50);
+                panel1.setLeft(0);
+                panel1.appendTo(tabItem1);
 
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
@@ -176,13 +177,21 @@ jQuery(function(){
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
-                propertyBar.setTop(50);
-                propertyBar.setLeft(5);
-                propertyBar.appendTo(tabItem1);
+                propertyBar.setTop(0);
+                propertyBar.setLeft(4);
+                propertyBar.appendTo(panel1);
 
                 var tabItem2 = new TabItem();
                 tabItem2.setTitle("发送");
                 tabItem2.appendTo(tab);
+
+                var panel2 = new Panel();
+                panel2.setOverflow('y');
+                panel2.setWidth(sidebar2Width-3);
+                panel2.setHeight(windowHeight-headerHeight-footerHeight-60);
+                panel2.setTop(50);
+                panel2.setLeft(0);
+                panel2.appendTo(tabItem2);
 
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
@@ -192,13 +201,21 @@ jQuery(function(){
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
                 onSendMessageBar.setOnReceiveMessage(receives);
-                onSendMessageBar.setTop(50);
-                onSendMessageBar.setLeft(5);
-                onSendMessageBar.appendTo(tabItem2);
+                onSendMessageBar.setTop(0);
+                onSendMessageBar.setLeft(4);
+                onSendMessageBar.appendTo(panel2);
 
                 var tabItem3 = new TabItem();
                 tabItem3.setTitle("监听");
                 tabItem3.appendTo(tab);
+
+                var panel3 = new Panel();
+                panel3.setOverflow('y');
+                panel3.setWidth(sidebar2Width-3);
+                panel3.setHeight(windowHeight-headerHeight-footerHeight-60);
+                panel3.setTop(50);
+                panel3.setLeft(0);
+                panel3.appendTo(tabItem3);
 
                 var onReceiveMessageBar = new OnReceiveMessageBar();
                 onReceiveMessageBar.setWidth(sidebar2Width-24);
@@ -208,11 +225,11 @@ jQuery(function(){
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
                 onReceiveMessageBar.setOnReceiveMessage(receiv);
-                onReceiveMessageBar.setTop(50);
-                onReceiveMessageBar.setLeft(5);
-                onReceiveMessageBar.appendTo(tabItem3);
+                onReceiveMessageBar.setTop(0);
+                onReceiveMessageBar.setLeft(4);
+                onReceiveMessageBar.appendTo(panel3);
 
-                panel.render();
+                tab.render();
 		}
 	}
 	//重设右侧边栏
@@ -220,9 +237,9 @@ jQuery(function(){
 		try{
 			var windowWidth = jQuery(window).width();
 			var windowHeight = jQuery(window).height();
-			var panel = wof.util.ObjectManager.get(sidebar2.children('div[oid]').first().attr('oid'));
-			panel.setHeight(windowHeight-headerHeight-footerHeight);
-			panel.render();
+			var tab = wof.util.ObjectManager.get(sidebar2.children('div[oid]').first().attr('oid'));
+            tab.setHeight(windowHeight-headerHeight-footerHeight-7);
+            tab.render();
 		}catch(e){}
 	}
 	//初始化工作区
@@ -507,7 +524,7 @@ jQuery(function(){
 	<div id="sidebar1" style="position:absolute;z-index:90000;">
     	
     </div>
-    <div id="content" style="position:absolute;">
+    <div id="content" style="position:absolute;z-index: auto;">
     	
     </div>
     <div id="sidebar2" style="position:absolute;z-index:90000;">

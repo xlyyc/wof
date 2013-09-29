@@ -184,12 +184,12 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
                 activeData.activeSectionIndex = flowLayout.getActiveSectionIndex();
                 activeData.activeItemRank = flowLayout.getActiveItemRank();
                 activeData.sendMessages = flowLayout.getSendMessages();
-                activeData.readOnly = ['id','height','left','top','cols','zIndex','hiden','position','scale','activeSectionIndex','activeItemRank',,'className','activeClass','readOnly'];
+                activeData.readOnly = ['id','height','left','top','cols','zIndex','hiden','position','scale','activeSectionIndex','activeItemRank','className','activeClass','readOnly'];
             }
             //当前选中的flowLayout加入拖放 删除操作句柄
-            this._selectFlowLayoutIco.css('top',-16).css('left',0);
+            this._selectFlowLayoutIco.css('top',0).css('left',0);
             flowLayout.getDomInstance().append(this._selectFlowLayoutIco);
-            this._deleteFlowLayoutIco.css('top',-16).css('left',this._deleteFlowLayoutIco.width()+2);
+            this._deleteFlowLayoutIco.css('top',0).css('left',this._deleteFlowLayoutIco.width()+2);
             flowLayout.getDomInstance().append(this._deleteFlowLayoutIco);
         }
         this.setActiveData(activeData);
