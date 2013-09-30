@@ -112,6 +112,7 @@ wof.widget.Button.prototype = {
                     _this.sendMessage('wof.widget.Button_active');
                 },250);
             });
+
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
                 clearTimeout(timeFn);

@@ -7,8 +7,6 @@
 
 wof.widget.Toolbar = function () {
 
-    this.getDomInstance().addClass('ui-widget-content ui-corner-bottom');
-    this.getDomInstance().css('overflow','hidden');
 };
 
 wof.widget.Toolbar.prototype = {
