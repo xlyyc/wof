@@ -36,7 +36,6 @@
 
 <script src="src/wof/widget/Mediator.js"></script>
 
-<script src="src/wof/widget/Panel.js"></script>
 <script src="src/wof/widget/Tab.js"></script>
 <script src="src/wof/widget/TabItem.js"></script>
 <script src="src/wof/widget/Toolbar.js"></script>
@@ -121,24 +120,15 @@ jQuery(function(){
 		var windowHeight = jQuery(window).height();
         with(wof.widget)
             with(wof.bizWidget){
-                var panel = new Panel();
-                panel.setOverflow('y');
-                panel.setWidth(sidebar1Width);
-                panel.setHeight(windowHeight-headerHeight-footerHeight);
-                panel.setTop(0);
-                panel.setLeft(0);
-                panel.setCss('ui-widget-content');
-                panel.setOverflow('y');
-                sidebar1.append(panel.getDomInstance());
-                wof.util.ObjectManager.add(panel.getId(), panel);
-
                 var objectBar = new ObjectBar();
-                objectBar.setWidth(sidebar1Width-18);
+                objectBar.setWidth(sidebar1Width);
+                objectBar.setHeight(windowHeight-headerHeight-footerHeight);
                 objectBar.setTop(0);
                 objectBar.setLeft(0);
-                objectBar.appendTo(panel);
+                sidebar1.append(objectBar.getDomInstance());
+                wof.util.ObjectManager.add(objectBar.getId(), objectBar);
 
-                panel.render();
+                objectBar.render();
 		}
 	}
 	
@@ -161,14 +151,6 @@ jQuery(function(){
                 tabItem1.setTitle("属性");
                 tabItem1.appendTo(tab);
 
-                var panel1 = new Panel();
-                panel1.setOverflow('y');
-                panel1.setWidth(sidebar2Width-3);
-                panel1.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel1.setTop(50);
-                panel1.setLeft(0);
-                panel1.appendTo(tabItem1);
-
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
@@ -178,21 +160,13 @@ jQuery(function(){
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
-                propertyBar.setTop(0);
+                propertyBar.setTop(50);
                 propertyBar.setLeft(4);
-                propertyBar.appendTo(panel1);
+                propertyBar.appendTo(tabItem1);
 
                 var tabItem2 = new TabItem();
                 tabItem2.setTitle("发送");
                 tabItem2.appendTo(tab);
-
-                var panel2 = new Panel();
-                panel2.setOverflow('y');
-                panel2.setWidth(sidebar2Width-3);
-                panel2.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel2.setTop(50);
-                panel2.setLeft(0);
-                panel2.appendTo(tabItem2);
 
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
@@ -202,21 +176,13 @@ jQuery(function(){
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
                 onSendMessageBar.setOnReceiveMessage(receives);
-                onSendMessageBar.setTop(0);
+                onSendMessageBar.setTop(50);
                 onSendMessageBar.setLeft(4);
-                onSendMessageBar.appendTo(panel2);
+                onSendMessageBar.appendTo(tabItem2);
 
                 var tabItem3 = new TabItem();
                 tabItem3.setTitle("监听");
                 tabItem3.appendTo(tab);
-
-                var panel3 = new Panel();
-                panel3.setOverflow('y');
-                panel3.setWidth(sidebar2Width-3);
-                panel3.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel3.setTop(50);
-                panel3.setLeft(0);
-                panel3.appendTo(tabItem3);
 
                 var onReceiveMessageBar = new OnReceiveMessageBar();
                 onReceiveMessageBar.setWidth(sidebar2Width-24);
@@ -226,9 +192,9 @@ jQuery(function(){
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
                 onReceiveMessageBar.setOnReceiveMessage(receiv);
-                onReceiveMessageBar.setTop(0);
+                onReceiveMessageBar.setTop(50);
                 onReceiveMessageBar.setLeft(4);
-                onReceiveMessageBar.appendTo(panel3);
+                onReceiveMessageBar.appendTo(tabItem3);
 
                 tab.render();
 		}
@@ -252,31 +218,26 @@ jQuery(function(){
                 with(wof.bizWidget.spanner)
                     with(wof.widget.spanner)
                     with(wof.kernel){
-                        panel = new Panel();
-                        panel.setOverflow('auto');
-                        panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
-                        panel.setHeight(windowHeight-headerHeight-footerHeight);
-                        panel.setTop(0);
-                        panel.setLeft(0);
-                        content.append(panel.getDomInstance());
-                        wof.util.ObjectManager.add(panel.getId(), panel);
-
                         var flowLayoutSpanner = new FlowLayoutSpanner();
-                        flowLayoutSpanner.appendTo(panel);
+                        content.append(flowLayoutSpanner.getDomInstance());
+                        wof.util.ObjectManager.add(flowLayoutSpanner.getId(), flowLayoutSpanner);
 
                         var buttonSpanner = new ButtonSpanner();
-                        buttonSpanner.appendTo(panel);
+                        content.append(buttonSpanner.getDomInstance());
+                        wof.util.ObjectManager.add(buttonSpanner.getId(), buttonSpanner);
 
                         var itemHeight = 70;
                         var width = 810;
 
                         var flowLayout = new FlowLayout();
+                        flowLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
+                        flowLayout.setHeight(windowHeight-headerHeight-footerHeight);
                         flowLayout.setLeft(0);
                         flowLayout.setTop(0);
-                        //flowLayout.setHeight(600);
-                        flowLayout.setWidth(width);
                         flowLayout.setCols(4);
                         flowLayout.setItemHeight(60);
+                        content.append(flowLayout.getDomInstance());
+                        wof.util.ObjectManager.add(flowLayout.getId(), flowLayout);
                         //var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
 
                         var method = 'var layout = this.clone();'
@@ -286,7 +247,7 @@ jQuery(function(){
                                 +'\n return false;';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_mousedown',priority:50,method:method}]);
                         flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
-                        flowLayout.appendTo(panel);
+
 
                         var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:3,itemHeight:80};
                         flowLayout.insertSection(sectionData1);
@@ -468,7 +429,7 @@ jQuery(function(){
                         tree.appendTo(flowLayoutItem);
 
 
-                        panel.render();
+                        flowLayout.render();
 
                         //测试设置当前section和当前item
                         flowLayout.setActiveSectionIndex(1);
@@ -493,10 +454,10 @@ jQuery(function(){
 		try{
 			var windowWidth = jQuery(window).width();
 			var windowHeight = jQuery(window).height();
-			var panel = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
-			panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
-			panel.setHeight(windowHeight-headerHeight-footerHeight);
-			panel.render();
+			var flowLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
+            flowLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
+            flowLayout.setHeight(windowHeight-headerHeight-footerHeight);
+            flowLayout.render();
 		}catch(e){}
 	}
 	jQuery(window).load(function(){
@@ -531,7 +492,7 @@ jQuery(function(){
 	<div id="sidebar1" style="position:absolute;z-index:90000;">
     	
     </div>
-    <div id="content" style="position:absolute;z-index: auto;">
+    <div id="content" style="position:absolute;z-index: auto; overflow: auto;">
     	
     </div>
     <div id="sidebar2" style="position:absolute;z-index:90000;">
