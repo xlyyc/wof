@@ -49,6 +49,8 @@ wof.widget.Tab.prototype = {
 		var ul = jQuery('<ul>');
 		this.getDomInstance().prepend(ul);
 		for(var i=0; i<this.childNodes().length; i++){
+            this.childNodes()[i].setWidth(this.getWidth()-38);
+            this.childNodes()[i].setHeight(this.getHeight());
 			var li = jQuery('<li>');
 			var a = jQuery('<a href="#'+this.childNodes()[i].getId()+'">'+this.childNodes()[i].getTitle()+'</a>');
 			li.append(a);

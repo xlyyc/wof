@@ -6,7 +6,7 @@
  */
 
 wof.widget.TabItem = function () {
-    this.setPosition('static');
+    //this.setPosition('static');
     this.setIsInside(true);
 
 };
@@ -16,6 +16,8 @@ wof.widget.TabItem.prototype = {
      * 属性声明 （private ，用"_"标识）
      */
     _title: null,
+
+    _overflow: null,
 
     /**
      * get/set 属性方法定义
@@ -31,18 +33,38 @@ wof.widget.TabItem.prototype = {
         this._title = title;
     },
 
+    setOverflow: function (overflow) {
+        this._overflow = overflow;
+    },
+
+
+    getOverflow: function(){
+        return this._overflow;
+    },
+
+
+
     /**
      * Render 方法定义
      */
 
     //选择实现
     beforeRender: function () {
-
+        this.getDomInstance().css('overflow', '').css('overflow-x', '').css('overflow-y', '');
     },
 
     //----------必须实现----------
     render: function () {
-         this.getDomInstance().attr('id', this.getId());
+        this.getDomInstance().attr('id', this.getId());
+        if(this.getOverflow()=='x'){
+            this.getDomInstance().css('overflow-x', 'scroll');
+        }else if(this.getOverflow()=='y'){
+            this.getDomInstance().css('overflow-y', 'scroll');
+        }else if(this.getOverflow()=='scroll'){
+            this.getDomInstance().css('overflow', 'scroll');
+        }else if(this.getOverflow()=='auto'){
+            this.getDomInstance().css('overflow', 'auto');
+        }
     },
 
     //选择实现
@@ -57,12 +79,14 @@ wof.widget.TabItem.prototype = {
     //----------必须实现----------
     getData: function () {
         return {
-            title: this.getTitle()
+            title: this.getTitle(),
+            overflow: this.getOverflow()
         };
     },
     //----------必须实现----------
     setData: function (data) {
         this.setTitle(data.title);
+        this.setOverflow(data.overflow);
     }
 
 };
