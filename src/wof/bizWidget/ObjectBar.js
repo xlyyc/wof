@@ -20,10 +20,44 @@ wof.bizWidget.ObjectBar.prototype={
             toolbar.setLeft(0);
             toolbar.appendTo(this);
 
+            var toolbarItem0 = new wof.widget.ToolbarItem();
+            toolbarItem0.setIsInside(true);
+            toolbarItem0.setTitle('布局组件');
+            toolbarItem0.setName('layout');
+            toolbarItem0.appendTo(toolbar);
+
+            var label1 = new wof.widget.Label();
+            label1.setIsInside(true);
+            label1.setIco('src/img/verify.gif');
+            label1.setWidth(130);
+            label1.setHeight(25);
+            label1.setValue('wof.bizWidget.FlowLayout');
+            label1.setText('FlowLayout');
+            label1.appendTo(toolbarItem0);
+            label1.getDomInstance().draggable({
+                cursor:"move",
+                opacity: 0.7,
+                cursorAt:{
+                    top:0,
+                    left:0
+                },
+                scroll: false,
+                helper: 'clone',
+                start:function(event,ui){
+                    event.stopPropagation();
+                    label1.getDomInstance().css('zIndex',60000);
+                },
+                stop:function(event,ui){
+                    event.stopPropagation();
+                    label1.getDomInstance().css('zIndex','auto');
+                }
+            });
+
+
             var toolbarItem1 = new wof.widget.ToolbarItem();
             toolbarItem1.setIsInside(true);
             toolbarItem1.setTitle('基本组件');
-            toolbarItem1.setName('widget');
+            toolbarItem1.setName('base');
             toolbarItem1.appendTo(toolbar);
 
             for(var o in wof.widget){
@@ -59,11 +93,11 @@ wof.bizWidget.ObjectBar.prototype={
             var toolbarItem2 = new wof.widget.ToolbarItem();
             toolbarItem2.setIsInside(true);
             toolbarItem2.setTitle('业务组件');
-            toolbarItem2.setName('bizWidget');
+            toolbarItem2.setName('biz');
             toolbarItem2.appendTo(toolbar);
             for(var o in wof.bizWidget){
                 if(typeof(wof.bizWidget[o])=='function'){
-                    if(o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
+                    if(o!='FlowLayout'&&o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
                         var label = new wof.widget.Label();
                         label.setIsInside(true);
                         label.setIco('src/img/verify.gif');
