@@ -44,12 +44,14 @@ wof.widget.Panel.prototype = {
                 clearTimeout(timeFn);
                 timeFn = setTimeout(function(){
                     _this.sendMessage('wof.widget.Panel_mousedown');
+                    _this.sendMessage('wof.widget.Panel_active');
                 },250);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
                 clearTimeout(timeFn);
                 _this.sendMessage('wof.widget.Panel_dblclick');
+                _this.sendMessage('wof.widget.Panel_active');
             });
             this.getDomInstance().droppable({
                 snap:true,

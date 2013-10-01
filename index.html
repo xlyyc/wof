@@ -50,6 +50,7 @@
 <script src="src/wof/widget/ComboBox.js"></script>
 <script src="src/wof/widget/Tree.js"></script>
 <script src="src/wof/widget/spanner/ButtonSpanner.js"></script>
+<script src="src/wof/widget/spanner/PanelSpanner.js"></script>
 
 <script src="src/wof/bizWidget/FlowLayout.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
@@ -163,6 +164,7 @@ jQuery(function(){
 
                 var panel1 = new Panel();
                 panel1.setOverflow('y');
+                panel1.setIsInside(true);
                 panel1.setWidth(sidebar2Width-3);
                 panel1.setHeight(windowHeight-headerHeight-footerHeight-60);
                 panel1.setTop(50);
@@ -177,6 +179,7 @@ jQuery(function(){
                 //todo 理顺spanner对象之间的关系
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
+                onReceiveMessage.push({id:'wof.widget.spanner.PanelSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
                 propertyBar.setTop(0);
                 propertyBar.setLeft(4);
@@ -188,6 +191,7 @@ jQuery(function(){
 
                 var panel2 = new Panel();
                 panel2.setOverflow('y');
+                panel2.setIsInside(true);
                 panel2.setWidth(sidebar2Width-3);
                 panel2.setHeight(windowHeight-headerHeight-footerHeight-60);
                 panel2.setTop(50);
@@ -201,6 +205,7 @@ jQuery(function(){
                 var receives = [];
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
+                receives.push({id:'wof.widget.spanner.PanelSpanner_render',method:meth});
                 onSendMessageBar.setOnReceiveMessage(receives);
                 onSendMessageBar.setTop(0);
                 onSendMessageBar.setLeft(4);
@@ -212,6 +217,7 @@ jQuery(function(){
 
                 var panel3 = new Panel();
                 panel3.setOverflow('y');
+                panel3.setIsInside(true);
                 panel3.setWidth(sidebar2Width-3);
                 panel3.setHeight(windowHeight-headerHeight-footerHeight-60);
                 panel3.setTop(50);
@@ -225,6 +231,7 @@ jQuery(function(){
                 var receiv = [];
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
+                receiv.push({id:'wof.widget.spanner.PanelSpanner_render',method:met});
                 onReceiveMessageBar.setOnReceiveMessage(receiv);
                 onReceiveMessageBar.setTop(0);
                 onReceiveMessageBar.setLeft(4);
@@ -266,6 +273,9 @@ jQuery(function(){
 
                         var buttonSpanner = new ButtonSpanner();
                         buttonSpanner.appendTo(panel);
+
+                        var panelSpanner = new PanelSpanner();
+                        panelSpanner.appendTo(panel);
 
                         var itemHeight = 70;
                         var width = 810;
