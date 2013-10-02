@@ -1,16 +1,16 @@
 /**
- * @widgetClass Panel class
+ * @widgetClass GridLayout class
  * @package wof.widget
  * @copyright author
  * @Time: 13-8-7 上午10:50
  */
 
-wof.widget.Panel = function () {
+wof.widget.GridLayout = function () {
 
 
 };
 
-wof.widget.Panel.prototype = {
+wof.widget.GridLayout.prototype = {
     /**
      * 属性声明 （private ，用"_"标识）
      */
@@ -43,15 +43,15 @@ wof.widget.Panel.prototype = {
                 event.stopPropagation();
                 clearTimeout(timeFn);
                 timeFn = setTimeout(function(){
-                    _this.sendMessage('wof.widget.Panel_mousedown');
-                    _this.sendMessage('wof.widget.Panel_active');
+                    _this.sendMessage('wof.widget.GridLayout_mousedown');
+                    _this.sendMessage('wof.widget.GridLayout_active');
                 },250);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
                 clearTimeout(timeFn);
-                _this.sendMessage('wof.widget.Panel_dblclick');
-                _this.sendMessage('wof.widget.Panel_active');
+                _this.sendMessage('wof.widget.GridLayout_dblclick');
+                _this.sendMessage('wof.widget.GridLayout_active');
             });
             this.getDomInstance().droppable({
                 snap:true,
@@ -61,7 +61,7 @@ wof.widget.Panel.prototype = {
                     if(draggableObj!=null){
                         //不能接受FlowLayoutSection和FlowLayoutItem
                         if(draggableObj.getClassName()!='wof.bizWidget.FlowLayoutSection'&&draggableObj.getClassName()!='wof.bizWidget.FlowLayoutItem'){
-                            //panel必须没有子节点
+                            //必须没有子节点
                             if(_this.childNodes().length==0){
                                 b=true;
                             }
@@ -132,7 +132,7 @@ wof.widget.Panel.prototype = {
 
     //创建初始化的button
     createSelf: function(width, height){
-        var node = new wof.widget.Panel();
+        var node = new wof.widget.GridLayout();
         node.setOverflow('auto');
         node.setWidth(width);
         node.setHeight(height);

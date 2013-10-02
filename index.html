@@ -36,7 +36,7 @@
 
 <script src="src/wof/widget/Mediator.js"></script>
 
-<script src="src/wof/widget/Panel.js"></script>
+<script src="src/wof/widget/GridLayout.js"></script>
 <script src="src/wof/widget/Tab.js"></script>
 <script src="src/wof/widget/TabItem.js"></script>
 <script src="src/wof/widget/Toolbar.js"></script>
@@ -50,7 +50,7 @@
 <script src="src/wof/widget/ComboBox.js"></script>
 <script src="src/wof/widget/Tree.js"></script>
 <script src="src/wof/widget/spanner/ButtonSpanner.js"></script>
-<script src="src/wof/widget/spanner/PanelSpanner.js"></script>
+<script src="src/wof/widget/spanner/GridLayoutSpanner.js"></script>
 
 <script src="src/wof/bizWidget/FlowLayout.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
@@ -111,9 +111,9 @@ jQuery(function(){
 		try{
 			var windowWidth = jQuery(window).width();
 			var windowHeight = jQuery(window).height();
-			var panel = wof.util.ObjectManager.get(sidebar1.children('div[oid]').first().attr('oid'));
-			panel.setHeight(windowHeight-headerHeight-footerHeight);
-			panel.render();
+			var gridLayout = wof.util.ObjectManager.get(sidebar1.children('div[oid]').first().attr('oid'));
+            gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+            gridLayout.render();
 		}catch(e){}
 	}
 	//初始化左侧边栏
@@ -122,24 +122,24 @@ jQuery(function(){
 		var windowHeight = jQuery(window).height();
         with(wof.widget)
             with(wof.bizWidget){
-                var panel = new Panel();
-                panel.setOverflow('y');
-                panel.setWidth(sidebar1Width);
-                panel.setHeight(windowHeight-headerHeight-footerHeight);
-                panel.setTop(0);
-                panel.setLeft(0);
-                panel.setCss('ui-widget-content');
-                panel.setOverflow('y');
-                sidebar1.append(panel.getDomInstance());
-                wof.util.ObjectManager.add(panel.getId(), panel);
+                var gridLayout = new GridLayout();
+                gridLayout.setOverflow('y');
+                gridLayout.setWidth(sidebar1Width);
+                gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+                gridLayout.setTop(0);
+                gridLayout.setLeft(0);
+                gridLayout.setCss('ui-widget-content');
+                gridLayout.setOverflow('y');
+                sidebar1.append(gridLayout.getDomInstance());
+                wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
 
                 var objectBar = new ObjectBar();
                 objectBar.setWidth(sidebar1Width-18);
                 objectBar.setTop(0);
                 objectBar.setLeft(0);
-                objectBar.appendTo(panel);
+                objectBar.appendTo(gridLayout);
 
-                panel.render();
+                gridLayout.render();
 		}
 	}
 	
@@ -162,14 +162,14 @@ jQuery(function(){
                 tabItem1.setTitle("属性");
                 tabItem1.appendTo(tab);
 
-                var panel1 = new Panel();
-                panel1.setOverflow('y');
-                panel1.setIsInside(true);
-                panel1.setWidth(sidebar2Width-3);
-                panel1.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel1.setTop(50);
-                panel1.setLeft(0);
-                panel1.appendTo(tabItem1);
+                var gridLayout1 = new GridLayout();
+                gridLayout1.setOverflow('y');
+                gridLayout1.setIsInside(true);
+                gridLayout1.setWidth(sidebar2Width-3);
+                gridLayout1.setHeight(windowHeight-headerHeight-footerHeight-60);
+                gridLayout1.setTop(50);
+                gridLayout1.setLeft(0);
+                gridLayout1.appendTo(tabItem1);
 
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
@@ -179,24 +179,24 @@ jQuery(function(){
                 //todo 理顺spanner对象之间的关系
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
-                onReceiveMessage.push({id:'wof.widget.spanner.PanelSpanner_render',method:method});
+                onReceiveMessage.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
                 propertyBar.setTop(0);
                 propertyBar.setLeft(4);
-                propertyBar.appendTo(panel1);
+                propertyBar.appendTo(gridLayout1);
 
                 var tabItem2 = new TabItem();
                 tabItem2.setTitle("发送");
                 tabItem2.appendTo(tab);
 
-                var panel2 = new Panel();
-                panel2.setOverflow('y');
-                panel2.setIsInside(true);
-                panel2.setWidth(sidebar2Width-3);
-                panel2.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel2.setTop(50);
-                panel2.setLeft(0);
-                panel2.appendTo(tabItem2);
+                var gridLayout2 = new GridLayout();
+                gridLayout2.setOverflow('y');
+                gridLayout2.setIsInside(true);
+                gridLayout2.setWidth(sidebar2Width-3);
+                gridLayout2.setHeight(windowHeight-headerHeight-footerHeight-60);
+                gridLayout2.setTop(50);
+                gridLayout2.setLeft(0);
+                gridLayout2.appendTo(tabItem2);
 
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
@@ -205,24 +205,24 @@ jQuery(function(){
                 var receives = [];
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
-                receives.push({id:'wof.widget.spanner.PanelSpanner_render',method:meth});
+                receives.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:meth});
                 onSendMessageBar.setOnReceiveMessage(receives);
                 onSendMessageBar.setTop(0);
                 onSendMessageBar.setLeft(4);
-                onSendMessageBar.appendTo(panel2);
+                onSendMessageBar.appendTo(gridLayout2);
 
                 var tabItem3 = new TabItem();
                 tabItem3.setTitle("监听");
                 tabItem3.appendTo(tab);
 
-                var panel3 = new Panel();
-                panel3.setOverflow('y');
-                panel3.setIsInside(true);
-                panel3.setWidth(sidebar2Width-3);
-                panel3.setHeight(windowHeight-headerHeight-footerHeight-60);
-                panel3.setTop(50);
-                panel3.setLeft(0);
-                panel3.appendTo(tabItem3);
+                var gridLayout3 = new GridLayout();
+                gridLayout3.setOverflow('y');
+                gridLayout3.setIsInside(true);
+                gridLayout3.setWidth(sidebar2Width-3);
+                gridLayout3.setHeight(windowHeight-headerHeight-footerHeight-60);
+                gridLayout3.setTop(50);
+                gridLayout3.setLeft(0);
+                gridLayout3.appendTo(tabItem3);
 
                 var onReceiveMessageBar = new OnReceiveMessageBar();
                 onReceiveMessageBar.setWidth(sidebar2Width-24);
@@ -231,11 +231,11 @@ jQuery(function(){
                 var receiv = [];
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
-                receiv.push({id:'wof.widget.spanner.PanelSpanner_render',method:met});
+                receiv.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:met});
                 onReceiveMessageBar.setOnReceiveMessage(receiv);
                 onReceiveMessageBar.setTop(0);
                 onReceiveMessageBar.setLeft(4);
-                onReceiveMessageBar.appendTo(panel3);
+                onReceiveMessageBar.appendTo(gridLayout3);
 
                 tab.render();
 		}
@@ -259,23 +259,23 @@ jQuery(function(){
                 with(wof.bizWidget.spanner)
                     with(wof.widget.spanner)
                     with(wof.kernel){
-                        panel = new Panel();
-                        panel.setOverflow('auto');
-                        panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
-                        panel.setHeight(windowHeight-headerHeight-footerHeight);
-                        panel.setTop(0);
-                        panel.setLeft(0);
-                        content.append(panel.getDomInstance());
-                        wof.util.ObjectManager.add(panel.getId(), panel);
+                        gridLayout = new GridLayout();
+                        gridLayout.setOverflow('auto');
+                        gridLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
+                        gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+                        gridLayout.setTop(0);
+                        gridLayout.setLeft(0);
+                        content.append(gridLayout.getDomInstance());
+                        wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
 
                         var flowLayoutSpanner = new FlowLayoutSpanner();
-                        flowLayoutSpanner.appendTo(panel);
+                        flowLayoutSpanner.appendTo(gridLayout);
 
                         var buttonSpanner = new ButtonSpanner();
-                        buttonSpanner.appendTo(panel);
+                        buttonSpanner.appendTo(gridLayout);
 
-                        var panelSpanner = new PanelSpanner();
-                        panelSpanner.appendTo(panel);
+                        var gridLayoutSpanner = new GridLayoutSpanner();
+                        gridLayoutSpanner.appendTo(gridLayout);
 
                         var itemHeight = 70;
                         var width = 810;
@@ -296,7 +296,7 @@ jQuery(function(){
                                 +'\n return false;';
                         flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_mousedown',priority:50,method:method}]);
                         flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
-                        flowLayout.appendTo(panel);
+                        flowLayout.appendTo(gridLayout);
 
                         var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:3,itemHeight:80};
                         flowLayout.insertSection(sectionData1);
@@ -366,7 +366,7 @@ jQuery(function(){
                         dateBox.setLeft(0);
                         dateBox.setTop(500);
                         //dateBox.setHiden(true);
-                        dateBox.appendTo(panel);
+                        dateBox.appendTo(gridLayout);
 
                         //RadioBox demo
                         var radioGroup1 = new RadioGroup();
@@ -387,7 +387,7 @@ jQuery(function(){
                         var radio4 = new RadioGroupItem();
                         radio4.setValue('r4');
                         radio4.appendTo(radioGroup1);
-                        radioGroup1.appendTo(panel);
+                        radioGroup1.appendTo(gridLayout);
 
                         var radioGroup2 = new RadioGroup();
                         radioGroup2.setName('demo2');
@@ -400,7 +400,7 @@ jQuery(function(){
                         var radio6 = new RadioGroupItem();
                         radio6.setValue('r6');
                         radio6.appendTo(radioGroup2);
-                        radioGroup2.appendTo(panel);
+                        radioGroup2.appendTo(gridLayout);
 
                         var flowLayout2 = new FlowLayout();
                         flowLayout2.setLeft(0);
@@ -410,7 +410,7 @@ jQuery(function(){
                         flowLayout2.setCols(5);
                         flowLayout2.setItemHeight(60);
                         //flowLayout2.setMessageIds([{id:'wof.widget.Button_mousedown',priority:50}]);
-                        flowLayout2.appendTo(panel);
+                        flowLayout2.appendTo(gridLayout);
 
                         var flowLayoutSection3 = new FlowLayoutSection();
                         flowLayoutSection3.setLeft(0);
@@ -458,7 +458,7 @@ jQuery(function(){
                         //mediator.setHeight(20);
                         mediator.setLeft(0);
                         mediator.setTop(430);
-                        mediator.appendTo(panel);
+                        mediator.appendTo(gridLayout);
 
                         flowLayout.setScale(1);*/
 
@@ -478,7 +478,7 @@ jQuery(function(){
                         tree.appendTo(flowLayoutItem);
 
 
-                        panel.render();
+                        gridLayout.render();
 
                         //测试设置当前section和当前item
                         flowLayout.setActiveSectionIndex(1);
@@ -486,8 +486,8 @@ jQuery(function(){
                         flowLayout.render();
 
                         // 测试克隆方法
-                    /*    var p1 =  panel.clone();
-                        panel.clear();
+                    /*    var p1 =  gridLayout.clone();
+                     gridLayout.clear();
                         p1.setTop(60);
                         p1.setLeft(30);
                         p1.appendTo();
@@ -503,10 +503,10 @@ jQuery(function(){
 		try{
 			var windowWidth = jQuery(window).width();
 			var windowHeight = jQuery(window).height();
-			var panel = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
-			panel.setWidth(windowWidth-sidebar1Width-sidebar2Width);
-			panel.setHeight(windowHeight-headerHeight-footerHeight);
-			panel.render();
+			var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
+            gridLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
+            gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+            gridLayout.render();
 		}catch(e){}
 	}
 	jQuery(window).load(function(){
@@ -525,9 +525,9 @@ jQuery(function(){
 		event.preventDefault();
 		var id = jQuery(event.target).attr('id');
 		if(id=='saveBtn'){
-			var panel = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
-			alert(panel.toJSON());
-            console.log(panel.toJSON());
+			var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
+			alert(gridLayout.toJSON());
+            console.log(gridLayout.toJSON());
 		}
 	});
 });
