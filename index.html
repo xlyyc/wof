@@ -22,7 +22,7 @@
 <script src="lib/jquery.ui/jquery-ui-1.10.1.custom.min.js"></script>
 <script src="lib/jquery.ui.multiselect/js/jquery.multiselect.min.js"></script>
 <script src="lib/jquery.ui.multiselect/js/jquery.multiselect.filter.min.js"></script>
-<script src="lib/jquery.ztree/js/jquery.ztree.all-3.5.min.js"></script>
+<script src="lib/jquery.ztree/js/jquery.ztree.all-3.5.js"></script>
 <script src="lib/json2.js"></script>
 <script src="lib/fixConsole.js"></script>
 <script src="src/wof/kernel/initNamespace.js"></script>
@@ -133,11 +133,28 @@ jQuery(function(){
                 sidebar1.append(gridLayout.getDomInstance());
                 wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
 
+                var tab = new Tab();
+
+                var tabItem1 = new TabItem();
+                tabItem1.setTitle("组件");
+                tabItem1.appendTo(tab);
+
+                var tabItem2 = new TabItem();
+                tabItem2.setTitle("结构");
+                tabItem2.appendTo(tab);
+
+                tab.appendTo(gridLayout);
                 var objectBar = new ObjectBar();
+                objectBar.setPosition('relative');
                 objectBar.setWidth(sidebar1Width-18);
                 objectBar.setTop(0);
                 objectBar.setLeft(0);
-                objectBar.appendTo(gridLayout);
+                objectBar.appendTo(tabItem1);
+
+
+                var tree = new ObjectInspector();
+
+                tree.appendTo(tabItem2);
 
                 gridLayout.render();
 		}
@@ -463,20 +480,6 @@ jQuery(function(){
                         flowLayout.setScale(1);*/
 
 
-                        var nodes = [
-                            {name: "父节点1", children: [
-                                {name: "子节点1"},
-                                {name: "子节点2"}
-                            ]},
-                            {name: "父节点2",leaf : true},
-                            {name: "父节点3",open : true}
-                        ];
-
-
-                        var tree = new ObjectInspector();
-
-                        tree.appendTo(flowLayoutItem);
-
 
                         gridLayout.render();
 
@@ -511,9 +514,9 @@ jQuery(function(){
 	}
 	jQuery(window).load(function(){
 		layout();
-		initSidebar1();
 		initSidebar2();
         initContent();
+        initSidebar1();
 	});
 	jQuery(window).resize(function(){
 		layout();
