@@ -36,7 +36,6 @@
 
 <script src="src/wof/widget/Mediator.js"></script>
 
-<script src="src/wof/widget/GridLayout.js"></script>
 <script src="src/wof/widget/Tab.js"></script>
 <script src="src/wof/widget/TabItem.js"></script>
 <script src="src/wof/widget/Toolbar.js"></script>
@@ -50,15 +49,16 @@
 <script src="src/wof/widget/ComboBox.js"></script>
 <script src="src/wof/widget/Tree.js"></script>
 <script src="src/wof/widget/spanner/ButtonSpanner.js"></script>
-<script src="src/wof/widget/spanner/GridLayoutSpanner.js"></script>
 
 <script src="src/wof/bizWidget/FlowLayout.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutSection.js"></script>
 <script src="src/wof/bizWidget/FlowLayoutItem.js"></script>
+<script src="src/wof/bizWidget/GridLayout.js"></script>
 <script src="src/wof/bizWidget/PropertyBar.js"></script>
 <script src="src/wof/bizWidget/ObjectBar.js"></script>
 <script src="src/wof/bizWidget/OnSendMessageBar.js"></script>
 <script src="src/wof/bizWidget/OnReceiveMessageBar.js"></script>
+<script src="src/wof/bizWidget/spanner/GridLayoutSpanner.js"></script>
 
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
 <script src="src/wof/bizWidget/ObjectInspector.js"></script>
@@ -196,7 +196,7 @@ jQuery(function(){
                 //todo 理顺spanner对象之间的关系
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
-                onReceiveMessage.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:method});
+                onReceiveMessage.push({id:'wof.bizWidget.spanner.GridLayoutSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
                 propertyBar.setTop(0);
                 propertyBar.setLeft(4);
@@ -222,7 +222,7 @@ jQuery(function(){
                 var receives = [];
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
-                receives.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:meth});
+                receives.push({id:'wof.bizWidget.spanner.GridLayoutSpanner_render',method:meth});
                 onSendMessageBar.setOnReceiveMessage(receives);
                 onSendMessageBar.setTop(0);
                 onSendMessageBar.setLeft(4);
@@ -248,7 +248,7 @@ jQuery(function(){
                 var receiv = [];
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});
-                receiv.push({id:'wof.widget.spanner.GridLayoutSpanner_render',method:met});
+                receiv.push({id:'wof.bizWidget.spanner.GridLayoutSpanner_render',method:met});
                 onReceiveMessageBar.setOnReceiveMessage(receiv);
                 onReceiveMessageBar.setTop(0);
                 onReceiveMessageBar.setLeft(4);

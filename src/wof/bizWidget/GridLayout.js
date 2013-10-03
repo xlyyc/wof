@@ -5,12 +5,12 @@
  * @Time: 13-8-7 上午10:50
  */
 
-wof.widget.GridLayout = function () {
+wof.bizWidget.GridLayout = function () {
 
 
 };
 
-wof.widget.GridLayout.prototype = {
+wof.bizWidget.GridLayout.prototype = {
     /**
      * 属性声明 （private ，用"_"标识）
      */
@@ -43,15 +43,15 @@ wof.widget.GridLayout.prototype = {
                 event.stopPropagation();
                 clearTimeout(timeFn);
                 timeFn = setTimeout(function(){
-                    _this.sendMessage('wof.widget.GridLayout_mousedown');
-                    _this.sendMessage('wof.widget.GridLayout_active');
+                    _this.sendMessage('wof.bizWidget.GridLayout_mousedown');
+                    _this.sendMessage('wof.bizWidget.GridLayout_active');
                 },250);
             });
             this.getDomInstance().dblclick(function(event){
                 event.stopPropagation();
                 clearTimeout(timeFn);
-                _this.sendMessage('wof.widget.GridLayout_dblclick');
-                _this.sendMessage('wof.widget.GridLayout_active');
+                _this.sendMessage('wof.bizWidget.GridLayout_dblclick');
+                _this.sendMessage('wof.bizWidget.GridLayout_active');
             });
             this.getDomInstance().droppable({
                 snap:true,
@@ -132,7 +132,7 @@ wof.widget.GridLayout.prototype = {
 
     //创建初始化的button
     createSelf: function(width, height){
-        var node = new wof.widget.GridLayout();
+        var node = new wof.bizWidget.GridLayout();
         node.setOverflow('auto');
         node.setWidth(width);
         node.setHeight(height);

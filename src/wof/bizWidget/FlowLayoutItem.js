@@ -87,7 +87,7 @@ wof.bizWidget.FlowLayoutItem.prototype = {
                             //item必须属于最内层 即只有叶子节点 不包括容器节点(容器节点包括 FlowLayout\GridLayout)
                             if(childNode==null){
                                 b=true;
-                            }else if(childNode.getClassName()!='wof.widget.GridLayout' && childNode.getClassName()!='wof.bizWidget.FlowLayout' && childNode.getClassName()!='wof.bizWidget.GridLayout'){
+                            }else if(childNode.getClassName()!='wof.bizWidget.GridLayout' && childNode.getClassName()!='wof.bizWidget.FlowLayout' && childNode.getClassName()!='wof.bizWidget.GridLayout'){
                                 b=true;
                             }
                         }

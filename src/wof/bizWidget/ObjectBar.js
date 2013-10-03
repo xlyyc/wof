@@ -52,6 +52,32 @@ wof.bizWidget.ObjectBar.prototype={
                     label1.getDomInstance().css('zIndex','auto');
                 }
             });
+            var label2 = new wof.widget.Label();
+            label2.setIsInside(true);
+            label2.setIco('src/img/verify.gif');
+            label2.setWidth(130);
+            label2.setHeight(25);
+            label2.setValue('wof.bizWidget.GridLayout');
+            label2.setText('GridLayout');
+            label2.appendTo(toolbarItem0);
+            label2.getDomInstance().draggable({
+                cursor:"move",
+                opacity: 0.7,
+                cursorAt:{
+                    top:0,
+                    left:0
+                },
+                scroll: false,
+                helper: 'clone',
+                start:function(event,ui){
+                    event.stopPropagation();
+                    label2.getDomInstance().css('zIndex',60000);
+                },
+                stop:function(event,ui){
+                    event.stopPropagation();
+                    label2.getDomInstance().css('zIndex','auto');
+                }
+            });
 
 
             var toolbarItem1 = new wof.widget.ToolbarItem();
@@ -97,7 +123,7 @@ wof.bizWidget.ObjectBar.prototype={
             toolbarItem2.appendTo(toolbar);
             for(var o in wof.bizWidget){
                 if(typeof(wof.bizWidget[o])=='function'){
-                    if(o!='FlowLayout'&&o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
+                    if(o!='GridLayout'&&o!='FlowLayout'&&o!='FlowLayoutSection'&&o!='FlowLayoutItem'&&o!='PropertyBar'&&o!='OnSendMessageBar'&&o!='OnReceiveMessageBar'&&o!='ObjectBar'&&o!='ObjectInspector'){
                         var label = new wof.widget.Label();
                         label.setIsInside(true);
                         label.setIco('src/img/verify.gif');

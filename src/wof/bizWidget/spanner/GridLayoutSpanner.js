@@ -4,9 +4,9 @@
  * @copyright author
  * @Time: 13-8-5 下午1:29
  */
-wof.widget.spanner.GridLayoutSpanner = function () {
+wof.bizWidget.spanner.GridLayoutSpanner = function () {
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.widget.GridLayout_active',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.GridLayout_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
         +'if(data.id==this.getPropertys().id){ '
         +' var button=wof.util.ObjectManager.get(data.id); '
@@ -21,7 +21,7 @@ wof.widget.spanner.GridLayoutSpanner = function () {
     var _this = this;
 
 };
-wof.widget.spanner.GridLayoutSpanner.prototype = {
+wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
     /**
      * 属性声明 （private ，用"_"标识）
      */
@@ -74,7 +74,7 @@ wof.widget.spanner.GridLayoutSpanner.prototype = {
     //选择实现
     afterRender: function () {
         this.setActiveData(this.getPropertys());
-        this.sendMessage('wof.widget.spanner.GridLayoutSpanner_render');
+        this.sendMessage('wof.bizWidget.spanner.GridLayoutSpanner_render');
     },
 
     /**
