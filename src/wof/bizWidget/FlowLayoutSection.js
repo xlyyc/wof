@@ -27,6 +27,9 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	 
 	 //列数
 	 _cols: null,
+
+    //行数
+    _rows: null,
 	 
 	 //标题
 	 _title:null,
@@ -99,6 +102,14 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	 setCols: function(cols){
         this._cols = cols;
 	 },
+
+    getRows: function(){
+        return this._rows;
+    },
+
+    setRows: function (rows) {
+        this._rows = rows;
+    },
 	 
 	 getTitleHeight: function(){
 		if(this._titleHeight==null){
@@ -233,16 +244,19 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 			title: this.getTitle(),
 			titleHeight: this.getTitleHeight(),
 			cols: this.getCols(),
+            rows: this.getRows(),
 			itemHeight: this.getItemHeight(),
             isExpand: this.getIsExpand(),
             index: this.getIndex()
         };
     },
+
     //----------必须实现----------
     setData: function (data) {
 		this.setTitle(data.title);
 		this.setTitleHeight(data.titleHeight);
 		this.setCols(data.cols);
+        this.setRows(data.rows);
 		this.setItemHeight(data.itemHeight);
         this.setIsExpand(data.isExpand);
         this.setIndex(data.index);
@@ -310,7 +324,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
         this._label.render();
         var items = this._getItems();
         for(var i=0;i<items.length;i++){
-            this._setBorderStyle(items[i].getDomInstance(),'1px dashed black').css('backgroundColor','#ffffff');
+            this._setBorderStyle(items[i],'1px dashed black').css('backgroundColor','#ffffff');
         }
     },
 
@@ -344,8 +358,16 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	},
 	
 	//设置边框样式
-	_setBorderStyle: function(nodes,style){
-		return nodes.css('border',style);
+	_setBorderStyle: function(node,style){
+        var nodeDom = node.getDomInstance();
+        if(node.getRow()==this.getRows()){
+            nodeDom.css('borderBottom',style);
+        }
+        if((node.getCol()+node.getColspan()-1)==this.getCols()){
+            nodeDom.css('borderRight',style);
+        }
+        nodeDom.css('borderTop',style).css('borderLeft',style);
+		return nodeDom;
 	},
 	
 	//判断是否可以拆分item
@@ -412,6 +434,7 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 		if(items.length>0){
 			var rows = Math.ceil((items[items.length-1].getTop()-items[0].getTop()+items[0].getHeight())/items[0].getHeight());
 			var	cols = Math.ceil(this.getWidth()/(items[0].getWidth()/items[0].getColspan()));
+            this.setRows(rows);
 			var k=0;
 			for(var r=1;r<=rows;r++){
 				for(var c=1;c<=cols;c++){
