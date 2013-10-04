@@ -542,8 +542,8 @@ wof.bizWidget.FlowLayout.prototype = {
             section.getDomInstance().css('top', section.getTop()*this.getScale()+'px');
         }
         this.setHeight(height);
-        this.getDomInstance().css('height',(this.getHeight()*this.getScale()+2)+'px');// 加2修正css的边框误差
-        this.getDomInstance().css('width', (this.getWidth()*this.getScale()+2)+'px');//加2修正css的边框误差
+        this.getDomInstance().css('height',(this.getHeight()*this.getScale()+1)+'px');// 加2修正css的边框误差
+        this.getDomInstance().css('width', (this.getWidth()*this.getScale()+1)+'px');//加2修正css的边框误差
 
         //根据activeSectionIndex设置当前激活的section
         var activeSection = this.findSectionByIndex(this.getActiveSectionIndex());
