@@ -151,7 +151,8 @@ wof.bizWidget.FlowLayoutItem.prototype = {
                     child.updateSection({width:this.getWidth(),index:i});
                 }
             }else if(child.getClassName()=='wof.bizWidget.GridLayout'){
-                //todo 网格布局待实现
+                child.setWidth(this.getWidth());
+                child.setHeight(this.getHeight());
             }
         }
     },
