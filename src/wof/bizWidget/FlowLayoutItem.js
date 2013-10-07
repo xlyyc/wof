@@ -159,12 +159,12 @@ wof.bizWidget.FlowLayoutItem.prototype = {
 
     //选择实现
     afterRender: function () {
-        if(this.getWidth()!=null){
+      /*  if(this.getWidth()!=null){
             this.getDomInstance().css('width', ((this.getWidth()*this.getScale())-2)+'px');
         }
         if(this.getHeight()!=null){
             this.getDomInstance().css('height', ((this.getHeight()*this.getScale())-2)+'px');
-        }
+        }*/
     },
 
     /**

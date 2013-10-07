@@ -363,14 +363,15 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	//设置边框样式
 	_setBorderStyle: function(node,style){
         var nodeDom = node.getDomInstance();
-        nodeDom.css('border','');//.css('borderCollapse','collapse');
+        nodeDom.css('border',style);
+        /*nodeDom.css('border','');//.css('borderCollapse','collapse');
         if(node.getRow()==this.getRows()){
             nodeDom.css('borderBottom',style);
         }
         if((node.getCol()+node.getColspan()-1)==this.getCols()){
             nodeDom.css('borderRight',style);
         }
-        nodeDom.css('borderTop',style).css('borderLeft',style);
+        nodeDom.css('borderTop',style).css('borderLeft',style);*/
 		return nodeDom;
 	},
 	
@@ -592,12 +593,12 @@ wof.bizWidget.FlowLayoutSection.prototype = {
         //设置section div容器高度和宽度
         if(this.getIsExpand()==true){
             this.setHeight(beginItems[0].getHeight()*k+this.getTitleHeight());
-            this.getDomInstance().css('height', (this.getHeight()*this.getScale())+'px');
+            this.getDomInstance().css('height', (this.getHeight()*this.getScale()+2)+'px');
         }else{
             this.setHeight(this.getTitleHeight());
-            this.getDomInstance().css('height', (this.getHeight()*this.getScale()+1)+'px'); //加1修正css的边框误差
+            this.getDomInstance().css('height', (this.getHeight()*this.getScale())+'px'); //加2修正css的边框误差
         }
-        this.getDomInstance().css('width', (this.getWidth()*this.getScale()+1)+'px'); //加1修正css的边框误差
+        this.getDomInstance().css('width', (this.getWidth()*this.getScale()+2)+'px'); //加2修正css的边框误差
         this._label.getDomInstance().css('width',(this.getWidth()*this.getScale())+'px');
         this._label.getDomInstance().css('height',(this.getTitleHeight()*this.getScale())+'px');
 
