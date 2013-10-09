@@ -62,6 +62,7 @@
 
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
 <script src="src/wof/bizWidget/ObjectInspector.js"></script>
+<script src="src/wof/bizWidget/Spanner.js"></script>
 
 <script src="src/wof/kernel/initAOP.js"></script>
 <script>
@@ -148,6 +149,15 @@ jQuery(function(){
 
                             tab.appendTo(gridLayout);
 
+                            var spanner = new Spanner();
+                            spanner.appendTo(gridLayout);
+                            var onReceiveMessage = [];
+                            var method = 'this.setPropertys(message.sender);this.render();';
+                            onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_active',method:method});
+                            onReceiveMessage.push({id:'wof.bizWidget.GridLayout_active',method:method});
+                            onReceiveMessage.push({id:'wof.widget.Button_active',method:method});
+                            spanner.setOnReceiveMessage(onReceiveMessage);
+
                             var layoutComponents = [];
                             var bizWidgetComponents = [];
                             var widgetComponents = [];
@@ -214,12 +224,13 @@ jQuery(function(){
                 var propertyBar = new PropertyBar();
                 propertyBar.setWidth(sidebar2Width-24);
                 propertyBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                var method = 'this.setPropertys(message.sender.activeData);this.render();';
+                var method = 'if(!jQuery.isEmptyObject(message.sender.activeData)){this.setPropertys(message.sender.activeData);this.render();}';
                 var onReceiveMessage = [];
                 //todo 理顺spanner对象之间的关系
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.widget.spanner.ButtonSpanner_render',method:method});
                 onReceiveMessage.push({id:'wof.bizWidget.spanner.GridLayoutSpanner_render',method:method});
+                onReceiveMessage.push({id:'wof.bizWidget.spanner.VoucherComponentSpanner_render',method:method});
                 propertyBar.setOnReceiveMessage(onReceiveMessage);
                 propertyBar.setTop(0);
                 propertyBar.setLeft(4);
@@ -241,7 +252,7 @@ jQuery(function(){
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
                 onSendMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                var meth = 'this.setPropertys(message.sender.activeData);this.setSendMessages(message.sender.sendMessages);this.render();';
+                var meth = 'if(!jQuery.isEmptyObject(message.sender.activeData)){this.setPropertys(message.sender.activeData);this.setSendMessages(message.sender.sendMessages);this.render();}';
                 var receives = [];
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});
@@ -267,7 +278,7 @@ jQuery(function(){
                 var onReceiveMessageBar = new OnReceiveMessageBar();
                 onReceiveMessageBar.setWidth(sidebar2Width-24);
                 onReceiveMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                var met = 'this.setPropertys(message.sender.activeData);this.render();';
+                var met = 'if(!jQuery.isEmptyObject(message.sender.activeData)){this.setPropertys(message.sender.activeData);this.render();}';
                 var receiv = [];
                 receiv.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:met});
                 receiv.push({id:'wof.widget.spanner.ButtonSpanner_render',method:met});

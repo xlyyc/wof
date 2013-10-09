@@ -1,6 +1,6 @@
 /**
  * @widgetClass ButtonSpanner class
- * @package wof.widget
+ * @package wof.widget.spanner
  * @copyright author
  * @Time: 13-8-5 下午1:29
  */
@@ -13,7 +13,7 @@ wof.widget.spanner.ButtonSpanner = function () {
     this._title = '按钮';
 
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.widget.Button_active',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.Spanner_render',method:'var propertys=message.sender.propertys;if(propertys.className=="wof.widget.Button"){this.setPropertys(propertys);}else{this.setPropertys(null)}this.render();'});
     var method = 'var data=message.sender.propertys; '
         +'if(data.id==this.getPropertys().id){ '
         +' var button=wof.util.ObjectManager.get(data.id); '

@@ -1,6 +1,6 @@
 /**
  * @bizWidgetClass FlowLayoutSpanner class
- * @package wof.bizWidget
+ * @package wof.bizWidget.spanner
  * @copyright author
  * @Time: 13-8-5 下午1:29
  */
@@ -13,7 +13,7 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     this._title = '流式布局';
 
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_active',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.Spanner_render',method:'var propertys=message.sender.propertys;if(propertys.className=="wof.bizWidget.FlowLayout"){this.setPropertys(propertys);}else{this.setPropertys(null)}this.render();'});
     var method = 'var data=message.sender.propertys; '
         +' if(data.id==this.getPropertys().id){ '
         +' var flowLayout=wof.util.ObjectManager.get(data.id); '

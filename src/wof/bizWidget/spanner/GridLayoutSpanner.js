@@ -1,6 +1,6 @@
 /**
  * @widgetClass GridLayoutSpanner class
- * @package wof.widget
+ * @package wof.bizWidget.spanner
  * @copyright author
  * @Time: 13-8-5 下午1:29
  */
@@ -10,12 +10,12 @@ wof.bizWidget.spanner.GridLayoutSpanner = function () {
     this._title = '网格布局';
 
     var onReceiveMessage = [];
-    onReceiveMessage.push({id:'wof.bizWidget.GridLayout_active',method:'this.setPropertys(message.sender);this.render();'});
+    onReceiveMessage.push({id:'wof.bizWidget.Spanner_render',method:'var propertys=message.sender.propertys;if(propertys.className=="wof.bizWidget.GridLayout"){this.setPropertys(propertys);}else{this.setPropertys(null)}this.render();'});
     var method = 'var data=message.sender.propertys; '
         +'if(data.id==this.getPropertys().id){ '
-        +' var button=wof.util.ObjectManager.get(data.id); '
-        +' button.setData(data); '
-        +' button.render();'
+        +' var node=wof.util.ObjectManager.get(data.id); '
+        +' node.setData(data); '
+        +' node.render();'
         +'}';
     onReceiveMessage.push({id:'wof.bizWidget.PropertyBar_apply',method:method});
     onReceiveMessage.push({id:'wof.bizWidget.OnSendMessageBar_apply',method:method});
