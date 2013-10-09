@@ -14,6 +14,19 @@ wof.bizWidget.ObjectBar.prototype={
 
     _layoutComponents: null,
 
+    _widgetComponents: null,
+
+    getWidgetComponents: function(){
+        if(this._widgetComponents==null){
+            this._widgetComponents = [];
+        }
+        return this._widgetComponents;
+    },
+
+    setWidgetComponents: function(widgetComponents){
+        this._widgetComponents = widgetComponents;
+    },
+
     getBizWidgetComponents: function(){
         if(this._bizWidgetComponents==null){
             this._bizWidgetComponents = [];
@@ -47,79 +60,122 @@ wof.bizWidget.ObjectBar.prototype={
             toolbar.setLeft(0);
             toolbar.appendTo(this);
 
-            var toolbarItem0 = new wof.widget.ToolbarItem();
-            toolbarItem0.setIsInside(true);
-            toolbarItem0.setTitle('布局组件');
-            toolbarItem0.setName('layout');
-            toolbarItem0.appendTo(toolbar);
-
             var layoutComponents = this.getLayoutComponents();
-            for(var i=0;i<layoutComponents.length;i++){
-                var widget = layoutComponents[i];
-                var label = new wof.widget.Label();
-                label.setIsInside(true);
-                label.setIco('src/img/dropdown.png');
-                label.setWidth(130);
-                label.setHeight(25);
-                label.setValue(widget.getName());
-                label.setText(widget.getTitle());
-                label.appendTo(toolbarItem0);
-                label.getDomInstance().draggable({
-                    cursor:"move",
-                    opacity: 0.7,
-                    cursorAt:{
-                        top:0,
-                        left:0
-                    },
-                    scroll: false,
-                    helper: 'clone',
-                    start:function(event,ui){
-                        event.stopPropagation();
-                        label.getDomInstance().css('zIndex',60000);
-                    },
-                    stop:function(event,ui){
-                        event.stopPropagation();
-                        label.getDomInstance().css('zIndex','auto');
-                    }
-                });
+            if(layoutComponents.length>0){
+                var toolbarItem0 = new wof.widget.ToolbarItem();
+                toolbarItem0.setIsInside(true);
+                toolbarItem0.setTitle('布局组件');
+                toolbarItem0.setName('layout');
+                toolbarItem0.appendTo(toolbar);
+                for(var i=0;i<layoutComponents.length;i++){
+                    var widget = layoutComponents[i];
+                    var label = new wof.widget.Label();
+                    label.setIsInside(true);
+                    label.setIco('src/img/dropdown.png');
+                    label.setWidth(130);
+                    label.setHeight(25);
+                    label.setValue(widget.getName());
+                    label.setText(widget.getTitle());
+                    label.appendTo(toolbarItem0);
+                    label.getDomInstance().draggable({
+                        cursor:"move",
+                        opacity: 0.7,
+                        cursorAt:{
+                            top:0,
+                            left:0
+                        },
+                        scroll: false,
+                        helper: 'clone',
+                        start:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex',60000);
+                        },
+                        stop:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex','auto');
+                        }
+                    });
+                }
             }
-
-            var toolbarItem1 = new wof.widget.ToolbarItem();
-            toolbarItem1.setIsInside(true);
-            toolbarItem1.setTitle('基本组件');
-            toolbarItem1.setName('base');
-            toolbarItem1.appendTo(toolbar);
 
             var bizWidgetComponents = this.getBizWidgetComponents();
-            for(var i=0;i<bizWidgetComponents.length;i++){
-                var widget = bizWidgetComponents[i];
-                var label = new wof.widget.Label();
-                label.setIsInside(true);
-                label.setIco('src/img/dropdown.png');
-                label.setWidth(130);
-                label.setHeight(25);
-                label.setValue(widget.getName());
-                label.setText(widget.getTitle());
-                label.appendTo(toolbarItem1);
-                label.getDomInstance().draggable({
-                    cursor:"move",
-                    opacity: 0.7,
-                    cursorAt:{
-                        top:0,
-                        left:0
-                    },
-                    scroll: false,
-                    helper: 'clone',
-                    start:function(event,ui){
-                        event.stopPropagation();
-                        label.getDomInstance().css('zIndex',60000);
-                    },
-                    stop:function(event,ui){
-                        event.stopPropagation();
-                        label.getDomInstance().css('zIndex','auto');
-                    }
-                });
+            if(bizWidgetComponents.length>0){
+                var toolbarItem1 = new wof.widget.ToolbarItem();
+                toolbarItem1.setIsInside(true);
+                toolbarItem1.setTitle('业务组件');
+                toolbarItem1.setName('biz');
+                toolbarItem1.appendTo(toolbar);
+                for(var i=0;i<bizWidgetComponents.length;i++){
+                    var widget = bizWidgetComponents[i];
+                    var label = new wof.widget.Label();
+                    label.setIsInside(true);
+                    label.setIco('src/img/dropdown.png');
+                    label.setWidth(130);
+                    label.setHeight(25);
+                    label.setValue(widget.getName());
+                    label.setText(widget.getTitle());
+                    label.appendTo(toolbarItem1);
+                    label.getDomInstance().draggable({
+                        cursor:"move",
+                        opacity: 0.7,
+                        cursorAt:{
+                            top:0,
+                            left:0
+                        },
+                        scroll: false,
+                        helper: 'clone',
+                        start:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex',60000);
+                        },
+                        stop:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex','auto');
+                        }
+                    });
+                }
             }
+
+
+            var widgetComponents = this.getWidgetComponents();
+            if(widgetComponents.length>0){
+                var toolbarItem2 = new wof.widget.ToolbarItem();
+                toolbarItem2.setIsInside(true);
+                toolbarItem2.setTitle('基础组件');
+                toolbarItem2.setName('base');
+                toolbarItem2.appendTo(toolbar);
+                for(var i=0;i<widgetComponents.length;i++){
+                    var widget = widgetComponents[i];
+                    var label = new wof.widget.Label();
+                    label.setIsInside(true);
+                    label.setIco('src/img/dropdown.png');
+                    label.setWidth(130);
+                    label.setHeight(25);
+                    label.setValue(widget.getName());
+                    label.setText(widget.getTitle());
+                    label.appendTo(toolbarItem2);
+                    label.getDomInstance().draggable({
+                        cursor:"move",
+                        opacity: 0.7,
+                        cursorAt:{
+                            top:0,
+                            left:0
+                        },
+                        scroll: false,
+                        helper: 'clone',
+                        start:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex',60000);
+                        },
+                        stop:function(event,ui){
+                            event.stopPropagation();
+                            label.getDomInstance().css('zIndex','auto');
+                        }
+                    });
+                }
+            }
+
+
             this._initFlag=true;
         }
 	},
@@ -135,13 +191,15 @@ wof.bizWidget.ObjectBar.prototype={
 	getData:function(){
 		return {
             layoutComponents: this.getLayoutComponents(),
-            bizWidgetComponents: this.getLayoutComponents()
+            bizWidgetComponents: this.getLayoutComponents(),
+            widgetComponents: this.getWidgetComponents()
 		};
 	},
 	//必须实现
 	setData:function(data){
         this.setLayoutComponents(data.layoutComponents);
         this.setLayoutComponents(data.bizWidgetComponents);
+        this.setWidgetComponents(data.widgetComponents);
 	}
 	
 };
