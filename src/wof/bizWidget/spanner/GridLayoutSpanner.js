@@ -5,6 +5,10 @@
  * @Time: 13-8-5 下午1:29
  */
 wof.bizWidget.spanner.GridLayoutSpanner = function () {
+
+    this._name = 'wof.bizWidget.GridLayout';
+    this._title = '网格布局';
+
     var onReceiveMessage = [];
     onReceiveMessage.push({id:'wof.bizWidget.GridLayout_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
@@ -27,6 +31,11 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
      */
 
     //属性
+
+    _name: null,
+
+    _title: null,
+
     _sendMessages: null,
 
     _propertys: null,
@@ -36,6 +45,13 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
     /**
      * get/set 属性方法定义
      */
+    getTitle: function(){
+        return this._title;
+    },
+
+    getName: function(){
+        return this._name;
+    },
 
     getSendMessages: function(){
         return this._sendMessages;
@@ -92,7 +108,9 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
         return {
             propertys: this.getPropertys(),
             activeData: this.getActiveData(),
-            sendMessages: this.getSendMessages()
+            sendMessages: this.getSendMessages(),
+            name: this.getName(),
+            title: this.getTitle()
         };
     },
     //必须实现

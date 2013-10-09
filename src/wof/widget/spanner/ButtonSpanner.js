@@ -9,6 +9,9 @@ wof.widget.spanner.ButtonSpanner = function () {
     //记录该widget所有的发送消息和描述信息 供属性条控件使用
     this._sendMessages = {'wof.widget.Button_mousedown':'单击'};
 
+    this._name = 'wof.widget.Button';
+    this._title = '按钮';
+
     var onReceiveMessage = [];
     onReceiveMessage.push({id:'wof.widget.Button_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
@@ -31,6 +34,10 @@ wof.widget.spanner.ButtonSpanner.prototype = {
      */
 
     //属性
+    _name: null,
+
+    _title: null,
+
     _sendMessages: null,
 
     _propertys: null,
@@ -40,6 +47,14 @@ wof.widget.spanner.ButtonSpanner.prototype = {
     /**
      * get/set 属性方法定义
      */
+    getTitle: function(){
+        return this._title;
+    },
+
+    getName: function(){
+        return this._name;
+    },
+
     getSendMessages: function(){
         return this._sendMessages;
     },
@@ -95,7 +110,9 @@ wof.widget.spanner.ButtonSpanner.prototype = {
         return {
             propertys: this.getPropertys(),
             activeData: this.getActiveData(),
-            sendMessages: this.getSendMessages()
+            sendMessages: this.getSendMessages(),
+            name: this.getName(),
+            title: this.getTitle()
         };
     },
     //必须实现

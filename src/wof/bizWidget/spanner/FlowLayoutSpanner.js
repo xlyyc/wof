@@ -9,6 +9,9 @@ wof.bizWidget.spanner.FlowLayoutSpanner = function () {
     //记录该widget所有的发送消息和描述信息 供属性条控件使用
     this._sendMessages = {'wof.bizWidget.FlowLayout_mousedown':'单击','wof.bizWidget.FlowLayout_render':'重绘'};
 
+    this._name = 'wof.bizWidget.FlowLayout';
+    this._title = '流式布局';
+
     var onReceiveMessage = [];
     onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
@@ -52,6 +55,10 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
 
     //属性
 
+    _name: null,
+
+    _title: null,
+
     _sendMessages: null,
 
     _propertys: null,
@@ -80,6 +87,14 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
     /**
      * get/set 属性方法定义
      */
+
+    getTitle: function(){
+        return this._title;
+    },
+
+    getName: function(){
+        return this._name;
+    },
 
     getSendMessages: function(){
         return this._sendMessages;
@@ -398,13 +413,16 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
         return {
             propertys: this.getPropertys(),
             activeData: this.getActiveData(),
-            sendMessages: this.getSendMessages()
+            sendMessages: this.getSendMessages(),
+            name: this.getName(),
+            title: this.getTitle()
         };
     },
     //必须实现
     setData:function(data){
         this.setPropertys(data.propertys);
         this.setActiveData(data.activeData);
+
     }
 
 };

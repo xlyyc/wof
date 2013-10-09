@@ -121,42 +121,63 @@ jQuery(function(){
 		var windowWidth = jQuery(window).width();
 		var windowHeight = jQuery(window).height();
         with(wof.widget)
-            with(wof.bizWidget){
-                var gridLayout = new GridLayout();
-                gridLayout.setOverflow('y');
-                gridLayout.setWidth(sidebar1Width);
-                gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
-                gridLayout.setTop(0);
-                gridLayout.setLeft(0);
-                gridLayout.setCss('ui-widget-content');
-                gridLayout.setOverflow('y');
-                sidebar1.append(gridLayout.getDomInstance());
-                wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
+            with(wof.bizWidget)
+                with(wof.bizWidget.spanner)
+                    with(wof.widget.spanner)
+                        with(wof.kernel){
+                            var gridLayout = new GridLayout();
+                            gridLayout.setOverflow('y');
+                            gridLayout.setWidth(sidebar1Width);
+                            gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+                            gridLayout.setTop(0);
+                            gridLayout.setLeft(0);
+                            gridLayout.setCss('ui-widget-content');
+                            gridLayout.setOverflow('y');
+                            sidebar1.append(gridLayout.getDomInstance());
+                            wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
 
-                var tab = new Tab();
+                            var tab = new Tab();
 
-                var tabItem1 = new TabItem();
-                tabItem1.setTitle("组件");
-                tabItem1.appendTo(tab);
+                            var tabItem1 = new TabItem();
+                            tabItem1.setTitle("组件");
+                            tabItem1.appendTo(tab);
 
-                var tabItem2 = new TabItem();
-                tabItem2.setTitle("结构");
-                tabItem2.appendTo(tab);
+                            var tabItem2 = new TabItem();
+                            tabItem2.setTitle("结构");
+                            tabItem2.appendTo(tab);
 
-                tab.appendTo(gridLayout);
-                var objectBar = new ObjectBar();
-                objectBar.setPosition('relative');
-                objectBar.setWidth(sidebar1Width-18);
-                objectBar.setTop(0);
-                objectBar.setLeft(0);
-                objectBar.appendTo(tabItem1);
+                            tab.appendTo(gridLayout);
+
+                            var layoutComponents = [];
+                            var bizWidgetComponents = [];
+
+                            var flowLayoutSpanner = new FlowLayoutSpanner();
+                            flowLayoutSpanner.appendTo(gridLayout);
+                            layoutComponents.push(flowLayoutSpanner);
+
+                            var gridLayoutSpanner = new GridLayoutSpanner();
+                            gridLayoutSpanner.appendTo(gridLayout);
+                            layoutComponents.push(gridLayoutSpanner);
+
+                            var buttonSpanner = new ButtonSpanner();
+                            buttonSpanner.appendTo(gridLayout);
+                            bizWidgetComponents.push(buttonSpanner);
+
+                            var objectBar = new ObjectBar();
+                            objectBar.setLayoutComponents(layoutComponents);
+                            objectBar.setBizWidgetComponents(bizWidgetComponents);
+                            objectBar.setPosition('relative');
+                            objectBar.setWidth(sidebar1Width-18);
+                            objectBar.setTop(0);
+                            objectBar.setLeft(0);
+                            objectBar.appendTo(tabItem1);
 
 
-                var tree = new ObjectInspector();
+                            var tree = new ObjectInspector();
 
-                tree.appendTo(tabItem2);
+                            tree.appendTo(tabItem2);
 
-                gridLayout.render();
+                            gridLayout.render();
 		}
 	}
 	
@@ -284,15 +305,6 @@ jQuery(function(){
                         gridLayout.setLeft(0);
                         content.append(gridLayout.getDomInstance());
                         wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
-
-                        var flowLayoutSpanner = new FlowLayoutSpanner();
-                        flowLayoutSpanner.appendTo(gridLayout);
-
-                        var buttonSpanner = new ButtonSpanner();
-                        buttonSpanner.appendTo(gridLayout);
-
-                        var gridLayoutSpanner = new GridLayoutSpanner();
-                        gridLayoutSpanner.appendTo(gridLayout);
 
                         var itemHeight = 70;
                         var width = 810;
