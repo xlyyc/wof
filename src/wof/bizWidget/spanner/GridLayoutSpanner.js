@@ -27,6 +27,8 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
      */
 
     //属性
+    _sendMessages: null,
+
     _propertys: null,
 
     _activeData: null,
@@ -34,6 +36,10 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
     /**
      * get/set 属性方法定义
      */
+
+    getSendMessages: function(){
+        return this._sendMessages;
+    },
 
     setPropertys:function(propertys){
         this._propertys = propertys;
@@ -85,7 +91,8 @@ wof.bizWidget.spanner.GridLayoutSpanner.prototype = {
     getData:function(){
         return {
             propertys: this.getPropertys(),
-            activeData: this.getActiveData()
+            activeData: this.getActiveData(),
+            sendMessages: this.getSendMessages()
         };
     },
     //必须实现

@@ -6,9 +6,6 @@
  */
 wof.bizWidget.FlowLayout = function () {
 
-    //记录该widget所有的发送消息和描述信息 供属性条控件使用
-    this._sendMessages = {'wof.bizWidget.FlowLayout_mousedown':'单击','wof.bizWidget.FlowLayout_render':'重绘'};
-
     var _this = this;
     this.getDomInstance().mousedown(function(event){
         event.stopPropagation();

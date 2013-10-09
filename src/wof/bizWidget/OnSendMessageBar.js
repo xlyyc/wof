@@ -10,6 +10,16 @@ wof.bizWidget.OnSendMessageBar.prototype={
 	
 	_propertys: null,
 
+    _sendMessages: null,
+
+    setSendMessages:function(sendMessages){
+        this._sendMessages = sendMessages;
+    },
+
+    getSendMessages: function(){
+        return this._sendMessages;
+    },
+
     setPropertys:function(propertys){
         this._propertys = propertys;
     },
@@ -78,10 +88,9 @@ wof.bizWidget.OnSendMessageBar.prototype={
 	//必须实现
 	render: function(){
 		var _this = this;
-        var propertys = this.getPropertys();
-		if(!jQuery.isEmptyObject(propertys.sendMessages)){
-            var sendMessages = propertys.sendMessages;
-            var onSendMessage = propertys.onSendMessage;
+        var sendMessages = this.getSendMessages();
+		if(!jQuery.isEmptyObject(sendMessages)){
+            var onSendMessage = this.getPropertys().onSendMessage;
             var trs = [];
             for(var name in sendMessages){
                 var label = sendMessages[name];
@@ -99,12 +108,14 @@ wof.bizWidget.OnSendMessageBar.prototype={
 	//必须实现
 	getData:function(){
 		return {
-			propertys: this.getPropertys()
+			propertys: this.getPropertys(),
+            sendMessages: this.getSendMessages()
 		};
 	},
 	//必须实现
 	setData:function(data){
 		this.setPropertys(data.propertys);
+        this.setSendMessages(data.sendMessages);
 	},
 
     getMethodByName:function(name){

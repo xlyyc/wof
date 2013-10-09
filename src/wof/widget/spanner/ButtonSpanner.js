@@ -5,6 +5,10 @@
  * @Time: 13-8-5 下午1:29
  */
 wof.widget.spanner.ButtonSpanner = function () {
+
+    //记录该widget所有的发送消息和描述信息 供属性条控件使用
+    this._sendMessages = {'wof.widget.Button_mousedown':'单击'};
+
     var onReceiveMessage = [];
     onReceiveMessage.push({id:'wof.widget.Button_active',method:'this.setPropertys(message.sender);this.render();'});
     var method = 'var data=message.sender.propertys; '
@@ -27,6 +31,8 @@ wof.widget.spanner.ButtonSpanner.prototype = {
      */
 
     //属性
+    _sendMessages: null,
+
     _propertys: null,
 
     _activeData: null,
@@ -34,6 +40,9 @@ wof.widget.spanner.ButtonSpanner.prototype = {
     /**
      * get/set 属性方法定义
      */
+    getSendMessages: function(){
+        return this._sendMessages;
+    },
 
     setPropertys:function(propertys){
         this._propertys = propertys;
@@ -85,7 +94,8 @@ wof.widget.spanner.ButtonSpanner.prototype = {
     getData:function(){
         return {
             propertys: this.getPropertys(),
-            activeData: this.getActiveData()
+            activeData: this.getActiveData(),
+            sendMessages: this.getSendMessages()
         };
     },
     //必须实现

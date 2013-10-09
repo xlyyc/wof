@@ -7,9 +7,6 @@
 
 wof.widget.Button = function () {
 
-    //记录该widget所有的发送消息和描述信息 供属性条控件使用
-    this._sendMessages = {'wof.widget.Button_mousedown':'单击'};
-
 };
 
 wof.widget.Button.prototype = {

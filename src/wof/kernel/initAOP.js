@@ -14,7 +14,6 @@ var wof$_aop = (function(){
             if(typeof(obj[o])=='function'){
                 if(obj[o]['getClassName']==null){
                     //todo disable
-                    obj[o].prototype._sendMessages = null;
                     obj[o].prototype._onSendMessage = null;
                     obj[o].prototype.getOnSendMessage = function() {
                         if(this._onSendMessage==null){
@@ -38,9 +37,6 @@ var wof$_aop = (function(){
                         }
                     };
                     obj[o].prototype._onReceiveMessage = null;
-                    obj[o].prototype.getSendMessages = function() {
-                        return this._sendMessages;
-                    };
                     obj[o].prototype.getOnReceiveMessage = function() {
                         if(this._onReceiveMessage==null){
                             this._onReceiveMessage = [];
@@ -404,7 +400,6 @@ var wof$_aop = (function(){
                         obj[o].prototype._getData = obj[o].prototype.getData;
                         obj[o].prototype.getData = function(){
                             var data=this._getData();
-                            data.sendMessages = this.getSendMessages();
                             data.isInside = this.getIsInside();
                             data.id=this.getId();
                             data.className=this.getClassName();

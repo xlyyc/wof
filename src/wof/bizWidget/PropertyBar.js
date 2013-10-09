@@ -59,7 +59,7 @@ wof.bizWidget.PropertyBar.prototype={
 		if(!jQuery.isEmptyObject(propertys)){
             var trs = [];
             for(var name in propertys){
-                if(name=='onSendMessage'||name=='onReceiveMessage'||name=='sendMessages'){
+                if(name=='onSendMessage'||name=='onReceiveMessage'){
                     continue;
                 }
                 var value = propertys[name];

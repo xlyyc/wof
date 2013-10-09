@@ -218,7 +218,7 @@ jQuery(function(){
                 var onSendMessageBar = new OnSendMessageBar();
                 onSendMessageBar.setWidth(sidebar2Width-24);
                 onSendMessageBar.setHeight(windowHeight-headerHeight-footerHeight-51);
-                var meth = 'this.setPropertys(message.sender.activeData);this.render();';
+                var meth = 'this.setPropertys(message.sender.activeData);this.setSendMessages(message.sender.sendMessages);this.render();';
                 var receives = [];
                 receives.push({id:'wof.bizWidget.spanner.FlowLayoutSpanner_render',method:meth});
                 receives.push({id:'wof.widget.spanner.ButtonSpanner_render',method:meth});

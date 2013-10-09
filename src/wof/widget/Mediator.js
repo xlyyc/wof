@@ -7,7 +7,7 @@
 
 wof.widget.Mediator = function () {
 
-    this._sendMessages = {'wof.widget.Mediator_click':'单击'}
+    //this._sendMessages = {'wof.widget.Mediator_click':'单击'}
 
 };
 wof.widget.Mediator.prototype = {
