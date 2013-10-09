@@ -149,16 +149,6 @@ jQuery(function(){
 
                             tab.appendTo(gridLayout);
 
-                            //todo 此块需要归并到objectBar统一处理
-                            var spanner = new Spanner();
-                            spanner.appendTo(gridLayout);
-                            var onReceiveMessage = [];
-                            var method = 'this.setPropertys(message.sender);this.render();';
-                            onReceiveMessage.push({id:'wof.bizWidget.FlowLayout_active',method:method});
-                            onReceiveMessage.push({id:'wof.bizWidget.GridLayout_active',method:method});
-                            onReceiveMessage.push({id:'wof.widget.Button_active',method:method});
-                            spanner.setOnReceiveMessage(onReceiveMessage);
-
                             var layoutComponents = [];
                             var bizWidgetComponents = [];
                             var widgetComponents = [];
@@ -187,8 +177,13 @@ jQuery(function(){
 
 
                             var tree = new ObjectInspector();
-
                             tree.appendTo(tabItem2);
+
+                            var spanner = new Spanner();
+                            spanner.setLayoutComponents(layoutComponents);
+                            spanner.setBizWidgetComponents(bizWidgetComponents);
+                            spanner.setWidgetComponents(widgetComponents);
+                            spanner.appendTo(gridLayout);
 
                             gridLayout.render();
 		}

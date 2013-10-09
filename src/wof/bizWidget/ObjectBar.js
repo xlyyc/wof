@@ -190,16 +190,12 @@ wof.bizWidget.ObjectBar.prototype={
 	//必须实现
 	getData:function(){
 		return {
-            layoutComponents: this.getLayoutComponents(),
-            bizWidgetComponents: this.getLayoutComponents(),
-            widgetComponents: this.getWidgetComponents()
+
 		};
 	},
 	//必须实现
 	setData:function(data){
-        this.setLayoutComponents(data.layoutComponents);
-        this.setLayoutComponents(data.bizWidgetComponents);
-        this.setWidgetComponents(data.widgetComponents);
+
 	}
 	
 };

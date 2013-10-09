@@ -143,12 +143,12 @@ wof.bizWidget.spanner.FlowLayoutSpanner.prototype = {
     //----------必须实现----------
     render: function () {
         var activeData = {};
-        activeData.id = this.getPropertys().id;
-        activeData.className = this.getPropertys().className;
-        activeData.onReceiveMessage = this.getPropertys().onReceiveMessage;
-        activeData.onSendMessage = this.getPropertys().onSendMessage;
         var flowLayout = wof.util.ObjectManager.get(this.getPropertys().id);
         if(flowLayout!=null){
+            activeData.id = this.getPropertys().id;
+            activeData.className = this.getPropertys().className;
+            activeData.onReceiveMessage = this.getPropertys().onReceiveMessage;
+            activeData.onSendMessage = this.getPropertys().onSendMessage;
             var activeSectionIndex = this.getPropertys().activeSectionIndex;
             var activeSection = flowLayout.findSectionByIndex(activeSectionIndex);
             if(activeSection!=null){
