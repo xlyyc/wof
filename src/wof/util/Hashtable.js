@@ -47,5 +47,13 @@ wof.util.Hashtable.prototype = {
     clear:function(){
 		for(var k in this._hash)
 			delete this._hash[k];
-	}
+	},
+
+    keys: function(){
+        var keys = [];
+        for (var key in this._hash){
+            keys.push(key);
+        }
+        return keys;
+    }
 };
