@@ -8,15 +8,15 @@
 <link href="lib/jquery.ui.multiselect/css/jquery.multiselect.filter.css" rel="stylesheet">
 <link href="lib/jquery.ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 <style type="text/css">
-<!--
-	* {
-		margin:0;
-		padding:0
-	}
-	body{
-		font: 12px "Trebuchet MS", sans-serif;
-	}
--->
+    <!--
+    * {
+        margin:0;
+        padding:0
+    }
+    body{
+        font: 12px "Trebuchet MS", sans-serif;
+    }
+    -->
 </style>
 <script src="lib/jquery/jquery.min.js"></script>
 <script src="lib/jquery.ui/jquery-ui-1.10.1.custom.min.js"></script>
@@ -71,59 +71,59 @@
 <script>
 
 jQuery(function(){
-	var headerHeight = 35;
-	var sidebar1Width = 150;
-	var footerHeight = 30;
-	var sidebar2Width = 237;
-	var container = jQuery('#container');
-	var header = jQuery('#header');
-	var sidebar1 = jQuery('#sidebar1');
-	var sidebar2 = jQuery('#sidebar2');
-	var content = jQuery('#content');
-	var footer = jQuery('#footer');
-	//设置布局
-	function layout(){
-		var windowWidth = jQuery(window).width();
-		var windowHeight = jQuery(window).height();
-		container.css('width', windowWidth+'px');
-		container.css('height', windowHeight+'px');
-		container.css('left', '0px');
-		container.css('top', '0px');
-		header.css('width', windowWidth+'px');
-		header.css('height', headerHeight+'px');
-		header.css('left', '0px');
-		header.css('top', '0px');
-		sidebar1.css('width', sidebar1Width+'px');
-		sidebar1.css('height', (windowHeight-headerHeight-footerHeight)+'px');
-		sidebar1.css('left', '0px');
-		sidebar1.css('top', headerHeight+'px');		
-		content.css('width', (windowWidth-sidebar1Width-sidebar2Width)+'px');
-		content.css('height', (windowHeight-headerHeight-footerHeight)+'px');
-		content.css('left', sidebar1Width+'px');
-		content.css('top', headerHeight+'px');
-		sidebar2.css('width', sidebar2Width+'px');
-		sidebar2.css('height', (windowHeight-headerHeight-footerHeight)+'px');
-		sidebar2.css('left', (windowWidth-sidebar2Width)+'px');
-		sidebar2.css('top', headerHeight+'px');
-		footer.css('width', windowWidth+'px');
-		footer.css('height', footerHeight+'px');
-		footer.css('left', '0px');
-		footer.css('top', (windowHeight-footerHeight)+'px');
-	}
-	//重设左侧边栏
-	function resizeSidebar1(){
-		try{
-			var windowWidth = jQuery(window).width();
-			var windowHeight = jQuery(window).height();
-			var gridLayout = wof.util.ObjectManager.get(sidebar1.children('div[oid]').first().attr('oid'));
+    var headerHeight = 35;
+    var sidebar1Width = 150;
+    var footerHeight = 30;
+    var sidebar2Width = 237;
+    var container = jQuery('#container');
+    var header = jQuery('#header');
+    var sidebar1 = jQuery('#sidebar1');
+    var sidebar2 = jQuery('#sidebar2');
+    var content = jQuery('#content');
+    var footer = jQuery('#footer');
+    //设置布局
+    function layout(){
+        var windowWidth = jQuery(window).width();
+        var windowHeight = jQuery(window).height();
+        container.css('width', windowWidth+'px');
+        container.css('height', windowHeight+'px');
+        container.css('left', '0px');
+        container.css('top', '0px');
+        header.css('width', windowWidth+'px');
+        header.css('height', headerHeight+'px');
+        header.css('left', '0px');
+        header.css('top', '0px');
+        sidebar1.css('width', sidebar1Width+'px');
+        sidebar1.css('height', (windowHeight-headerHeight-footerHeight)+'px');
+        sidebar1.css('left', '0px');
+        sidebar1.css('top', headerHeight+'px');
+        content.css('width', (windowWidth-sidebar1Width-sidebar2Width)+'px');
+        content.css('height', (windowHeight-headerHeight-footerHeight)+'px');
+        content.css('left', sidebar1Width+'px');
+        content.css('top', headerHeight+'px');
+        sidebar2.css('width', sidebar2Width+'px');
+        sidebar2.css('height', (windowHeight-headerHeight-footerHeight)+'px');
+        sidebar2.css('left', (windowWidth-sidebar2Width)+'px');
+        sidebar2.css('top', headerHeight+'px');
+        footer.css('width', windowWidth+'px');
+        footer.css('height', footerHeight+'px');
+        footer.css('left', '0px');
+        footer.css('top', (windowHeight-footerHeight)+'px');
+    }
+    //重设左侧边栏
+    function resizeSidebar1(){
+        try{
+            var windowWidth = jQuery(window).width();
+            var windowHeight = jQuery(window).height();
+            var gridLayout = wof.util.ObjectManager.get(sidebar1.children('div[oid]').first().attr('oid'));
             gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
             gridLayout.render();
-		}catch(e){}
-	}
-	//初始化左侧边栏
-	function initSidebar1(){
-		var windowWidth = jQuery(window).width();
-		var windowHeight = jQuery(window).height();
+        }catch(e){}
+    }
+    //初始化左侧边栏
+    function initSidebar1(){
+        var windowWidth = jQuery(window).width();
+        var windowHeight = jQuery(window).height();
         with(wof.widget)
             with(wof.bizWidget)
                 with(wof.bizWidget.spanner)
@@ -167,10 +167,12 @@ jQuery(function(){
                             layoutComponents.push(gridLayoutSpanner);
                             components.push(gridLayoutSpanner);
 
+
                             var voucherComponentSpanner = new VoucherComponentSpanner();
                             voucherComponentSpanner.appendTo(gridLayout);
                             bizWidgetComponents.push(voucherComponentSpanner);
                             components.push(voucherComponentSpanner);
+
 
                             var buttonSpanner = new ButtonSpanner();
                             buttonSpanner.appendTo(gridLayout);
@@ -196,14 +198,14 @@ jQuery(function(){
                             spanner.appendTo(gridLayout);
 
                             gridLayout.render();
-		}
-	}
-	
-	//初始化右侧边栏
-	function initSidebar2(){
-		var windowWidth = jQuery(window).width();
-		var windowHeight = jQuery(window).height();
-		with(wof.widget)
+                        }
+    }
+
+    //初始化右侧边栏
+    function initSidebar2(){
+        var windowWidth = jQuery(window).width();
+        var windowHeight = jQuery(window).height();
+        with(wof.widget)
             with(wof.bizWidget){
                 var tab = new Tab();
                 tab.setWidth(sidebar2Width-7);
@@ -295,291 +297,291 @@ jQuery(function(){
                 onReceiveMessageBar.appendTo(gridLayout3);
 
                 tab.render();
-		}
-	}
-	//重设右侧边栏
-	function resizeSidebar2(){
-		try{
-			var windowWidth = jQuery(window).width();
-			var windowHeight = jQuery(window).height();
-			var tab = wof.util.ObjectManager.get(sidebar2.children('div[oid]').first().attr('oid'));
+            }
+    }
+    //重设右侧边栏
+    function resizeSidebar2(){
+        try{
+            var windowWidth = jQuery(window).width();
+            var windowHeight = jQuery(window).height();
+            var tab = wof.util.ObjectManager.get(sidebar2.children('div[oid]').first().attr('oid'));
             tab.setHeight(windowHeight-headerHeight-footerHeight-7);
             tab.render();
-		}catch(e){}
-	}
-	//初始化工作区
-	function initContent(){
-		var windowWidth = jQuery(window).width();
-		var windowHeight = jQuery(window).height();
+        }catch(e){}
+    }
+    //初始化工作区
+    function initContent(){
+        var windowWidth = jQuery(window).width();
+        var windowHeight = jQuery(window).height();
         with(wof.widget)
             with(wof.bizWidget)
                 with(wof.bizWidget.spanner)
                     with(wof.widget.spanner)
-                    with(wof.kernel){
-                        gridLayout = new GridLayout();
-                        gridLayout.setOverflow('auto');
-                        gridLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
-                        gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
-                        gridLayout.setTop(0);
-                        gridLayout.setLeft(0);
-                        content.append(gridLayout.getDomInstance());
-                        wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
+                        with(wof.kernel){
+                            gridLayout = new GridLayout();
+                            gridLayout.setOverflow('auto');
+                            gridLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
+                            gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
+                            gridLayout.setTop(0);
+                            gridLayout.setLeft(0);
+                            content.append(gridLayout.getDomInstance());
+                            wof.util.ObjectManager.add(gridLayout.getId(), gridLayout);
 
-                        var itemHeight = 70;
-                        var width = 810;
+                            var itemHeight = 70;
+                            var width = 810;
 
-                        var flowLayout = new FlowLayout();
-                        flowLayout.setLeft(0);
-                        flowLayout.setTop(0);
-                        //flowLayout.setHeight(600);
-                        flowLayout.setWidth(width);
-                        flowLayout.setCols(4);
-                        flowLayout.setItemHeight(60);
-                        //var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
+                            var flowLayout = new FlowLayout();
+                            flowLayout.setLeft(0);
+                            flowLayout.setTop(0);
+                            //flowLayout.setHeight(600);
+                            flowLayout.setWidth(width);
+                            flowLayout.setCols(4);
+                            flowLayout.setItemHeight(60);
+                            //var method = 'this.updateFlowLayout({id:this.getId(),itemHeight:50,cols:9});this.updateItem({colspan:3,row:1,col:2,sectionIndex:1});this.render();';
 
-                        var method = 'var layout = this.clone();'
-                                + '\n layout.setTop(300);'
-                                + '\n layout.appendTo(this.parentNode());'
-                                + '\n layout.render();'
-                                +'\n return false;';
-                        flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_mousedown',priority:50,method:method}]);
-                        flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
-                        flowLayout.appendTo(gridLayout);
+                            var method = 'var layout = this.clone();'
+                                    + '\n layout.setTop(300);'
+                                    + '\n layout.appendTo(this.parentNode());'
+                                    + '\n layout.render();'
+                                    +'\n return false;';
+                            flowLayout.setOnReceiveMessage([{id:'wof.widget.Button_mousedown',priority:50,method:method}]);
+                            flowLayout.setOnSendMessage([{id:'wof.bizWidget.FlowLayout_render',method:'console.log(this.getCols());'}]);
+                            flowLayout.appendTo(gridLayout);
 
-                        var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:3,itemHeight:80};
-                        flowLayout.insertSection(sectionData1);
+                            var sectionData1 = {title:'测试分组1',width:width,titleHeight:30,cols:3,itemHeight:80};
+                            flowLayout.insertSection(sectionData1);
 
-                       /* for(var t=1;t<4;t++){
-                            var btn = new Button();
-                            btn.setType('submit');
-                            btn.setLeft(0);
-                            btn.setTop(0);
-                            btn.setText('按钮'+String(t));
-                            flowLayout.insertNode(btn);
-                        }*/
-                       /* var btn = new Button();
-                        btn.setType('submit');
-                        btn.setLeft(0);
-                        btn.setTop(0);
-                        btn.setText('测试按钮');
-                        flowLayout.insertNode(btn,0,0);*/
+                            /* for(var t=1;t<4;t++){
+                             var btn = new Button();
+                             btn.setType('submit');
+                             btn.setLeft(0);
+                             btn.setTop(0);
+                             btn.setText('按钮'+String(t));
+                             flowLayout.insertNode(btn);
+                             }*/
+                            /* var btn = new Button();
+                             btn.setType('submit');
+                             btn.setLeft(0);
+                             btn.setTop(0);
+                             btn.setText('测试按钮');
+                             flowLayout.insertNode(btn,0,0);*/
 
-                     /*   var flowLayoutSection2 = new FlowLayoutSection();
-                        *//*flowLayoutSection2.setLeft(0);
-                         flowLayoutSection2.setTop(0);*//*
-                        flowLayoutSection2.setWidth(width);
-                        flowLayoutSection2.setTitleHeight(30);
-                        flowLayoutSection2.setTitle('分组2');
-                        flowLayoutSection2.setCols(3);
-                        //flowLayoutSection2.setItemHeight(80);
-                        flowLayoutSection2.appendTo(flowLayout);
-                        for(var t=1;t<4;t++){
-                            var flowLayoutItem = new FlowLayoutItem();
-                            flowLayoutItem.setColspan(2);
-                            var btn = new Button();
-                            //btn.setOnSendMessage([{id:'wof.widget.Button_mousedown',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400,index:section.getIndex()});layout.render();'}]);
-                            btn.setType('submit');
-                            btn.setLeft(0);
-                            btn.setTop(0);
-                            btn.setText('修改分组标题、列数、宽度'+String(t));
-                            btn.appendTo(flowLayoutItem);
+                            /*   var flowLayoutSection2 = new FlowLayoutSection();
+                             *//*flowLayoutSection2.setLeft(0);
+                             flowLayoutSection2.setTop(0);*//*
+                             flowLayoutSection2.setWidth(width);
+                             flowLayoutSection2.setTitleHeight(30);
+                             flowLayoutSection2.setTitle('分组2');
+                             flowLayoutSection2.setCols(3);
+                             //flowLayoutSection2.setItemHeight(80);
+                             flowLayoutSection2.appendTo(flowLayout);
+                             for(var t=1;t<4;t++){
+                             var flowLayoutItem = new FlowLayoutItem();
+                             flowLayoutItem.setColspan(2);
+                             var btn = new Button();
+                             //btn.setOnSendMessage([{id:'wof.widget.Button_mousedown',method:'var section=this.parentNode().parentNode();var layout=section.parentNode();layout.updateSection({id:layout.getId(),title:"修改分组标题",cols:2,width:400,index:section.getIndex()});layout.render();'}]);
+                             btn.setType('submit');
+                             btn.setLeft(0);
+                             btn.setTop(0);
+                             btn.setText('修改分组标题、列数、宽度'+String(t));
+                             btn.appendTo(flowLayoutItem);
 
-                            flowLayoutItem.appendTo(flowLayoutSection2);
-                        }*/
+                             flowLayoutItem.appendTo(flowLayoutSection2);
+                             }*/
 
-                        var flowLayoutSection3 = new FlowLayoutSection();
-                        /*flowLayoutSection3.setLeft(0);
-                         flowLayoutSection3.setTop(0);*/
-                        flowLayoutSection3.setWidth(width);
-                        flowLayoutSection3.setTitleHeight(30);
-                        flowLayoutSection3.setTitle('分组3');
-                        flowLayoutSection3.setCols(4);
-                        flowLayoutSection3.appendTo(flowLayout);
-                        for(var t=1;t<4;t++){
-                            var flowLayoutItem = new FlowLayoutItem();
-                            var combobox = new ComboBox();
-                            combobox.setOptions([{text: '男',value :'1' },{text: '女',value :'2' }]);
-                            //combobox.appendTo(flowLayoutItem);
+                            var flowLayoutSection3 = new FlowLayoutSection();
+                            /*flowLayoutSection3.setLeft(0);
+                             flowLayoutSection3.setTop(0);*/
+                            flowLayoutSection3.setWidth(width);
+                            flowLayoutSection3.setTitleHeight(30);
+                            flowLayoutSection3.setTitle('分组3');
+                            flowLayoutSection3.setCols(4);
+                            flowLayoutSection3.appendTo(flowLayout);
+                            for(var t=1;t<4;t++){
+                                var flowLayoutItem = new FlowLayoutItem();
+                                var combobox = new ComboBox();
+                                combobox.setOptions([{text: '男',value :'1' },{text: '女',value :'2' }]);
+                                //combobox.appendTo(flowLayoutItem);
 
-                            flowLayoutItem.appendTo(flowLayoutSection3);
+                                flowLayoutItem.appendTo(flowLayoutSection3);
+                            }
+
+                            //flowLayout.deleteSection(1);
+
+                            //flowLayout.deleteItem(1,1);
+                            /*
+                             var dateBox = new DateBox();
+                             dateBox.setWidth(100);
+                             dateBox.setHeight(50);
+                             dateBox.setLeft(0);
+                             dateBox.setTop(500);
+                             //dateBox.setHiden(true);
+                             dateBox.appendTo(gridLayout);
+
+                             //RadioBox demo
+                             var radioGroup1 = new RadioGroup();
+                             radioGroup1.setName('demo');
+                             radioGroup1.setLeft(300);
+                             radioGroup1.setTop(500);
+                             var radio1 = new RadioGroupItem();
+                             radio1.setValue('r1');
+                             radio1.appendTo(radioGroup1);
+                             var radio2 = new RadioGroupItem();
+                             radio2.setValue('r2');
+                             radio2.appendTo(radioGroup1);
+                             radio2.setChecked('checked');
+                             var radio3 = new RadioGroupItem();
+                             radio3.setValue('r3');
+                             radio3.appendTo(radioGroup1);
+                             radio3.setDisabled('disabled');
+                             var radio4 = new RadioGroupItem();
+                             radio4.setValue('r4');
+                             radio4.appendTo(radioGroup1);
+                             radioGroup1.appendTo(gridLayout);
+
+                             var radioGroup2 = new RadioGroup();
+                             radioGroup2.setName('demo2');
+                             radioGroup2.setLeft(600);
+                             radioGroup2.setTop(500);
+                             var radio5 = new RadioGroupItem();
+                             radio5.setValue('r5');
+                             radio5.appendTo(radioGroup2);
+                             radio5.setChecked('checked');
+                             var radio6 = new RadioGroupItem();
+                             radio6.setValue('r6');
+                             radio6.appendTo(radioGroup2);
+                             radioGroup2.appendTo(gridLayout);
+
+                             var flowLayout2 = new FlowLayout();
+                             flowLayout2.setLeft(0);
+                             flowLayout2.setTop(800);
+                             flowLayout2.setHeight(600);
+                             flowLayout2.setWidth(width);
+                             flowLayout2.setCols(5);
+                             flowLayout2.setItemHeight(60);
+                             //flowLayout2.setMessageIds([{id:'wof.widget.Button_mousedown',priority:50}]);
+                             flowLayout2.appendTo(gridLayout);
+
+                             var flowLayoutSection3 = new FlowLayoutSection();
+                             flowLayoutSection3.setLeft(0);
+                             flowLayoutSection3.setTop(0);
+                             flowLayoutSection3.setWidth(width);
+                             flowLayoutSection3.setTitleHeight(30);
+                             flowLayoutSection3.setTitle('分组1');
+                             //flowLayoutSection3.setCols(2);
+                             flowLayoutSection3.appendTo(flowLayout2);
+                             for(var t=1;t<4;t++){
+                             var flowLayoutItem = new FlowLayoutItem();
+                             flowLayoutItem.appendTo(flowLayoutSection3);
+                             }
+
+                             var flowLayoutSection4 = new FlowLayoutSection();
+                             flowLayoutSection4.setLeft(0);
+                             flowLayoutSection4.setTop(0);
+                             flowLayoutSection4.setWidth(width);
+                             flowLayoutSection4.setTitleHeight(30);
+                             flowLayoutSection4.setTitle('分组2');
+                             flowLayoutSection4.setCols(3);
+                             //flowLayoutSection4.setItemHeight(80);
+                             flowLayoutSection4.appendTo(flowLayout2);
+
+
+                             for(var t=1;t<4;t++){
+                             var flowLayoutItem = new FlowLayoutItem();
+                             flowLayoutItem.setColspan(2);
+                             var btn = new Button();
+
+                             var id = flowLayout2.getId();
+                             //btn.setOnSendMessage({'wof.widget.Button_mousedown':'wof$("#'+id+'").get(0).setOnReceiveMessage([]);return false;'});
+                             btn.setType('submit');
+                             btn.setLeft(0);
+                             btn.setTop(0);
+                             btn.setText('取消消息监听'+String(t));
+                             btn.appendTo(flowLayoutItem);
+
+                             flowLayoutItem.appendTo(flowLayoutSection4);
+                             }
+
+
+                             var mediator = new Mediator();
+                             //mediator.setWidth(140);
+                             //mediator.setHeight(20);
+                             mediator.setLeft(0);
+                             mediator.setTop(430);
+                             mediator.appendTo(gridLayout);
+
+                             flowLayout.setScale(1);*/
+
+
+
+                            gridLayout.render();
+
+                            //测试设置当前section和当前item
+                            flowLayout.setActiveSectionIndex(1);
+                            flowLayout.setActiveItemRank({row:1,col:1});
+                            flowLayout.render();
+
+                            // 测试克隆方法
+                            /*    var p1 =  gridLayout.clone();
+                             gridLayout.clear();
+                             p1.setTop(60);
+                             p1.setLeft(30);
+                             p1.appendTo();
+                             p1.render();*/
+
+                            /* console.log('flowLayout.getActiveSectionIndex()='+flowLayout.getActiveSectionIndex());
+                             console.log('flowLayout.getActiveItemRank()='+JSON.stringify(flowLayout.getActiveItemRank()));*/
+
                         }
-
-                        //flowLayout.deleteSection(1);
-
-                        //flowLayout.deleteItem(1,1);
-/*
-                        var dateBox = new DateBox();
-                        dateBox.setWidth(100);
-                        dateBox.setHeight(50);
-                        dateBox.setLeft(0);
-                        dateBox.setTop(500);
-                        //dateBox.setHiden(true);
-                        dateBox.appendTo(gridLayout);
-
-                        //RadioBox demo
-                        var radioGroup1 = new RadioGroup();
-                        radioGroup1.setName('demo');
-                        radioGroup1.setLeft(300);
-                        radioGroup1.setTop(500);
-                        var radio1 = new RadioGroupItem();
-                        radio1.setValue('r1');
-                        radio1.appendTo(radioGroup1);
-                        var radio2 = new RadioGroupItem();
-                        radio2.setValue('r2');
-                        radio2.appendTo(radioGroup1);
-                        radio2.setChecked('checked');
-                        var radio3 = new RadioGroupItem();
-                        radio3.setValue('r3');
-                        radio3.appendTo(radioGroup1);
-                        radio3.setDisabled('disabled');
-                        var radio4 = new RadioGroupItem();
-                        radio4.setValue('r4');
-                        radio4.appendTo(radioGroup1);
-                        radioGroup1.appendTo(gridLayout);
-
-                        var radioGroup2 = new RadioGroup();
-                        radioGroup2.setName('demo2');
-                        radioGroup2.setLeft(600);
-                        radioGroup2.setTop(500);
-                        var radio5 = new RadioGroupItem();
-                        radio5.setValue('r5');
-                        radio5.appendTo(radioGroup2);
-                        radio5.setChecked('checked');
-                        var radio6 = new RadioGroupItem();
-                        radio6.setValue('r6');
-                        radio6.appendTo(radioGroup2);
-                        radioGroup2.appendTo(gridLayout);
-
-                        var flowLayout2 = new FlowLayout();
-                        flowLayout2.setLeft(0);
-                        flowLayout2.setTop(800);
-                        flowLayout2.setHeight(600);
-                        flowLayout2.setWidth(width);
-                        flowLayout2.setCols(5);
-                        flowLayout2.setItemHeight(60);
-                        //flowLayout2.setMessageIds([{id:'wof.widget.Button_mousedown',priority:50}]);
-                        flowLayout2.appendTo(gridLayout);
-
-                        var flowLayoutSection3 = new FlowLayoutSection();
-                        flowLayoutSection3.setLeft(0);
-                        flowLayoutSection3.setTop(0);
-                        flowLayoutSection3.setWidth(width);
-                        flowLayoutSection3.setTitleHeight(30);
-                        flowLayoutSection3.setTitle('分组1');
-                        //flowLayoutSection3.setCols(2);
-                        flowLayoutSection3.appendTo(flowLayout2);
-                        for(var t=1;t<4;t++){
-                            var flowLayoutItem = new FlowLayoutItem();
-                            flowLayoutItem.appendTo(flowLayoutSection3);
-                        }
-
-                        var flowLayoutSection4 = new FlowLayoutSection();
-                        flowLayoutSection4.setLeft(0);
-                        flowLayoutSection4.setTop(0);
-                        flowLayoutSection4.setWidth(width);
-                        flowLayoutSection4.setTitleHeight(30);
-                        flowLayoutSection4.setTitle('分组2');
-                        flowLayoutSection4.setCols(3);
-                        //flowLayoutSection4.setItemHeight(80);
-                        flowLayoutSection4.appendTo(flowLayout2);
-
-
-                        for(var t=1;t<4;t++){
-                            var flowLayoutItem = new FlowLayoutItem();
-                            flowLayoutItem.setColspan(2);
-                            var btn = new Button();
-
-                            var id = flowLayout2.getId();
-                            //btn.setOnSendMessage({'wof.widget.Button_mousedown':'wof$("#'+id+'").get(0).setOnReceiveMessage([]);return false;'});
-                            btn.setType('submit');
-                            btn.setLeft(0);
-                            btn.setTop(0);
-                            btn.setText('取消消息监听'+String(t));
-                            btn.appendTo(flowLayoutItem);
-
-                            flowLayoutItem.appendTo(flowLayoutSection4);
-                        }
-
-
-                        var mediator = new Mediator();
-                        //mediator.setWidth(140);
-                        //mediator.setHeight(20);
-                        mediator.setLeft(0);
-                        mediator.setTop(430);
-                        mediator.appendTo(gridLayout);
-
-                        flowLayout.setScale(1);*/
-
-
-
-                        gridLayout.render();
-
-                        //测试设置当前section和当前item
-                        flowLayout.setActiveSectionIndex(1);
-                        flowLayout.setActiveItemRank({row:1,col:1});
-                        flowLayout.render();
-
-                        // 测试克隆方法
-                    /*    var p1 =  gridLayout.clone();
-                     gridLayout.clear();
-                        p1.setTop(60);
-                        p1.setLeft(30);
-                        p1.appendTo();
-                        p1.render();*/
-
-                        /* console.log('flowLayout.getActiveSectionIndex()='+flowLayout.getActiveSectionIndex());
-                         console.log('flowLayout.getActiveItemRank()='+JSON.stringify(flowLayout.getActiveItemRank()));*/
-
-                    }
-	}
-	//重设工作区
-	function resizeContent(){
-		try{
-			var windowWidth = jQuery(window).width();
-			var windowHeight = jQuery(window).height();
-			var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
+    }
+    //重设工作区
+    function resizeContent(){
+        try{
+            var windowWidth = jQuery(window).width();
+            var windowHeight = jQuery(window).height();
+            var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
             gridLayout.setWidth(windowWidth-sidebar1Width-sidebar2Width);
             gridLayout.setHeight(windowHeight-headerHeight-footerHeight);
             gridLayout.render();
-		}catch(e){}
-	}
-	jQuery(window).load(function(){
-		layout();
-		initSidebar2();
+        }catch(e){}
+    }
+    jQuery(window).load(function(){
+        layout();
+        initSidebar2();
         initContent();
         initSidebar1();
-	});
-	jQuery(window).resize(function(){
-		layout();
-		resizeSidebar1();
-		resizeSidebar2();
+    });
+    jQuery(window).resize(function(){
+        layout();
+        resizeSidebar1();
+        resizeSidebar2();
         resizeContent();
-	});
-	jQuery("#saveBtn,#cancelBtn").button().click(function(event){
-		event.preventDefault();
-		var id = jQuery(event.target).attr('id');
-		if(id=='saveBtn'){
-			var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
-			alert(gridLayout.toJSON());
+    });
+    jQuery("#saveBtn,#cancelBtn").button().click(function(event){
+        event.preventDefault();
+        var id = jQuery(event.target).attr('id');
+        if(id=='saveBtn'){
+            var gridLayout = wof.util.ObjectManager.get(content.children('div[oid]').first().attr('oid'));
+            alert(gridLayout.toJSON());
             console.log(gridLayout.toJSON());
-		}
-	});
+        }
+    });
 });
 </script>
 </head>
 <body>
 <div id="container" style="position:absolute;">
-	<div id="header" style="position:absolute;background-color:#fff;border-bottom:1px solid black;z-index:90000">
-    	<input type="button" id="saveBtn" value="保存" /><input type="button" id="cancelBtn" value="取消" />
+    <div id="header" style="position:absolute;background-color:#fff;border-bottom:1px solid black;z-index:90000">
+        <input type="button" id="saveBtn" value="保存" /><input type="button" id="cancelBtn" value="取消" />
     </div>
-	<div id="sidebar1" style="position:absolute;z-index:90000;">
-    	
+    <div id="sidebar1" style="position:absolute;z-index:90000;">
+
     </div>
     <div id="content" style="position:absolute;z-index: auto;">
-    	
+
     </div>
     <div id="sidebar2" style="position:absolute;z-index:90000;">
-    	
+
     </div>
     <div id="footer" style="position:absolute;z-index:90000;background:#FFC;"></div>
 </div>
