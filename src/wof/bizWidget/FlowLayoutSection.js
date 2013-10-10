@@ -437,28 +437,25 @@ wof.bizWidget.FlowLayoutSection.prototype = {
 	_getItems: function(){
 		var items = this.findItems();
 		if(items.length>0){
-			var rows = Math.ceil((items[items.length-1].getTop()-items[0].getTop()+items[0].getHeight())/items[0].getHeight());
-			var	cols = Math.ceil(this.getWidth()/(items[0].getWidth()/items[0].getColspan()));
+            var itemHeight = items[0].getHeight();
+            var itemWidth = items[0].getWidth()/items[0].getColspan();
+			var rows = Math.ceil((items[items.length-1].getTop()-items[0].getTop()+itemHeight)/itemHeight);
+			var	cols = Math.ceil(this.getWidth()/itemWidth);
             this.setRows(rows);
-			var k=0;
-			for(var r=1;r<=rows;r++){
-				for(var c=1;c<=cols;c++){
-					if(c==1){
-						items[k].setRow(r);
-						items[k].setCol(c);
-						k++;
-					}else{
-						var prevCell = items[k-1];
-						if(((prevCell.getColspan()+prevCell.getCol()-1)>=c)&&prevCell.getRow()==r){
-							continue;
-						}else{
-                            items[k].setRow(r);
-							items[k].setCol((c==1?c:(prevCell.getCol()+prevCell.getColspan())));
-							k++;
-						}
-					}
-				}
-			}
+            var labelHeight = items[0].getTop();
+            for(var i=0;i<items.length;i++){
+                var item = items[i];
+                var top = item.getTop()-labelHeight;
+                var left = item.getLeft();
+                var width = item.getWidth();
+                var height = item.getHeight();
+                var row = Math.ceil(top/itemHeight)+1;
+                var col = Math.ceil(left/itemWidth)+1;
+                var colspan = Math.ceil(width/itemWidth);
+                //todo rowspan
+                item.setRow(row);
+                item.setCol(col);
+            }
 		}
 		return items;
 	},
