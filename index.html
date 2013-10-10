@@ -58,8 +58,11 @@
 <script src="src/wof/bizWidget/ObjectBar.js"></script>
 <script src="src/wof/bizWidget/OnSendMessageBar.js"></script>
 <script src="src/wof/bizWidget/OnReceiveMessageBar.js"></script>
+<script src="src/wof/bizWidget/VoucherComponent.js"></script>
+<script src="src/wof/bizWidget/VoucherItemGroup.js"></script>
+<script src="src/wof/bizWidget/VoucherItem.js"></script>
 <script src="src/wof/bizWidget/spanner/GridLayoutSpanner.js"></script>
-
+<script src="src/wof/bizWidget/spanner/VoucherComponentSpanner.js"></script>
 <script src="src/wof/bizWidget/spanner/FlowLayoutSpanner.js"></script>
 <script src="src/wof/bizWidget/ObjectInspector.js"></script>
 <script src="src/wof/bizWidget/Spanner.js"></script>
@@ -149,6 +152,7 @@ jQuery(function(){
 
                             tab.appendTo(gridLayout);
 
+                            var components = [];
                             var layoutComponents = [];
                             var bizWidgetComponents = [];
                             var widgetComponents = [];
@@ -156,14 +160,22 @@ jQuery(function(){
                             var flowLayoutSpanner = new FlowLayoutSpanner();
                             flowLayoutSpanner.appendTo(gridLayout);
                             layoutComponents.push(flowLayoutSpanner);
+                            components.push(flowLayoutSpanner);
 
                             var gridLayoutSpanner = new GridLayoutSpanner();
                             gridLayoutSpanner.appendTo(gridLayout);
                             layoutComponents.push(gridLayoutSpanner);
+                            components.push(gridLayoutSpanner);
+
+                            var voucherComponentSpanner = new VoucherComponentSpanner();
+                            voucherComponentSpanner.appendTo(gridLayout);
+                            bizWidgetComponents.push(voucherComponentSpanner);
+                            components.push(voucherComponentSpanner);
 
                             var buttonSpanner = new ButtonSpanner();
                             buttonSpanner.appendTo(gridLayout);
                             widgetComponents.push(buttonSpanner);
+                            components.push(buttonSpanner);
 
                             var objectBar = new ObjectBar();
                             objectBar.setLayoutComponents(layoutComponents);
@@ -180,9 +192,7 @@ jQuery(function(){
                             tree.appendTo(tabItem2);
 
                             var spanner = new Spanner();
-                            spanner.setLayoutComponents(layoutComponents);
-                            spanner.setBizWidgetComponents(bizWidgetComponents);
-                            spanner.setWidgetComponents(widgetComponents);
+                            spanner.setComponents(components);
                             spanner.appendTo(gridLayout);
 
                             gridLayout.render();
