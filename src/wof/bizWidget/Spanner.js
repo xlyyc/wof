@@ -7,43 +7,17 @@ wof.bizWidget.Spanner.prototype={
 
     _propertys: null,
 
-    _bizWidgetComponents: null,
+    _components: null,
 
-    _layoutComponents: null,
-
-    _widgetComponents: null,
-
-    getWidgetComponents: function(){
-        if(this._widgetComponents==null){
-            this._widgetComponents = [];
+    getComponents: function(){
+        if(this._components==null){
+            this._components = [];
         }
-        return this._widgetComponents;
+        return this._components;
     },
 
-    setWidgetComponents: function(widgetComponents){
-        this._widgetComponents = widgetComponents;
-    },
-
-    getBizWidgetComponents: function(){
-        if(this._bizWidgetComponents==null){
-            this._bizWidgetComponents = [];
-        }
-        return this._bizWidgetComponents;
-    },
-
-    setBizWidgetComponents: function(bizWidgetComponents){
-        this._bizWidgetComponents = bizWidgetComponents;
-    },
-
-    getLayoutComponents: function(){
-        if(this._layoutComponents==null){
-            this._layoutComponents = [];
-        }
-        return this._layoutComponents;
-    },
-
-    setLayoutComponents: function(layoutComponents){
-        this._layoutComponents = layoutComponents;
+    setComponents: function(components){
+        this._components = components;
     },
 
     setPropertys:function(propertys){
@@ -65,19 +39,9 @@ wof.bizWidget.Spanner.prototype={
 	render: function(){
         var onReceiveMessage = [];
         var method = 'this.setPropertys(message.sender);this.render();';
-        var bizWidgetComponents = this.getBizWidgetComponents();
-        for(var i=0;i<bizWidgetComponents.length;i++){
-            var widget = bizWidgetComponents[i];
-            onReceiveMessage.push({id:widget.getName()+'_active',method:method});
-        }
-        var layoutComponents = this.getLayoutComponents();
-        for(var i=0;i<layoutComponents.length;i++){
-            var widget = layoutComponents[i];
-            onReceiveMessage.push({id:widget.getName()+'_active',method:method});
-        }
-        var widgetComponents = this.getWidgetComponents();
-        for(var i=0;i<widgetComponents.length;i++){
-            var widget = widgetComponents[i];
+        var components = this.getComponents();
+        for(var i=0;i<components.length;i++){
+            var widget = components[i];
             onReceiveMessage.push({id:widget.getName()+'_active',method:method});
         }
         this.setOnReceiveMessage(onReceiveMessage);

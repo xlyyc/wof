@@ -149,6 +149,7 @@ jQuery(function(){
 
                             tab.appendTo(gridLayout);
 
+                            var components = [];
                             var layoutComponents = [];
                             var bizWidgetComponents = [];
                             var widgetComponents = [];
@@ -156,14 +157,17 @@ jQuery(function(){
                             var flowLayoutSpanner = new FlowLayoutSpanner();
                             flowLayoutSpanner.appendTo(gridLayout);
                             layoutComponents.push(flowLayoutSpanner);
+                            components.push(flowLayoutSpanner);
 
                             var gridLayoutSpanner = new GridLayoutSpanner();
                             gridLayoutSpanner.appendTo(gridLayout);
                             layoutComponents.push(gridLayoutSpanner);
+                            components.push(gridLayoutSpanner);
 
                             var buttonSpanner = new ButtonSpanner();
                             buttonSpanner.appendTo(gridLayout);
                             widgetComponents.push(buttonSpanner);
+                            components.push(buttonSpanner);
 
                             var objectBar = new ObjectBar();
                             objectBar.setLayoutComponents(layoutComponents);
@@ -180,9 +184,7 @@ jQuery(function(){
                             tree.appendTo(tabItem2);
 
                             var spanner = new Spanner();
-                            spanner.setLayoutComponents(layoutComponents);
-                            spanner.setBizWidgetComponents(bizWidgetComponents);
-                            spanner.setWidgetComponents(widgetComponents);
+                            spanner.setComponents(components);
                             spanner.appendTo(gridLayout);
 
                             gridLayout.render();
