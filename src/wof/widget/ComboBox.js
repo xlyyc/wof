@@ -36,7 +36,7 @@ wof.widget.ComboBox.prototype = {
     //选择实现
     beforeRender: function () {
         if (this._select != null) {
-            this._select.remove(true);
+            this._select.remove();
         }
     },
 
